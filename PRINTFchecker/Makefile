@@ -2,14 +2,22 @@
 TEST1 = "signed_number_testing" "intmax_t" "0" "2"
 TEST2 = "unsigned_number_testing" "uintmax_t" "2" "6"
 
-FILES = signed_number_testing.c unsigned_number_testing.c
+TESTDIR = ./testers
+TESTFILES = signed_number_testing \
+			unsigned_number_testing
+DFILES = $(patsubst %, $(TESTDIR)/%.c, $(TESTFILES))
+
+EXEDIR = ./executables
+FILEDIR = ./files
+
+TESTSCRIPT = $(TESTDIR)/test_comp.sh
 
 main:
-	gcc -o e -I. -L. -lftprintf main.c signed_number_testing.c
+	gcc -w -o $(EXEDIR)/e -I. -L. -lftprintf main.c $(DFILES)
 
 test:
-	gcc testmaker.c -o testmaker
-	sh test_comp.sh $(TEST1)
-	sh test_comp.sh $(TEST2)
+	gcc testmaker.c -o $(EXEDIR)/testmaker
+	sh $(TESTSCRIPT) $(TEST1) $(EXEDIR)
+	sh $(TESTSCRIPT) $(TEST2) $(EXEDIR)
 	make main
-	./e > res.txt
+	$(EXEDIR)/e > $(FILEDIR)/result.txt
