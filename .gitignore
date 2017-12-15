@@ -1,0 +1,10 @@
+*.DS_Store*
+*.o
+*._*
+*obj/
+PRINTFchecker/files/
+e
+*.o
+*/obj
+GNL*main*
+GNL*_ans
