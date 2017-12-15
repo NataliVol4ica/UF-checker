@@ -20,6 +20,8 @@
 #define NUM 2
 #define NUM_ARGUMENTS "width, precision, number"
 
+size_t flagvar = 0;
+
 typedef enum	e_length
 {
 	EMPTY = 0, HH = 2, H, L, LL, J, T, Z, BL
@@ -73,20 +75,38 @@ void	set_length(t_params *p, size_t len)
 
 void	print_params(t_params *p, char *arguments)
 {
-	printf("\tprintf(\"Test #%04zu\\n\");\n", p->testnum++);
-	printf("\tret1 = printf(\"|%%");
+	printf("\tfprintf(fppres, \"#%04zu\");\n", p->testnum);
+	printf("\tret1 = fprintf(fppres, \"|%%");
 	for (size_t i = 0; i < FLAGNUM; i++)
 		if (p->flags[i] != 0)
 			printf("%c", FLAGS[i]);
 	printf("*.*%s%c", p->length, p->type);
 	printf("|\\n\", %s);\n", arguments);
+	printf("\tft_printf(\"#%04zu\");\n", p->testnum);
 	printf("\tret2 = ft_printf(\"|%%");
 	for (size_t i = 0; i < FLAGNUM; i++)
 		if (p->flags[i] != 0)
 			printf("%c", FLAGS[i]);
 	printf("*.*%s%c", p->length, p->type);
 	printf("|\\n\", %s);\n", arguments);
-	printf("\tprintf(\"Ret1 = %%d Ret2 = %%d\\n%%d\\n\", ret1, ret2, ret1 - ret2);\n\n");
+	printf("\tfprintf(fppret, \"%%d\\n\", ret1);\n");
+	printf("\tfprintf(fpftret, \"%%d\\n\", ret2);\n");
+	p->testnum++;
+}
+
+void	get_flagvar(void)
+{
+	size_t f;
+
+	if (FLAGNUM <= 0)
+		return ;
+	flagvar = 1;
+	f = FLAGNUM;
+	while (f > 0)
+	{
+		flagvar *= 2;
+		f--;
+	}
 }
 
 void	make_tests(char *name, char *vartype, size_t type_from, size_t type_to)
@@ -96,12 +116,37 @@ void	make_tests(char *name, char *vartype, size_t type_from, size_t type_to)
 	p->length[2] = '\0';
 	p->testnum = 0;
 
+	get_flagvar();
 	printf("#include <stdio.h>\n");
 	printf("#include <stdint.h>\n");
 	printf("#include \"libftprintf.h\"\n");
+	
+	printf("\nsize_t %s_tests = %zu;\n", name, flagvar * (type_to - type_from) * 8);
+
 	printf("\nvoid\t\t%s(int width, int precision, %s number)\n{\n", name, vartype);
-	printf("\tint\t\tret1;\n\tint\t\tret2;\n\n");
-	for (size_t flags = 0; flags < 32; flags++)
+	printf("\tint\t\tret1;\n\tint\t\tret2;\n");
+	printf("\tFILE\t*fppres, *fppret, *fpftret;\n\n");
+	printf("\tsize_t\ti;\n");
+
+	printf("\tfppres = fopen(\"./files/printf_res\", \"a\");\n");
+	printf("\tfppret = fopen(\"./files/printf_ret\", \"a\");\n");
+	printf("\tfpftret = fopen(\"./files/ft_printf_ret\", \"a\");\n\n");
+
+	printf("\tfprintf(fppres, \"===\\\\ NEW TEST\\n\");\n");
+	printf("\tfprintf(fppres, \"NAME = %s.c\\n\");\n", name);
+	printf("\tfprintf(fppres, \"TESTS = %%zu\\n\", %s_tests);\n", name);
+	printf("\tfprintf(fppres, \"WIDTH = %%d\\n\", width);\n");
+	printf("\tfprintf(fppres, \"PRECISION = %%d\\n\", precision);\n");
+	printf("\tfprintf(fppres, \"NUMBER = %%d\\n\\n\", width);\n");
+
+	printf("\tft_printf(\"===\\\\ NEW TEST\\n\");\n");
+	printf("\tft_printf(\"NAME = %s.c\\n\");\n", name);
+	printf("\tft_printf(\"TESTS = %%zu\\n\", %s_tests);\n", name);
+	printf("\tft_printf(\"WIDTH = %%d\\n\", width);\n");
+	printf("\tft_printf(\"PRECISION = %%d\\n\", precision);\n");
+	printf("\tft_printf(\"NUMBER = %%d\\n\\n\", width);\n");
+
+	for (size_t flags = 0; flags < flagvar; flags++)
 	{
 		set_flags(p, flags);
 		for (size_t type = type_from; type < type_to; type++)
@@ -117,6 +162,9 @@ void	make_tests(char *name, char *vartype, size_t type_from, size_t type_to)
 				print_params(p, NUM_ARGUMENTS);
 		}
 	}
+	printf("\tfclose(fppres);\n");
+	printf("\tfclose(fppret);\n");
+	printf("\tfclose(fpftret);\n");
 	printf("}\n");
 }
 
