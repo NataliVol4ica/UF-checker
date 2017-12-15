@@ -69,6 +69,7 @@ void	print_error(t_params *p, t_read_lines *r)
 	size_t i = 0;
 	size_t	cp;
 
+	printf("=============\n");
 	printf("Test fail: printf(");
 	while (r->source_code->str[i] != '\"')
 		i++;
@@ -136,7 +137,6 @@ int		main(void)
 			r_getline(r->source_code);
 			print_error(p, r);
 			skip_lines(r->source_code, 5);
-			break;
 		}
 		curtest++;
 	}
