@@ -18,7 +18,7 @@
 #define FLAGNUM 5
 #define TYPES "diouxXDUO" //[0-2]signed[2-6]uns[6-7]signed no len[7-9]uns no len
 #define NUM 2
-#define NUM_ARGUMENTS "width, precision, number"
+#define NUM_ARGUMENTS "width, precision, var"
 
 size_t flagvar = 0;
 
@@ -75,7 +75,7 @@ void	set_length(t_params *p, size_t len)
 
 void	print_params(t_params *p, char *arguments)
 {
-	printf("\tfprintf(fppres, \"#%04zu\");\n", p->testnum);
+	printf("\n\tfprintf(fppres, \"#%04zu\");\n", p->testnum);
 	printf("\tret1 = fprintf(fppres, \"|%%");
 	for (size_t i = 0; i < FLAGNUM; i++)
 		if (p->flags[i] != 0)
@@ -91,6 +91,7 @@ void	print_params(t_params *p, char *arguments)
 	printf("|\\n\", %s);\n", arguments);
 	printf("\tfprintf(fppret, \"%%d\\n\", ret1);\n");
 	printf("\tfprintf(fpftret, \"%%d\\n\", ret2);\n");
+	printf("\t//@");
 	p->testnum++;
 }
 
@@ -109,7 +110,7 @@ void	get_flagvar(void)
 	}
 }
 
-void	make_tests(char *name, char *vartype, size_t type_from, size_t type_to)
+void	make_tests(char *name, char *vtype, size_t type_from, size_t type_to)
 {
 	t_params *p = (t_params*)malloc(sizeof(t_params));
 	p->length = (char*)malloc(sizeof(char) * 3);
@@ -123,28 +124,32 @@ void	make_tests(char *name, char *vartype, size_t type_from, size_t type_to)
 	
 	printf("\nsize_t %s_tests = %zu;\n", name, flagvar * (type_to - type_from) * 8);
 
-	printf("\nvoid\t\t%s(int width, int precision, %s number)\n{\n", name, vartype);
+	printf("\nvoid\t\t%s(int *n, int width, int precision, %svar)\n{\n", name, vtype);
 	printf("\tint\t\tret1;\n\tint\t\tret2;\n");
 	printf("\tFILE\t*fppres, *fppret, *fpftret;\n\n");
-	printf("\tsize_t\ti;\n");
 
 	printf("\tfppres = fopen(\"./files/printf_res\", \"a\");\n");
 	printf("\tfppret = fopen(\"./files/printf_ret\", \"a\");\n");
 	printf("\tfpftret = fopen(\"./files/ft_printf_ret\", \"a\");\n\n");
+
+	printf("\tsetvbuf(fppres, NULL, _IONBF, 0);\n");
+	printf("\tsetvbuf(fppret, NULL, _IONBF, 0);\n");
+	printf("\tsetvbuf(fpftret, NULL, _IONBF, 0);\n");
 
 	printf("\tfprintf(fppres, \"===\\\\ NEW TEST\\n\");\n");
 	printf("\tfprintf(fppres, \"NAME = %s.c\\n\");\n", name);
 	printf("\tfprintf(fppres, \"TESTS = %%zu\\n\", %s_tests);\n", name);
 	printf("\tfprintf(fppres, \"WIDTH = %%d\\n\", width);\n");
 	printf("\tfprintf(fppres, \"PRECISION = %%d\\n\", precision);\n");
-	printf("\tfprintf(fppres, \"NUMBER = %%d\\n\\n\", width);\n");
+	printf("\tfprintf(fppres, \"VAR = %%lld\\n\\n\", var);\n\n");
 
 	printf("\tft_printf(\"===\\\\ NEW TEST\\n\");\n");
 	printf("\tft_printf(\"NAME = %s.c\\n\");\n", name);
 	printf("\tft_printf(\"TESTS = %%zu\\n\", %s_tests);\n", name);
 	printf("\tft_printf(\"WIDTH = %%d\\n\", width);\n");
 	printf("\tft_printf(\"PRECISION = %%d\\n\", precision);\n");
-	printf("\tft_printf(\"NUMBER = %%d\\n\\n\", width);\n");
+	printf("\tft_printf(\"VAR = %%lld\\n\\n\", var);\n");
+	printf("\t//@");
 
 	for (size_t flags = 0; flags < flagvar; flags++)
 	{
@@ -165,7 +170,19 @@ void	make_tests(char *name, char *vartype, size_t type_from, size_t type_to)
 	printf("\tfclose(fppres);\n");
 	printf("\tfclose(fppret);\n");
 	printf("\tfclose(fpftret);\n");
+	printf("\t*n = *n + 1;\n");
 	printf("}\n");
+}
+
+char	*replace_(char *str)
+{
+	size_t	i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] == '_')
+			str[i] = ' ';
+	return(str);
 }
 
 int		main(int ac, char **av)
@@ -174,7 +191,7 @@ int		main(int ac, char **av)
 	if (ac == 5)
 	{
 		//printf("Testing %s %s %d %d\n", av[1], av[2], atoi(av[3]), atoi(av[4]));
-		make_tests(av[1], av[2], atoi(av[3]), atoi(av[4]));
+		make_tests(av[1], replace_(av[2]), atoi(av[3]), atoi(av[4]));
 	}
 	return (0);
 }

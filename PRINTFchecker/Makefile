@@ -1,6 +1,6 @@
 
-TEST1 = "signed_number_testing" "intmax_t" "0" "2"
-TEST2 = "unsigned_number_testing" "uintmax_t" "2" "6"
+TEST1 = "signed_number_testing" "long_long_int_" "0" "2"
+TEST2 = "unsigned_number_testing" "long_long_int_" "2" "6"
 
 TESTDIR = ./testers
 TESTFILES = signed_number_testing \
@@ -26,28 +26,52 @@ WHITE = '\033[1;37m'
 NC = '\033[0m' # No Color
 
 main:
+	@echo ${CYAN}"[Compiling main]"${NC}
 	gcc -w -o $(EXEDIR)/e -I. -L. -lftprintf main.c $(DFILES)
 
-test:
+testmaker:
 	@echo ${CYAN}"[Building a testmaker file]"${NC}
-	gcc testmaker.c -o $(EXEDIR)/testmaker
+	gcc -w -o $(EXEDIR)/testmaker testmaker.c
+
+res_delete:
 	@rm $(FILEDIR)/printf_res || true
 	@rm $(FILEDIR)/ft_printf_res || true
 	@rm $(FILEDIR)/printf_ret || true
 	@rm $(FILEDIR)/ft_printf_ret || true
+
+test_files:
 	@echo ${CYAN}"[Creating test files]"${NC}
 	sh $(TESTSCRIPT) $(TEST1) $(EXEDIR)
 	sh $(TESTSCRIPT) $(TEST2) $(EXEDIR)
-	@echo ${CYAN}"[Compiling main]"${NC}
-	@make main
+
+do_testing:
 	@echo ${PURPLE}"[Running tests. This may take some time.]"${NC}
-	$(EXEDIR)/e > files/ft_printf_res	
+	$(EXEDIR)/e > files/ft_printf_res
+
+print_res:
 	@echo ${GREEN}"[========| Test results |========]"${NC}
-	@make diff
+	@make diff2
+
+diff_finder: diff_finder.c
+	@echo ${CYAN}"[Compiling diff finder]"${NC}
+	gcc -w -o $(EXEDIR)/differ diff_finder.c
+
+test:
+	@echo ${RED}"[========| Test building |========]"${NC}
+	@make testmaker
+	@make res_delete
+	@make test_files
+	@make main
+	@make do_testing
+	@make diff_finder
+	@make print_res
+
+diff2:
+	@$(EXEDIR)/differ
 
 diff:
-	@diff $(FILEDIR)/ft_printf_ret $(FILEDIR)/printf_ret > $(FILEDIR)/diff_ret
-	@diff $(FILEDIR)/ft_printf_res $(FILEDIR)/printf_res > $(FILEDIR)/diff_res
+	@diff $(FILEDIR)/ft_printf_ret $(FILEDIR)/printf_ret > $(FILEDIR)/diff_ret || true
+	@diff $(FILEDIR)/ft_printf_res $(FILEDIR)/printf_res > $(FILEDIR)/diff_res || true
 	@echo "print diff:"
 	@wc -l < $(FILEDIR)/diff_res
 	@echo "return diff:"
