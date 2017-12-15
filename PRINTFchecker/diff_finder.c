@@ -16,6 +16,8 @@
 
 #define FIRST_TEST_LINE 32
 
+int		as_you_wish;
+
 typedef struct	s_params
 {
 	char	*codefile;
@@ -25,11 +27,28 @@ typedef struct	s_params
 	size_t	num_of_tests;
 }				t_params;
 
+typedef struct	s_line
+{
+	char	*str;
+	char	len;
+	FILE	*fd;
+}				t_line;
+
+typedef struct	s_read_lines
+{
+	t_line		*printf_line;
+	t_line		*printf_ret;
+	t_line		*ft_printf_line;
+	t_line		*ft_printf_ret;
+	t_line		*source_code;
+}				t_read_lines;
+
 char	*ft_strdup(const char *str);
-void	read_params(FILE *fppres, char **p_str_line, t_params *p);
-void	write_params(t_params *p);
-void	skip_lines(FILE *fpftres, char **f_str_line, int n);
 char	*ft_strjoin(char const *s1, char const *s2);
+void	read_params(t_line *line, t_params *p);
+void	write_params(t_params *p);
+void	skip_lines(t_line *line, int n);
+t_read_lines	*new_read_lines(void);
 
 void	fatal_error(char *str)
 {
@@ -37,107 +56,168 @@ void	fatal_error(char *str)
 	exit (0);
 }
 
+int		r_getline(t_line *line)
+{
+	line->len = getline(&line->str, &as_you_wish, line->fd);
+	if (line->len > 0)
+		line->str[line->len - 1] = '\0';
+	return(line->len > 0 ? 1 : 0); 
+}
+
+void	print_error(t_params *p, t_read_lines *r)
+{
+	size_t i = 0;
+	size_t	cp;
+
+	printf("Test fail: printf(");
+	while (r->source_code->str[i] != '\"')
+		i++;
+	cp = i;
+	while (r->source_code->str[i] != '*')
+		i++;
+	r->source_code->str[i] = '\0';
+	printf("%s", &r->source_code->str[cp]);
+	r->source_code->str[i] = '*';
+	printf("%s.%s", p->width, p->precision);
+	i += 3;
+	cp = i;
+	while (r->source_code->str[i] != '\"')
+		i++;
+	r->source_code->str[i + 1] = '\0';
+	printf("%s", &r->source_code->str[cp]);
+	r->source_code->str[i + 1] = '\"';
+	printf("\", %s)\n", p->var);
+	printf("Your   str: \"%s\"\n", r->ft_printf_line->str);
+	printf("printf str: \"%s\"\n", r->printf_line->str);
+	printf("Youret: %s\t | Libret: %s\n", r->ft_printf_ret->str, r->printf_ret->str);
+}
+
 int		main(void)
 {
-	t_params	*p;
-
-	char	*p_str_line = (char*)malloc(sizeof(char));
-	char	*f_str_line = (char*)malloc(sizeof(char));
-	char	*p_diff_line = (char*)malloc(sizeof(char));
-	char	*f_diff_line = (char*)malloc(sizeof(char));
-	char	*c_line = (char*)malloc(sizeof(char));
-
-	FILE	*fppres, *fppret, *fpftres, *fpftret;
-	FILE	*code;
-
-	size_t	as_you_wish = 0;
-	size_t	r;
-	size_t	i;
-	size_t	curtest;
-	size_t	cur_c_line = -1;
+	t_params		*p;
+	t_read_lines	*r;
 
 	char	*temp;
+	
+	size_t	errors = 0;
+	size_t	curtest;
+	size_t	cur_c_line;
 
 	p = (t_params*)malloc(sizeof(t_params));
-	fppres = fopen("./files/printf_res", "r");
-	fppret = fopen("./files/printf_ret", "r");
-	fpftres = fopen("./files/ft_printf_res", "r");
-	fpftret = fopen("./files/ft_printf_ret", "r");
-	code = fopen("./files/ft_printf_ret", "r");
-
-
-	while ((getline(&p_str_line, &as_you_wish, fppres)) > 0)
+	if (!(r = new_read_lines()))
 	{
-		skip_lines(fpftres, &f_str_line, 1);
-		if (p_str_line[0] == '=')
+		printf("Malloc ERROR\n");
+		exit (1);
+	}
+	while (r_getline(r->printf_line))
+	{
+		r_getline(r->ft_printf_line);
+		if (r->printf_line->str[0] == '=')
 		{
-			fclose(code);
+			fclose(r->source_code->fd);
 			curtest = 0;
-			read_params(fppres, &p_str_line, p);
-			skip_lines(fpftres, &f_str_line, 7);
+			cur_c_line = 0;
+			read_params(r->printf_line, p);
+			skip_lines(r->ft_printf_line, 7);
 			temp = ft_strjoin("./testers/", p->codefile);
-			code = fopen(temp, "r");
+			r->source_code->fd = fopen(temp, "r");
 			free(temp);
 		}
-		if (strcmp(f_str_line, p_str_line) != 0)
+		r_getline(r->printf_ret);
+		r_getline(r->ft_printf_ret);
+		if (strcmp(r->printf_line->str, r->ft_printf_line->str) || strcmp(r->printf_ret->str, r->printf_ret->str))
 		{
-			printf("%s\n%s\n", f_str_line, p_str_line);
-			printf("Fail test #%zu\n", curtest);
-			write_params(p);
-			while(cur_c_line++ < curtest)
-				getdelim(&c_line, &as_you_wish, '@', code);
-			//printf("Code part: \"%s\"\n", c_line);
+			errors++;
+			//printf("%s\n%s\n", p_str_line, f_str_line);
+			//printf("Fail test #%zu\n", curtest);
+			while(cur_c_line++ <= curtest)
+				getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
+			skip_lines(r->source_code, 2);
+			r_getline(r->source_code);
+			print_error(p, r);
+			skip_lines(r->source_code, 5);
+			break;
 		}
 		curtest++;
 	}
-	fclose(fppres);
-	fclose(fppret);
-	fclose(fpftres);
-	fclose(fpftret);
+	fclose(r->printf_line->fd);
+	fclose(r->printf_ret->fd);
+	fclose(r->ft_printf_line->fd);
+	fclose(r->ft_printf_ret->fd);
+	fclose(r->source_code->fd);
+	printf("Total number of errors: %d\n", errors);
+	//system("leaks differ");
 	return (0);
 }
 
-void	read_params(FILE *fppres, char **p_str_line, t_params *p)
+t_read_lines	*new_read_lines(void)
 {
-	size_t	as_you_wish = 0;
+	t_read_lines	*r;
 
-	getline(p_str_line, &as_you_wish, fppres);
-	p->codefile = ft_strdup(&(*p_str_line)[7]);
-	getline(p_str_line, &as_you_wish, fppres);
-	p->num_of_tests = atoi(&(*p_str_line)[8]);
-	getline(p_str_line, &as_you_wish, fppres);
-	p->width = ft_strdup(&(*p_str_line)[8]);
-	getline(p_str_line, &as_you_wish, fppres);
-	p->precision = ft_strdup(&(*p_str_line)[12]);
-	getline(p_str_line, &as_you_wish, fppres);
-	p->var = ft_strdup(&(*p_str_line)[6]);
-	getline(p_str_line, &as_you_wish, fppres); //empty str
-	getline(p_str_line, &as_you_wish, fppres); //getting next;
+	r = (t_read_lines*)malloc(sizeof(t_read_lines));
+	if (!r)
+	{
+		printf("Malloc ERROR\n");
+		return (NULL);
+	}
+	r->printf_line = (t_line*)malloc(sizeof(t_line));
+	r->printf_line->str = (char*)malloc(sizeof(char) * 1024);
+	r->printf_line->len = 0;
+	r->printf_line->fd = fopen("./files/printf_res", "r");
+	r->printf_ret = (t_line*)malloc(sizeof(t_line));
+	r->printf_ret->str = (char*)malloc(sizeof(char) * 1024);
+	r->printf_ret->len = 0;
+	r->printf_ret->fd = fopen("./files/printf_ret", "r");
+	r->ft_printf_line = (t_line*)malloc(sizeof(t_line));
+	r->ft_printf_line->str = (char*)malloc(sizeof(char) * 1024);
+	r->ft_printf_line->len = 0;
+	r->ft_printf_line->fd = fopen("./files/ft_printf_res", "r");
+	r->ft_printf_ret = (t_line*)malloc(sizeof(t_line));
+	r->ft_printf_ret->str = (char*)malloc(sizeof(char) * 1024);
+	r->ft_printf_ret->len = 0;
+	r->ft_printf_ret->fd = fopen("./files/ft_printf_ret", "r");
+	r->source_code = (t_line*)malloc(sizeof(t_line));
+	r->source_code->str = (char*)malloc(sizeof(char) * 1024);
+	r->source_code->len = 0;
+	r->source_code->fd = fopen("./files/ft_printf_ret", "r"); //чтоб потом закрыть
+	return (r);
+}
+
+void	read_params(t_line *line, t_params *p)
+{
+	r_getline(line);
+	p->codefile = ft_strdup(&line->str[7]);
+	r_getline(line);
+	p->num_of_tests = atoi(&line->str[8]);
+	r_getline(line);
+	p->width = ft_strdup(&line->str[8]);
+	r_getline(line);
+	p->precision = ft_strdup(&(line->str[12]));
+	r_getline(line);
+	p->var = ft_strdup(&line->str[6]);
+	r_getline(line); //empty str
+	r_getline(line);//getting next;
 }
 
 void	write_params(t_params *p)
 {
 	printf("Code file = \"%s\"\n", p->codefile);
-	printf("Num of tests = %d\n", p->num_of_tests);
+	printf("Num of tests = %zu\n", p->num_of_tests);
 	printf("Width = \"%s\"\n", p->width);
 	printf("Precision = \"%s\"\n", p->precision);
 	printf("Var = \"%s\"\n", p->var);
 }
 
-void	skip_lines(FILE *fp, char **str, int n)
+void	skip_lines(t_line *line, int n)
 {
 	size_t	r;
-	size_t	as_you_wish = 0;
 	
 	while (n-- > 0)
-	{
-		r = getline(str, &as_you_wish, fp);
-		if (r <= 0)
+		if ((r_getline(line)) <= 0)
 		{
 			printf("No more lines in file.\n");
 			break;
 		}
-	}
 }
 
 char	*ft_strdup(const char *str)
@@ -151,7 +231,6 @@ char	*ft_strdup(const char *str)
 	strl = 0;
 	while (str[strl])
 		strl++;
-	strl--;
 	ans = (char*)malloc(sizeof(char) * (strl + 1));
 	if (!ans)
 		return (ans);

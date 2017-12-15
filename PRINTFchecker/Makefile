@@ -12,6 +12,8 @@ FILEDIR = ./files
 
 TESTSCRIPT = $(TESTDIR)/test_comp.sh
 
+FLAGS = -w
+
 # COLORS
 
 RED = '\033[0;31m'
@@ -27,11 +29,11 @@ NC = '\033[0m' # No Color
 
 main:
 	@echo ${CYAN}"[Compiling main]"${NC}
-	gcc -w -o $(EXEDIR)/e -I. -L. -lftprintf main.c $(DFILES)
+	gcc $(FLAGS) -o $(EXEDIR)/e -I. -L. -lftprintf main.c $(DFILES)
 
 testmaker:
 	@echo ${CYAN}"[Building a testmaker file]"${NC}
-	gcc -w -o $(EXEDIR)/testmaker testmaker.c
+	gcc -o $(EXEDIR)/testmaker testmaker.c
 
 res_delete:
 	@rm $(FILEDIR)/printf_res || true
@@ -54,7 +56,7 @@ print_res:
 
 diff_finder: diff_finder.c
 	@echo ${CYAN}"[Compiling diff finder]"${NC}
-	gcc -w -o $(EXEDIR)/differ diff_finder.c
+	gcc $(FLAGS) -o $(EXEDIR)/differ diff_finder.c
 
 test:
 	@echo ${RED}"[========| Test building |========]"${NC}
