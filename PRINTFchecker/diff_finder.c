@@ -100,6 +100,7 @@ int		main(void)
 
 	char	*temp;
 	
+	size_t	num_of_tests = 0;
 	size_t	errors = 0;
 	size_t	curtest;
 	size_t	cur_c_line;
@@ -119,6 +120,7 @@ int		main(void)
 			curtest = 0;
 			cur_c_line = 0;
 			read_params(r->printf_line, p);
+			num_of_tests += p->num_of_tests;
 			skip_lines(r->ft_printf_line, 7);
 			temp = ft_strjoin("./testers/", p->codefile);
 			r->source_code->fd = fopen(temp, "r");
@@ -129,10 +131,11 @@ int		main(void)
 		if (strcmp(r->printf_line->str, r->ft_printf_line->str) || strcmp(r->printf_ret->str, r->printf_ret->str))
 		{
 			errors++;
-			//printf("%s\n%s\n", p_str_line, f_str_line);
-			//printf("Fail test #%zu\n", curtest);
-			while(cur_c_line++ <= curtest)
+			do
+			{
 				getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
+				cur_c_line++;
+			}while (cur_c_line <= curtest);
 			skip_lines(r->source_code, 2);
 			r_getline(r->source_code);
 			print_error(p, r);
@@ -145,7 +148,8 @@ int		main(void)
 	fclose(r->ft_printf_line->fd);
 	fclose(r->ft_printf_ret->fd);
 	fclose(r->source_code->fd);
-	printf("Total number of errors: %d\n", errors);
+	printf("Total number of tests:  %zu\n", num_of_tests);
+	printf("Total number of errors: %zu\n", errors);
 	//system("leaks differ");
 	return (0);
 }

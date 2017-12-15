@@ -60,6 +60,7 @@ diff_finder: diff_finder.c
 
 test:
 	@echo ${RED}"[========| Test building |========]"${NC}
+	@mkdir files || true
 	@make testmaker
 	@make res_delete
 	@make test_files
@@ -69,7 +70,7 @@ test:
 	@make print_res
 
 diff2:
-	@$(EXEDIR)/differ
+	@$(EXEDIR)/differ > fails
 
 diff:
 	@diff $(FILEDIR)/ft_printf_ret $(FILEDIR)/printf_ret > $(FILEDIR)/diff_ret || true
