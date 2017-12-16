@@ -1,644 +1,4 @@
 =============
-Test fail: printf("|%#*.*o|\n", 5, 3, 25)
-Your   str: "#0512| 0031|"
-printf str: "#0512|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%#*.*hho|\n", 5, 3, 25)
-Your   str: "#0513| 0031|"
-printf str: "#0513|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%#*.*ho|\n", 5, 3, 25)
-Your   str: "#0514| 0031|"
-printf str: "#0514|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%#*.*lo|\n", 5, 3, 25)
-Your   str: "#0515| 0031|"
-printf str: "#0515|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%#*.*llo|\n", 5, 3, 25)
-Your   str: "#0516| 0031|"
-printf str: "#0516|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%#*.*jo|\n", 5, 3, 25)
-Your   str: "#0517| 0031|"
-printf str: "#0517|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%#*.*zo|\n", 5, 3, 25)
-Your   str: "#0518| 0031|"
-printf str: "#0518|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%#*.*o|\n", 5, 3, 25)
-Your   str: "#0519| 0031|"
-printf str: "#0519|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% #*.*o|\n", 5, 3, 25)
-Your   str: "#0544| 0031|"
-printf str: "#0544|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% #*.*hho|\n", 5, 3, 25)
-Your   str: "#0545| 0031|"
-printf str: "#0545|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% #*.*ho|\n", 5, 3, 25)
-Your   str: "#0546| 0031|"
-printf str: "#0546|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% #*.*lo|\n", 5, 3, 25)
-Your   str: "#0547| 0031|"
-printf str: "#0547|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% #*.*llo|\n", 5, 3, 25)
-Your   str: "#0548| 0031|"
-printf str: "#0548|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% #*.*jo|\n", 5, 3, 25)
-Your   str: "#0549| 0031|"
-printf str: "#0549|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% #*.*zo|\n", 5, 3, 25)
-Your   str: "#0550| 0031|"
-printf str: "#0550|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% #*.*o|\n", 5, 3, 25)
-Your   str: "#0551| 0031|"
-printf str: "#0551|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0#*.*o|\n", 5, 3, 25)
-Your   str: "#0576| 0031|"
-printf str: "#0576|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0#*.*hho|\n", 5, 3, 25)
-Your   str: "#0577| 0031|"
-printf str: "#0577|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0#*.*ho|\n", 5, 3, 25)
-Your   str: "#0578| 0031|"
-printf str: "#0578|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0#*.*lo|\n", 5, 3, 25)
-Your   str: "#0579| 0031|"
-printf str: "#0579|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0#*.*llo|\n", 5, 3, 25)
-Your   str: "#0580| 0031|"
-printf str: "#0580|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0#*.*jo|\n", 5, 3, 25)
-Your   str: "#0581| 0031|"
-printf str: "#0581|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0#*.*zo|\n", 5, 3, 25)
-Your   str: "#0582| 0031|"
-printf str: "#0582|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0#*.*o|\n", 5, 3, 25)
-Your   str: "#0583| 0031|"
-printf str: "#0583|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0#*.*o|\n", 5, 3, 25)
-Your   str: "#0608| 0031|"
-printf str: "#0608|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0#*.*hho|\n", 5, 3, 25)
-Your   str: "#0609| 0031|"
-printf str: "#0609|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0#*.*ho|\n", 5, 3, 25)
-Your   str: "#0610| 0031|"
-printf str: "#0610|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0#*.*lo|\n", 5, 3, 25)
-Your   str: "#0611| 0031|"
-printf str: "#0611|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0#*.*llo|\n", 5, 3, 25)
-Your   str: "#0612| 0031|"
-printf str: "#0612|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0#*.*jo|\n", 5, 3, 25)
-Your   str: "#0613| 0031|"
-printf str: "#0613|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0#*.*zo|\n", 5, 3, 25)
-Your   str: "#0614| 0031|"
-printf str: "#0614|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0#*.*o|\n", 5, 3, 25)
-Your   str: "#0615| 0031|"
-printf str: "#0615|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+#*.*o|\n", 5, 3, 25)
-Your   str: "#0640| 0031|"
-printf str: "#0640|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+#*.*hho|\n", 5, 3, 25)
-Your   str: "#0641| 0031|"
-printf str: "#0641|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+#*.*ho|\n", 5, 3, 25)
-Your   str: "#0642| 0031|"
-printf str: "#0642|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+#*.*lo|\n", 5, 3, 25)
-Your   str: "#0643| 0031|"
-printf str: "#0643|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+#*.*llo|\n", 5, 3, 25)
-Your   str: "#0644| 0031|"
-printf str: "#0644|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+#*.*jo|\n", 5, 3, 25)
-Your   str: "#0645| 0031|"
-printf str: "#0645|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+#*.*zo|\n", 5, 3, 25)
-Your   str: "#0646| 0031|"
-printf str: "#0646|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+#*.*o|\n", 5, 3, 25)
-Your   str: "#0647| 0031|"
-printf str: "#0647|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +#*.*o|\n", 5, 3, 25)
-Your   str: "#0672| 0031|"
-printf str: "#0672|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +#*.*hho|\n", 5, 3, 25)
-Your   str: "#0673| 0031|"
-printf str: "#0673|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +#*.*ho|\n", 5, 3, 25)
-Your   str: "#0674| 0031|"
-printf str: "#0674|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +#*.*lo|\n", 5, 3, 25)
-Your   str: "#0675| 0031|"
-printf str: "#0675|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +#*.*llo|\n", 5, 3, 25)
-Your   str: "#0676| 0031|"
-printf str: "#0676|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +#*.*jo|\n", 5, 3, 25)
-Your   str: "#0677| 0031|"
-printf str: "#0677|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +#*.*zo|\n", 5, 3, 25)
-Your   str: "#0678| 0031|"
-printf str: "#0678|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +#*.*o|\n", 5, 3, 25)
-Your   str: "#0679| 0031|"
-printf str: "#0679|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+#*.*o|\n", 5, 3, 25)
-Your   str: "#0704| 0031|"
-printf str: "#0704|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+#*.*hho|\n", 5, 3, 25)
-Your   str: "#0705| 0031|"
-printf str: "#0705|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+#*.*ho|\n", 5, 3, 25)
-Your   str: "#0706| 0031|"
-printf str: "#0706|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+#*.*lo|\n", 5, 3, 25)
-Your   str: "#0707| 0031|"
-printf str: "#0707|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+#*.*llo|\n", 5, 3, 25)
-Your   str: "#0708| 0031|"
-printf str: "#0708|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+#*.*jo|\n", 5, 3, 25)
-Your   str: "#0709| 0031|"
-printf str: "#0709|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+#*.*zo|\n", 5, 3, 25)
-Your   str: "#0710| 0031|"
-printf str: "#0710|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+#*.*o|\n", 5, 3, 25)
-Your   str: "#0711| 0031|"
-printf str: "#0711|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+#*.*o|\n", 5, 3, 25)
-Your   str: "#0736| 0031|"
-printf str: "#0736|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+#*.*hho|\n", 5, 3, 25)
-Your   str: "#0737| 0031|"
-printf str: "#0737|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+#*.*ho|\n", 5, 3, 25)
-Your   str: "#0738| 0031|"
-printf str: "#0738|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+#*.*lo|\n", 5, 3, 25)
-Your   str: "#0739| 0031|"
-printf str: "#0739|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+#*.*llo|\n", 5, 3, 25)
-Your   str: "#0740| 0031|"
-printf str: "#0740|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+#*.*jo|\n", 5, 3, 25)
-Your   str: "#0741| 0031|"
-printf str: "#0741|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+#*.*zo|\n", 5, 3, 25)
-Your   str: "#0742| 0031|"
-printf str: "#0742|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+#*.*o|\n", 5, 3, 25)
-Your   str: "#0743| 0031|"
-printf str: "#0743|  031|"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%-#*.*o|\n", 5, 3, 25)
-Your   str: "#0768|0031 |"
-printf str: "#0768|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%-#*.*hho|\n", 5, 3, 25)
-Your   str: "#0769|0031 |"
-printf str: "#0769|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%-#*.*ho|\n", 5, 3, 25)
-Your   str: "#0770|0031 |"
-printf str: "#0770|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%-#*.*lo|\n", 5, 3, 25)
-Your   str: "#0771|0031 |"
-printf str: "#0771|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%-#*.*llo|\n", 5, 3, 25)
-Your   str: "#0772|0031 |"
-printf str: "#0772|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%-#*.*jo|\n", 5, 3, 25)
-Your   str: "#0773|0031 |"
-printf str: "#0773|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%-#*.*zo|\n", 5, 3, 25)
-Your   str: "#0774|0031 |"
-printf str: "#0774|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%-#*.*o|\n", 5, 3, 25)
-Your   str: "#0775|0031 |"
-printf str: "#0775|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% -#*.*o|\n", 5, 3, 25)
-Your   str: "#0800|0031 |"
-printf str: "#0800|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% -#*.*hho|\n", 5, 3, 25)
-Your   str: "#0801|0031 |"
-printf str: "#0801|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% -#*.*ho|\n", 5, 3, 25)
-Your   str: "#0802|0031 |"
-printf str: "#0802|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% -#*.*lo|\n", 5, 3, 25)
-Your   str: "#0803|0031 |"
-printf str: "#0803|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% -#*.*llo|\n", 5, 3, 25)
-Your   str: "#0804|0031 |"
-printf str: "#0804|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% -#*.*jo|\n", 5, 3, 25)
-Your   str: "#0805|0031 |"
-printf str: "#0805|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% -#*.*zo|\n", 5, 3, 25)
-Your   str: "#0806|0031 |"
-printf str: "#0806|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% -#*.*o|\n", 5, 3, 25)
-Your   str: "#0807|0031 |"
-printf str: "#0807|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0-#*.*o|\n", 5, 3, 25)
-Your   str: "#0832|0031 |"
-printf str: "#0832|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0-#*.*hho|\n", 5, 3, 25)
-Your   str: "#0833|0031 |"
-printf str: "#0833|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0-#*.*ho|\n", 5, 3, 25)
-Your   str: "#0834|0031 |"
-printf str: "#0834|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0-#*.*lo|\n", 5, 3, 25)
-Your   str: "#0835|0031 |"
-printf str: "#0835|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0-#*.*llo|\n", 5, 3, 25)
-Your   str: "#0836|0031 |"
-printf str: "#0836|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0-#*.*jo|\n", 5, 3, 25)
-Your   str: "#0837|0031 |"
-printf str: "#0837|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0-#*.*zo|\n", 5, 3, 25)
-Your   str: "#0838|0031 |"
-printf str: "#0838|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0-#*.*o|\n", 5, 3, 25)
-Your   str: "#0839|0031 |"
-printf str: "#0839|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0-#*.*o|\n", 5, 3, 25)
-Your   str: "#0864|0031 |"
-printf str: "#0864|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0-#*.*hho|\n", 5, 3, 25)
-Your   str: "#0865|0031 |"
-printf str: "#0865|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0-#*.*ho|\n", 5, 3, 25)
-Your   str: "#0866|0031 |"
-printf str: "#0866|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0-#*.*lo|\n", 5, 3, 25)
-Your   str: "#0867|0031 |"
-printf str: "#0867|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0-#*.*llo|\n", 5, 3, 25)
-Your   str: "#0868|0031 |"
-printf str: "#0868|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0-#*.*jo|\n", 5, 3, 25)
-Your   str: "#0869|0031 |"
-printf str: "#0869|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0-#*.*zo|\n", 5, 3, 25)
-Your   str: "#0870|0031 |"
-printf str: "#0870|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0-#*.*o|\n", 5, 3, 25)
-Your   str: "#0871|0031 |"
-printf str: "#0871|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+-#*.*o|\n", 5, 3, 25)
-Your   str: "#0896|0031 |"
-printf str: "#0896|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+-#*.*hho|\n", 5, 3, 25)
-Your   str: "#0897|0031 |"
-printf str: "#0897|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+-#*.*ho|\n", 5, 3, 25)
-Your   str: "#0898|0031 |"
-printf str: "#0898|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+-#*.*lo|\n", 5, 3, 25)
-Your   str: "#0899|0031 |"
-printf str: "#0899|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+-#*.*llo|\n", 5, 3, 25)
-Your   str: "#0900|0031 |"
-printf str: "#0900|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+-#*.*jo|\n", 5, 3, 25)
-Your   str: "#0901|0031 |"
-printf str: "#0901|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+-#*.*zo|\n", 5, 3, 25)
-Your   str: "#0902|0031 |"
-printf str: "#0902|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%+-#*.*o|\n", 5, 3, 25)
-Your   str: "#0903|0031 |"
-printf str: "#0903|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +-#*.*o|\n", 5, 3, 25)
-Your   str: "#0928|0031 |"
-printf str: "#0928|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +-#*.*hho|\n", 5, 3, 25)
-Your   str: "#0929|0031 |"
-printf str: "#0929|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +-#*.*ho|\n", 5, 3, 25)
-Your   str: "#0930|0031 |"
-printf str: "#0930|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +-#*.*lo|\n", 5, 3, 25)
-Your   str: "#0931|0031 |"
-printf str: "#0931|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +-#*.*llo|\n", 5, 3, 25)
-Your   str: "#0932|0031 |"
-printf str: "#0932|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +-#*.*jo|\n", 5, 3, 25)
-Your   str: "#0933|0031 |"
-printf str: "#0933|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +-#*.*zo|\n", 5, 3, 25)
-Your   str: "#0934|0031 |"
-printf str: "#0934|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% +-#*.*o|\n", 5, 3, 25)
-Your   str: "#0935|0031 |"
-printf str: "#0935|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+-#*.*o|\n", 5, 3, 25)
-Your   str: "#0960|0031 |"
-printf str: "#0960|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+-#*.*hho|\n", 5, 3, 25)
-Your   str: "#0961|0031 |"
-printf str: "#0961|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+-#*.*ho|\n", 5, 3, 25)
-Your   str: "#0962|0031 |"
-printf str: "#0962|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+-#*.*lo|\n", 5, 3, 25)
-Your   str: "#0963|0031 |"
-printf str: "#0963|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+-#*.*llo|\n", 5, 3, 25)
-Your   str: "#0964|0031 |"
-printf str: "#0964|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+-#*.*jo|\n", 5, 3, 25)
-Your   str: "#0965|0031 |"
-printf str: "#0965|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+-#*.*zo|\n", 5, 3, 25)
-Your   str: "#0966|0031 |"
-printf str: "#0966|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|%0+-#*.*o|\n", 5, 3, 25)
-Your   str: "#0967|0031 |"
-printf str: "#0967|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+-#*.*o|\n", 5, 3, 25)
-Your   str: "#0992|0031 |"
-printf str: "#0992|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+-#*.*hho|\n", 5, 3, 25)
-Your   str: "#0993|0031 |"
-printf str: "#0993|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+-#*.*ho|\n", 5, 3, 25)
-Your   str: "#0994|0031 |"
-printf str: "#0994|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+-#*.*lo|\n", 5, 3, 25)
-Your   str: "#0995|0031 |"
-printf str: "#0995|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+-#*.*llo|\n", 5, 3, 25)
-Your   str: "#0996|0031 |"
-printf str: "#0996|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+-#*.*jo|\n", 5, 3, 25)
-Your   str: "#0997|0031 |"
-printf str: "#0997|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+-#*.*zo|\n", 5, 3, 25)
-Your   str: "#0998|0031 |"
-printf str: "#0998|031  |"
-Youret: 8	 | Libret: 8
-=============
-Test fail: printf("|% 0+-#*.*o|\n", 5, 3, 25)
-Your   str: "#0999|0031 |"
-printf str: "#0999|031  |"
-Youret: 8	 | Libret: 8
-=============
 Test fail: printf("|%*.*o|\n", 5, 3, 4294967271)
 Your   str: "#0000|  377|"
 printf str: "#0000|37777777747|"
@@ -1760,37 +1120,42 @@ printf str: "#0511|FFFFFFE7|"
 Youret: 8	 | Libret: 11
 =============
 Test fail: printf("|%#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0512| 0377|"
+Your   str: "#0512|  037|"
 printf str: "#0512|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|%#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0513|  034|"
+printf str: "#0513| 0347|"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|%#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0514| 0177|"
+Your   str: "#0514|  017|"
 printf str: "#0514|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|%#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0515| 0377|"
+Your   str: "#0515|  037|"
 printf str: "#0515|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0516| 0377|"
+Your   str: "#0516|  037|"
 printf str: "#0516|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0517| 0377|"
+Your   str: "#0517|  037|"
 printf str: "#0517|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0518| 0377|"
+Your   str: "#0518|  037|"
 printf str: "#0518|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0519| 0377|"
+Your   str: "#0519|  037|"
 printf str: "#0519|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -1830,37 +1195,42 @@ printf str: "#0543|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|% #*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0544| 0377|"
+Your   str: "#0544|  037|"
 printf str: "#0544|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|% #*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0545|  034|"
+printf str: "#0545| 0347|"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|% #*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0546| 0177|"
+Your   str: "#0546|  017|"
 printf str: "#0546|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|% #*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0547| 0377|"
+Your   str: "#0547|  037|"
 printf str: "#0547|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% #*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0548| 0377|"
+Your   str: "#0548|  037|"
 printf str: "#0548|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% #*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0549| 0377|"
+Your   str: "#0549|  037|"
 printf str: "#0549|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% #*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0550| 0377|"
+Your   str: "#0550|  037|"
 printf str: "#0550|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% #*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0551| 0377|"
+Your   str: "#0551|  037|"
 printf str: "#0551|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -1900,37 +1270,42 @@ printf str: "#0575|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|%0#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0576| 0377|"
+Your   str: "#0576|  037|"
 printf str: "#0576|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|%0#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0577|  034|"
+printf str: "#0577| 0347|"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|%0#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0578| 0177|"
+Your   str: "#0578|  017|"
 printf str: "#0578|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|%0#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0579| 0377|"
+Your   str: "#0579|  037|"
 printf str: "#0579|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0580| 0377|"
+Your   str: "#0580|  037|"
 printf str: "#0580|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0581| 0377|"
+Your   str: "#0581|  037|"
 printf str: "#0581|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0582| 0377|"
+Your   str: "#0582|  037|"
 printf str: "#0582|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0583| 0377|"
+Your   str: "#0583|  037|"
 printf str: "#0583|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -1970,37 +1345,42 @@ printf str: "#0607|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|% 0#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0608| 0377|"
+Your   str: "#0608|  037|"
 printf str: "#0608|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|% 0#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0609|  034|"
+printf str: "#0609| 0347|"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|% 0#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0610| 0177|"
+Your   str: "#0610|  017|"
 printf str: "#0610|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|% 0#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0611| 0377|"
+Your   str: "#0611|  037|"
 printf str: "#0611|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0612| 0377|"
+Your   str: "#0612|  037|"
 printf str: "#0612|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0613| 0377|"
+Your   str: "#0613|  037|"
 printf str: "#0613|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0614| 0377|"
+Your   str: "#0614|  037|"
 printf str: "#0614|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0615| 0377|"
+Your   str: "#0615|  037|"
 printf str: "#0615|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2040,37 +1420,42 @@ printf str: "#0639|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|%+#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0640| 0377|"
+Your   str: "#0640|  037|"
 printf str: "#0640|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|%+#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0641|  034|"
+printf str: "#0641| 0347|"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|%+#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0642| 0177|"
+Your   str: "#0642|  017|"
 printf str: "#0642|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|%+#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0643| 0377|"
+Your   str: "#0643|  037|"
 printf str: "#0643|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%+#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0644| 0377|"
+Your   str: "#0644|  037|"
 printf str: "#0644|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%+#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0645| 0377|"
+Your   str: "#0645|  037|"
 printf str: "#0645|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%+#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0646| 0377|"
+Your   str: "#0646|  037|"
 printf str: "#0646|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%+#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0647| 0377|"
+Your   str: "#0647|  037|"
 printf str: "#0647|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2110,37 +1495,42 @@ printf str: "#0671|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|% +#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0672| 0377|"
+Your   str: "#0672|  037|"
 printf str: "#0672|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|% +#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0673|  034|"
+printf str: "#0673| 0347|"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|% +#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0674| 0177|"
+Your   str: "#0674|  017|"
 printf str: "#0674|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|% +#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0675| 0377|"
+Your   str: "#0675|  037|"
 printf str: "#0675|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% +#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0676| 0377|"
+Your   str: "#0676|  037|"
 printf str: "#0676|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% +#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0677| 0377|"
+Your   str: "#0677|  037|"
 printf str: "#0677|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% +#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0678| 0377|"
+Your   str: "#0678|  037|"
 printf str: "#0678|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% +#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0679| 0377|"
+Your   str: "#0679|  037|"
 printf str: "#0679|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2180,37 +1570,42 @@ printf str: "#0703|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|%0+#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0704| 0377|"
+Your   str: "#0704|  037|"
 printf str: "#0704|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|%0+#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0705|  034|"
+printf str: "#0705| 0347|"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|%0+#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0706| 0177|"
+Your   str: "#0706|  017|"
 printf str: "#0706|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|%0+#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0707| 0377|"
+Your   str: "#0707|  037|"
 printf str: "#0707|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0+#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0708| 0377|"
+Your   str: "#0708|  037|"
 printf str: "#0708|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0+#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0709| 0377|"
+Your   str: "#0709|  037|"
 printf str: "#0709|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0+#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0710| 0377|"
+Your   str: "#0710|  037|"
 printf str: "#0710|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0+#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0711| 0377|"
+Your   str: "#0711|  037|"
 printf str: "#0711|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2250,37 +1645,42 @@ printf str: "#0735|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|% 0+#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0736| 0377|"
+Your   str: "#0736|  037|"
 printf str: "#0736|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|% 0+#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0737|  034|"
+printf str: "#0737| 0347|"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|% 0+#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0738| 0177|"
+Your   str: "#0738|  017|"
 printf str: "#0738|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|% 0+#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0739| 0377|"
+Your   str: "#0739|  037|"
 printf str: "#0739|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0+#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0740| 0377|"
+Your   str: "#0740|  037|"
 printf str: "#0740|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0+#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0741| 0377|"
+Your   str: "#0741|  037|"
 printf str: "#0741|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0+#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0742| 0377|"
+Your   str: "#0742|  037|"
 printf str: "#0742|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0+#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0743| 0377|"
+Your   str: "#0743|  037|"
 printf str: "#0743|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2320,37 +1720,42 @@ printf str: "#0767|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|%-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0768|0377 |"
+Your   str: "#0768|037  |"
 printf str: "#0768|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|%-#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0769|034  |"
+printf str: "#0769|0347 |"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|%-#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0770|0177 |"
+Your   str: "#0770|017  |"
 printf str: "#0770|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|%-#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0771|0377 |"
+Your   str: "#0771|037  |"
 printf str: "#0771|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%-#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0772|0377 |"
+Your   str: "#0772|037  |"
 printf str: "#0772|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%-#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0773|0377 |"
+Your   str: "#0773|037  |"
 printf str: "#0773|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%-#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0774|0377 |"
+Your   str: "#0774|037  |"
 printf str: "#0774|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0775|0377 |"
+Your   str: "#0775|037  |"
 printf str: "#0775|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2390,37 +1795,42 @@ printf str: "#0799|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|% -#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0800|0377 |"
+Your   str: "#0800|037  |"
 printf str: "#0800|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|% -#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0801|034  |"
+printf str: "#0801|0347 |"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|% -#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0802|0177 |"
+Your   str: "#0802|017  |"
 printf str: "#0802|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|% -#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0803|0377 |"
+Your   str: "#0803|037  |"
 printf str: "#0803|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% -#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0804|0377 |"
+Your   str: "#0804|037  |"
 printf str: "#0804|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% -#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0805|0377 |"
+Your   str: "#0805|037  |"
 printf str: "#0805|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% -#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0806|0377 |"
+Your   str: "#0806|037  |"
 printf str: "#0806|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% -#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0807|0377 |"
+Your   str: "#0807|037  |"
 printf str: "#0807|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2460,37 +1870,42 @@ printf str: "#0831|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|%0-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0832|0377 |"
+Your   str: "#0832|037  |"
 printf str: "#0832|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|%0-#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0833|034  |"
+printf str: "#0833|0347 |"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|%0-#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0834|0177 |"
+Your   str: "#0834|017  |"
 printf str: "#0834|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|%0-#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0835|0377 |"
+Your   str: "#0835|037  |"
 printf str: "#0835|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0-#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0836|0377 |"
+Your   str: "#0836|037  |"
 printf str: "#0836|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0-#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0837|0377 |"
+Your   str: "#0837|037  |"
 printf str: "#0837|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0-#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0838|0377 |"
+Your   str: "#0838|037  |"
 printf str: "#0838|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0839|0377 |"
+Your   str: "#0839|037  |"
 printf str: "#0839|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2530,37 +1945,42 @@ printf str: "#0863|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|% 0-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0864|0377 |"
+Your   str: "#0864|037  |"
 printf str: "#0864|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|% 0-#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0865|034  |"
+printf str: "#0865|0347 |"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|% 0-#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0866|0177 |"
+Your   str: "#0866|017  |"
 printf str: "#0866|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|% 0-#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0867|0377 |"
+Your   str: "#0867|037  |"
 printf str: "#0867|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0-#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0868|0377 |"
+Your   str: "#0868|037  |"
 printf str: "#0868|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0-#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0869|0377 |"
+Your   str: "#0869|037  |"
 printf str: "#0869|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0-#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0870|0377 |"
+Your   str: "#0870|037  |"
 printf str: "#0870|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0871|0377 |"
+Your   str: "#0871|037  |"
 printf str: "#0871|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2600,37 +2020,42 @@ printf str: "#0895|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|%+-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0896|0377 |"
+Your   str: "#0896|037  |"
 printf str: "#0896|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|%+-#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0897|034  |"
+printf str: "#0897|0347 |"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|%+-#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0898|0177 |"
+Your   str: "#0898|017  |"
 printf str: "#0898|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|%+-#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0899|0377 |"
+Your   str: "#0899|037  |"
 printf str: "#0899|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%+-#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0900|0377 |"
+Your   str: "#0900|037  |"
 printf str: "#0900|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%+-#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0901|0377 |"
+Your   str: "#0901|037  |"
 printf str: "#0901|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%+-#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0902|0377 |"
+Your   str: "#0902|037  |"
 printf str: "#0902|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%+-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0903|0377 |"
+Your   str: "#0903|037  |"
 printf str: "#0903|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2670,37 +2095,42 @@ printf str: "#0927|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|% +-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0928|0377 |"
+Your   str: "#0928|037  |"
 printf str: "#0928|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|% +-#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0929|034  |"
+printf str: "#0929|0347 |"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|% +-#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0930|0177 |"
+Your   str: "#0930|017  |"
 printf str: "#0930|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|% +-#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0931|0377 |"
+Your   str: "#0931|037  |"
 printf str: "#0931|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% +-#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0932|0377 |"
+Your   str: "#0932|037  |"
 printf str: "#0932|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% +-#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0933|0377 |"
+Your   str: "#0933|037  |"
 printf str: "#0933|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% +-#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0934|0377 |"
+Your   str: "#0934|037  |"
 printf str: "#0934|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% +-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0935|0377 |"
+Your   str: "#0935|037  |"
 printf str: "#0935|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2740,37 +2170,42 @@ printf str: "#0959|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|%0+-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0960|0377 |"
+Your   str: "#0960|037  |"
 printf str: "#0960|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|%0+-#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0961|034  |"
+printf str: "#0961|0347 |"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|%0+-#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0962|0177 |"
+Your   str: "#0962|017  |"
 printf str: "#0962|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|%0+-#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0963|0377 |"
+Your   str: "#0963|037  |"
 printf str: "#0963|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0+-#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0964|0377 |"
+Your   str: "#0964|037  |"
 printf str: "#0964|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0+-#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0965|0377 |"
+Your   str: "#0965|037  |"
 printf str: "#0965|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0+-#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0966|0377 |"
+Your   str: "#0966|037  |"
 printf str: "#0966|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|%0+-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0967|0377 |"
+Your   str: "#0967|037  |"
 printf str: "#0967|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2810,37 +2245,42 @@ printf str: "#0991|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 =============
 Test fail: printf("|% 0+-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0992|0377 |"
+Your   str: "#0992|037  |"
 printf str: "#0992|037777777747|"
 Youret: 8	 | Libret: 15
 =============
+Test fail: printf("|% 0+-#*.*hho|\n", 5, 3, 4294967271)
+Your   str: "#0993|034  |"
+printf str: "#0993|0347 |"
+Youret: 8	 | Libret: 8
+=============
 Test fail: printf("|% 0+-#*.*ho|\n", 5, 3, 4294967271)
-Your   str: "#0994|0177 |"
+Your   str: "#0994|017  |"
 printf str: "#0994|0177747|"
 Youret: 8	 | Libret: 10
 =============
 Test fail: printf("|% 0+-#*.*lo|\n", 5, 3, 4294967271)
-Your   str: "#0995|0377 |"
+Your   str: "#0995|037  |"
 printf str: "#0995|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0+-#*.*llo|\n", 5, 3, 4294967271)
-Your   str: "#0996|0377 |"
+Your   str: "#0996|037  |"
 printf str: "#0996|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0+-#*.*jo|\n", 5, 3, 4294967271)
-Your   str: "#0997|0377 |"
+Your   str: "#0997|037  |"
 printf str: "#0997|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0+-#*.*zo|\n", 5, 3, 4294967271)
-Your   str: "#0998|0377 |"
+Your   str: "#0998|037  |"
 printf str: "#0998|037777777747|"
 Youret: 8	 | Libret: 15
 =============
 Test fail: printf("|% 0+-#*.*o|\n", 5, 3, 4294967271)
-Your   str: "#0999|0377 |"
+Your   str: "#0999|037  |"
 printf str: "#0999|037777777747|"
 Youret: 8	 | Libret: 15
 =============
@@ -2879,4 +2319,4 @@ Your   str: "#1023|0XFFF|"
 printf str: "#1023|0XFFFFFFE7|"
 Youret: 8	 | Libret: 13
 Total number of tests:  8192
-Total number of errors: 576
+Total number of errors: 464

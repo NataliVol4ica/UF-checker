@@ -1,5 +1,5 @@
 
-TEST1 = "signed_number_testing" "long_long_int_" "0" "2"
+TEST1 = "signed_number_testing" "signed_long_long_int_" "0" "2"
 TEST2 = "unsigned_number_testing" "long_long_int_" "2" "6"
 
 TESTDIR = ./testers

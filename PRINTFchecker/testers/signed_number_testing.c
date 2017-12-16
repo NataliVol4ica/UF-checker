@@ -4,7 +4,7 @@
 
 size_t signed_number_testing_tests = 512;
 
-void		signed_number_testing(int *n, int width, int precision, long long int var)
+void		signed_number_testing(int *n, int width, int precision, signed long long int var)
 {
 	int		ret1;
 	int		ret2;
