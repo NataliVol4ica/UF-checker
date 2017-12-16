@@ -13,33 +13,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <libc.h>
 
-#define FLAGS " 0+-#\'" //6 , // 32
-#define FLAGNUM 5
-#define TYPES "diouxXDUO" //[0-6]numeric[6-7]signed no len[7-9]uns no len
-#define NUM 2
-#define NUM_ARGUMENTS "width, precision, var"
-
-size_t flagvar = 0;
+#define ARGUMENTS "width, precision, var"
 
 typedef enum	e_length
 {
 	EMPTY = 0, HH = 2, H, L, LL, J, T, Z, BL
 }				t_length;
 
+typedef struct s_data
+{
+	char	*flaglist;
+	size_t	flagnum;
+	char	*typelist;
+	size_t	typenum;
+	size_t	flagvar;
+}				t_data;
+
 typedef struct	s_params
 {
-	size_t	flags[FLAGNUM];
+	size_t	flags[6];
 	char	*length;
 	char	type;
 	size_t	testnum;
 }				t_params;
 
-void	set_flags(t_params *p, size_t num)
+void	set_flags(t_data *data, t_params *p, size_t num)
 {
 	size_t	i;
 
-	for (i = 0; i < FLAGNUM; i++)
+	for (i = 0; i < data->flagnum; i++)
 		p->flags[i] = 0;
 	i = 0;
 	while (num > 0)
@@ -73,20 +77,20 @@ void	set_length(t_params *p, size_t len)
 		p->length[0] = 'z';
 }
 
-void	print_params(t_params *p, char *arguments)
+void	print_params(t_data *data, t_params *p, char *arguments)
 {
 	printf("\n\tfprintf(fppres, \"#%04zu\");\n", p->testnum);
 	printf("\tret1 = fprintf(fppres, \"|%%");
-	for (size_t i = 0; i < FLAGNUM; i++)
+	for (size_t i = 0; i < data->flagnum; i++)
 		if (p->flags[i] != 0)
-			printf("%c", FLAGS[i]);
+			printf("%c", data->flaglist[i]);
 	printf("*.*%s%c", p->length, p->type);
 	printf("|\\n\", %s);\n", arguments);
 	printf("\tft_printf(\"#%04zu\");\n", p->testnum);
 	printf("\tret2 = ft_printf(\"|%%");
-	for (size_t i = 0; i < FLAGNUM; i++)
+	for (size_t i = 0; i < data->flagnum; i++)
 		if (p->flags[i] != 0)
-			printf("%c", FLAGS[i]);
+			printf("%c", data->flaglist[i]);
 	printf("*.*%s%c", p->length, p->type);
 	printf("|\\n\", %s);\n", arguments);
 	printf("\tfprintf(fppret, \"%%d\\n\", ret1);\n");
@@ -95,36 +99,20 @@ void	print_params(t_params *p, char *arguments)
 	p->testnum++;
 }
 
-void	get_flagvar(void)
-{
-	size_t f;
-
-	if (FLAGNUM <= 0)
-		return ;
-	flagvar = 1;
-	f = FLAGNUM;
-	while (f > 0)
-	{
-		flagvar *= 2;
-		f--;
-	}
-}
-
-void	make_tests(char *name, char *vtype, size_t type_from, size_t type_to)
+void	make_tests(t_data *data, char *name, char *vtype)
 {
 	t_params *p = (t_params*)malloc(sizeof(t_params));
 	p->length = (char*)malloc(sizeof(char) * 3);
 	p->length[2] = '\0';
 	p->testnum = 0;
 
-	get_flagvar();
 	printf("#include <stdio.h>\n");
 	printf("#include <stdint.h>\n");
 	printf("#include \"libftprintf.h\"\n");
 	
-	printf("\nsize_t %s_tests = %zu;\n", name, flagvar * (type_to - type_from) * 8);
+	printf("\nsize_t %s_tests = %zu;\n", name, data->flagvar * data->typenum * 8);
 
-	printf("\nvoid\t\t%s(int *n, int width, int precision, %svar)\n{\n", name, vtype);
+	printf("\nvoid\t\t%s(int width, int precision, %svar)\n{\n", name, vtype);
 	printf("\tint\t\tret1;\n\tint\t\tret2;\n");
 	printf("\tFILE\t*fppres, *fppret, *fpftret;\n\n");
 
@@ -151,26 +139,22 @@ void	make_tests(char *name, char *vtype, size_t type_from, size_t type_to)
 	printf("\tft_printf(\"VAR = %%lld\\n\\n\", var);\n");
 	printf("\t//@");
 
-	for (size_t flags = 0; flags < flagvar; flags++)
+	for (size_t flags = 0; flags < data->flagvar; flags++)
 	{
-		set_flags(p, flags);
-		for (size_t type = type_from; type < type_to; type++)
+		set_flags(data, p, flags);
+		for (size_t type = 0; type < data->typenum; type++)
 		{
-			p->type = TYPES[type];
-			if (type_from < 6)
-				for (size_t length = 1; length < 9; length++)
-				{
-					set_length(p, length);
-					print_params(p, NUM_ARGUMENTS);
-				}
-			else
-				print_params(p, NUM_ARGUMENTS);
+			p->type = data->typelist[type];
+			for (size_t length = 1; length < 9; length++)
+			{
+				set_length(p, length);
+				print_params(data, p, ARGUMENTS);
+			}
 		}
 	}
 	printf("\tfclose(fppres);\n");
 	printf("\tfclose(fppret);\n");
 	printf("\tfclose(fpftret);\n");
-	printf("\t*n = *n + 1;\n");
 	printf("}\n");
 }
 
@@ -185,13 +169,27 @@ char	*replacedog(char *str)
 	return(str);
 }
 
+void	set_data(t_data *data, char *flags, char *types)
+{
+	data->flaglist = flags;
+	data->flagnum = strlen(flags);
+	data->typelist = types;
+	data->typenum = strlen(types);
+	data->flagvar = 1;
+	while (data->flagnum-- > 0)
+		data->flagvar *= 2;
+	data->flagnum = strlen(flags);
+}
+
 int		main(int ac, char **av)
 {
-	intmax_t num = 0;
+	t_data		*data;
+
 	if (ac == 5)
 	{
-		//printf("Testing %s %s %d %d\n", av[1], av[2], atoi(av[3]), atoi(av[4]));
-		make_tests(av[1], replacedog(av[2]), atoi(av[3]), atoi(av[4]));
+		data = (t_data*)malloc(sizeof(t_data));
+		set_data(data, av[3], av[4]);
+		make_tests(data, av[1], replacedog(av[2]));
 	}
 	return (0);
 }

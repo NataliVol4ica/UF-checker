@@ -81,7 +81,7 @@ void	print_error(t_params *p, t_read_lines *r)
 		i++;
 	r->source_code->str[i] = '\0';
 	printf("%s", &r->source_code->str[cp]);
-	printf("\", %s, %s, %s)\n", p->width, p->precision, p->var);
+	printf("\", %s, %s, %s);\n", p->width, p->precision, p->var);
 	printf("Your   str: \"%s\"\n", r->ft_printf_line->str);
 	printf("printf str: \"%s\"\n", r->printf_line->str);
 	printf("Youret: %s\t | Libret: %s\n", r->ft_printf_ret->str, r->printf_ret->str);
@@ -176,6 +176,11 @@ t_read_lines	*new_read_lines(void)
 	r->source_code->str = (char*)malloc(sizeof(char) * 1024);
 	r->source_code->len = 0;
 	r->source_code->fd = fopen("./files/ft_printf_ret", "r"); //чтоб потом закрыть
+	setvbuf(r->printf_line->fd, NULL, _IONBF, 0);
+	setvbuf(r->printf_ret->fd, NULL, _IONBF, 0);
+	setvbuf(r->ft_printf_line->fd, NULL, _IONBF, 0);
+	setvbuf(r->ft_printf_ret->fd, NULL, _IONBF, 0);
+	setvbuf(r->source_code->fd, NULL, _IONBF, 0);
 	return (r);
 }
 

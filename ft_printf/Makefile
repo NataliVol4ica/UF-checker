@@ -1,8 +1,18 @@
 
-TEST1 = "numeric_testing_diouxbx" "intmax_t@" "0" "6"
+# MAIN TESTS
+
+TEST1 = "testing_diouxbx" "intmax_t@" " 0+-\#" "diouxX"
+TEST2 = "testing_cbc" "int@" " 0+-\#" "cC"
+TEST3 = "testing_sbs" "char@*" " 0+-\#" "sS"
+
+# BONUS
+
+TEST10 = "testing_diouxbx_bonus" "intmax_t@" " 0+-\#\'" "diufF" 
 
 TESTDIR = ./testers
-TESTFILES = numeric_testing_diouxbx
+TESTFILES = testing_diouxbx \
+			testing_cbc \
+			testing_sbs
 DFILES = $(patsubst %, $(TESTDIR)/%.c, $(TESTFILES))
 
 EXEDIR = ./executables
@@ -42,6 +52,8 @@ res_delete:
 test_files:
 	@echo ${CYAN}"[Creating test files]"${NC}
 	sh $(TESTSCRIPT) $(TEST1) $(EXEDIR)
+	sh $(TESTSCRIPT) $(TEST2) $(EXEDIR)
+	sh $(TESTSCRIPT) $(TEST3) $(EXEDIR)
 
 do_testing:
 	@echo ${PURPLE}"[Running tests. This may take some time.]"${NC}
