@@ -48,6 +48,8 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	read_params(t_line *line, t_params *p);
 void	write_params(t_params *p);
 void	skip_lines(t_line *line, int n);
+void	print_error(t_params *p, t_read_lines *r);
+void	print_error2(t_params *p, t_read_lines *r);
 t_read_lines	*new_read_lines(void);
 
 void	fatal_error(char *str)
@@ -74,20 +76,12 @@ void	print_error(t_params *p, t_read_lines *r)
 	while (r->source_code->str[i] != '\"')
 		i++;
 	cp = i;
-	while (r->source_code->str[i] != '*')
+	i++;
+	while (r->source_code->str[i] != '\"')
 		i++;
 	r->source_code->str[i] = '\0';
 	printf("%s", &r->source_code->str[cp]);
-	r->source_code->str[i] = '*';
-	printf("%s.%s", p->width, p->precision);
-	i += 3;
-	cp = i;
-	while (r->source_code->str[i] != '\"')
-		i++;
-	r->source_code->str[i + 1] = '\0';
-	printf("%s", &r->source_code->str[cp]);
-	r->source_code->str[i + 1] = '\"';
-	printf("\", %s)\n", p->var);
+	printf("\", %s, %s, %s)\n", p->width, p->precision, p->var);
 	printf("Your   str: \"%s\"\n", r->ft_printf_line->str);
 	printf("printf str: \"%s\"\n", r->printf_line->str);
 	printf("Youret: %s\t | Libret: %s\n", r->ft_printf_ret->str, r->printf_ret->str);
@@ -118,28 +112,26 @@ int		main(void)
 		{
 			fclose(r->source_code->fd);
 			curtest = 0;
-			cur_c_line = 0;
+			cur_c_line = 1;
 			read_params(r->printf_line, p);
 			num_of_tests += p->num_of_tests;
 			skip_lines(r->ft_printf_line, 7);
 			temp = ft_strjoin("./testers/", p->codefile);
 			r->source_code->fd = fopen(temp, "r");
 			free(temp);
+			getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
 		}
 		r_getline(r->printf_ret);
 		r_getline(r->ft_printf_ret);
 		if (strcmp(r->printf_line->str, r->ft_printf_line->str) || strcmp(r->printf_ret->str, r->printf_ret->str))
 		{
 			errors++;
-			do
-			{
+			while (cur_c_line++ <= curtest)
 				getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
-				cur_c_line++;
-			}while (cur_c_line <= curtest);
 			skip_lines(r->source_code, 2);
 			r_getline(r->source_code);
 			print_error(p, r);
-			skip_lines(r->source_code, 5);
+			getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
 		}
 		curtest++;
 	}
@@ -222,6 +214,35 @@ void	skip_lines(t_line *line, int n)
 			printf("No more lines in file.\n");
 			break;
 		}
+}
+
+void	print_error2(t_params *p, t_read_lines *r)
+{
+	size_t i = 0;
+	size_t	cp;
+
+	printf("=============\n");
+	printf("Test fail: printf(");
+	while (r->source_code->str[i] != '\"')
+		i++;
+	cp = i;
+	while (r->source_code->str[i] != '*')
+		i++;
+	r->source_code->str[i] = '\0';
+	printf("%s", &r->source_code->str[cp]);
+	r->source_code->str[i] = '*';
+	printf("%s.%s", p->width, p->precision);
+	i += 3;
+	cp = i;
+	while (r->source_code->str[i] != '\"')
+		i++;
+	r->source_code->str[i + 1] = '\0';
+	printf("%s", &r->source_code->str[cp]);
+	r->source_code->str[i + 1] = '\"';
+	printf(", %s)\n", p->var);
+	printf("Your   str: \"%s\"\n", r->ft_printf_line->str);
+	printf("printf str: \"%s\"\n", r->printf_line->str);
+	printf("Youret: %s\t | Libret: %s\n", r->ft_printf_ret->str, r->printf_ret->str);
 }
 
 char	*ft_strdup(const char *str)
