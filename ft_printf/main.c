@@ -19,18 +19,14 @@ int		main(void)
 {
 	int	n = 0;
 
-	signed_number_testing(&n, 0, 0, 0);
-	signed_number_testing(&n, 0, -1, 0);
-	signed_number_testing(&n, 0, 4, 0);
-	signed_number_testing(&n, 5, 3, 25);
-	signed_number_testing(&n, 5, 4, -25);
-	signed_number_testing(&n, -5, 3, -25);
-	signed_number_testing(&n, -13, 12, -2147483648);
-	signed_number_testing(&n, -13, 12, 2147483648);
-	
-	unsigned_number_testing(&n, 0, 0, 0);
-	unsigned_number_testing(&n, 0, -1, 0);
-	unsigned_number_testing(&n, 5, 3, 25);
-	unsigned_number_testing(&n, 5, 3, -25);
+	numeric_testing_diouxbx(&n, 0, 0, 0);
+	numeric_testing_diouxbx(&n, 0, -1, 0);
+	numeric_testing_diouxbx(&n, 0, 4, 0);
+	numeric_testing_diouxbx(&n, 5, 3, 25);
+	numeric_testing_diouxbx(&n, 5, 4, -25);
+	numeric_testing_diouxbx(&n, -5, 3, -25);
+	numeric_testing_diouxbx(&n, -13, 12, -2147483648);
+	numeric_testing_diouxbx(&n, -13, 12, 2147483648);
+
 	return (0);
 }

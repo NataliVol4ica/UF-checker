@@ -1,10 +1,8 @@
 
-TEST1 = "signed_number_testing" "signed_long_long_int_" "0" "2"
-TEST2 = "unsigned_number_testing" "long_long_int_" "2" "6"
+TEST1 = "numeric_testing_diouxbx" "intmax_t@" "0" "6"
 
 TESTDIR = ./testers
-TESTFILES = signed_number_testing \
-			unsigned_number_testing
+TESTFILES = numeric_testing_diouxbx
 DFILES = $(patsubst %, $(TESTDIR)/%.c, $(TESTFILES))
 
 EXEDIR = ./executables
@@ -44,7 +42,6 @@ res_delete:
 test_files:
 	@echo ${CYAN}"[Creating test files]"${NC}
 	sh $(TESTSCRIPT) $(TEST1) $(EXEDIR)
-	sh $(TESTSCRIPT) $(TEST2) $(EXEDIR)
 
 do_testing:
 	@echo ${PURPLE}"[Running tests. This may take some time.]"${NC}
@@ -70,7 +67,7 @@ test:
 	@make print_res
 
 diff2:
-	@$(EXEDIR)/differ > fails
+	@$(EXEDIR)/differ
 
 diff:
 	@diff $(FILEDIR)/ft_printf_ret $(FILEDIR)/printf_ret > $(FILEDIR)/diff_ret || true

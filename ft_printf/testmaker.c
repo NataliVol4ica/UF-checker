@@ -16,7 +16,7 @@
 
 #define FLAGS " 0+-#\'" //6 , // 32
 #define FLAGNUM 5
-#define TYPES "diouxXDUO" //[0-2]signed[2-6]uns[6-7]signed no len[7-9]uns no len
+#define TYPES "diouxXDUO" //[0-6]numeric[6-7]signed no len[7-9]uns no len
 #define NUM 2
 #define NUM_ARGUMENTS "width, precision, var"
 
@@ -174,13 +174,13 @@ void	make_tests(char *name, char *vtype, size_t type_from, size_t type_to)
 	printf("}\n");
 }
 
-char	*replace_(char *str)
+char	*replacedog(char *str)
 {
 	size_t	i;
 
 	i = -1;
 	while (str[++i])
-		if (str[i] == '_')
+		if (str[i] == '@')
 			str[i] = ' ';
 	return(str);
 }
@@ -191,7 +191,7 @@ int		main(int ac, char **av)
 	if (ac == 5)
 	{
 		//printf("Testing %s %s %d %d\n", av[1], av[2], atoi(av[3]), atoi(av[4]));
-		make_tests(av[1], replace_(av[2]), atoi(av[3]), atoi(av[4]));
+		make_tests(av[1], replacedog(av[2]), atoi(av[3]), atoi(av[4]));
 	}
 	return (0);
 }
