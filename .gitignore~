@@ -6,4 +6,5 @@ PRINTFchecker/files/
 e
 *.o
 */obj
+GNL*main*
 GNL*_ans
