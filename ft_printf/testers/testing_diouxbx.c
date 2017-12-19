@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <wchar.h>
+#include <locale.h>
 #include "libftprintf.h"
 
 size_t testing_diouxbx_tests = 768;
@@ -9,6 +11,8 @@ void		testing_diouxbx(int width, int precision, intmax_t var)
 	int		ret1;
 	int		ret2;
 	FILE	*fppres, *fppret, *fpftret;
+
+	setlocale(LC_ALL, "en_US.UTF-8");
 
 	fppres = fopen("./files/printf_res", "a");
 	fppret = fopen("./files/printf_ret", "a");
@@ -22,7 +26,7 @@ void		testing_diouxbx(int width, int precision, intmax_t var)
 	fprintf(fppres, "TESTS = %zu\n", testing_diouxbx_tests);
 	fprintf(fppres, "WIDTH = %d\n", width);
 	fprintf(fppres, "PRECISION = %d\n", precision);
-	fprintf(fppres, "VAR = %lld\n\n", var);
+	fprintf(fppres, "VAR = %zd\n\n", var);
 
 	ft_printf("===\\ NEW TEST\n");
 	ft_printf("NAME = testing_diouxbx.c\n");

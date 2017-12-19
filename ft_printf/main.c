@@ -14,10 +14,10 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <locale.h>
+#include <limits.h>
 
 int		main(void)
 {
-	setlocale(LC_ALL, "en_US.UTF-8");
 	/*int	n = 0;
 	struct lconv *loc;
 
@@ -41,5 +41,21 @@ int		main(void)
 	testing_diouxbx(-13, 12, 2147483647);
 
 	testing_cbc(0, 0, 'v');
+	testing_cbc(0, -1, 'v');
+	testing_cbc(2, -1, 128);
+	testing_cbc(2, -1, INT_MAX);
+	testing_cbc(2, -1, L'α');
+	testing_cbc(2, -1, L'我');
+	
+	setlocale(LC_ALL, "en_US.UTF-8");
+	testing_sbs(0, 0, L"");
+	testing_sbs(0, -1, L"");
+	testing_sbs(0, 5, L"");
+	testing_sbs(2, 1, L"");
+	testing_sbs(2, 0, L"");
+	testing_sbs(30, 20, L"casual string");
+	testing_sbs(10, 20, L"casual string");
+	testing_sbs(13, 12, L"casual string");
+
 	return (0);
 }

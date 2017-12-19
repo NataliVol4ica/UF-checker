@@ -99,6 +99,18 @@ void	print_params(t_data *data, t_params *p, char *arguments)
 	p->testnum++;
 }
 
+void	print_var(char *vtype)
+{
+	printf("\tfprintf(fppres, \"VAR = %%");
+	if (strstr(vtype, "intmax_t"))
+		printf("zd");
+	else if (strstr(vtype, "wchar_t *"))
+		printf("S");
+	else if (strstr(vtype, "wchar_t"))
+		printf("C");
+	printf("\\n\\n\", var);\n\n");
+}
+
 void	make_tests(t_data *data, char *name, char *vtype)
 {
 	t_params *p = (t_params*)malloc(sizeof(t_params));
@@ -108,6 +120,8 @@ void	make_tests(t_data *data, char *name, char *vtype)
 
 	printf("#include <stdio.h>\n");
 	printf("#include <stdint.h>\n");
+	printf("#include <wchar.h>\n");
+	printf("#include <locale.h>\n");
 	printf("#include \"libftprintf.h\"\n");
 	
 	printf("\nsize_t %s_tests = %zu;\n", name, data->flagvar * data->typenum * 8);
@@ -115,6 +129,8 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("\nvoid\t\t%s(int width, int precision, %svar)\n{\n", name, vtype);
 	printf("\tint\t\tret1;\n\tint\t\tret2;\n");
 	printf("\tFILE\t*fppres, *fppret, *fpftret;\n\n");
+
+	printf("\tsetlocale(LC_ALL, \"en_US.UTF-8\");\n\n");
 
 	printf("\tfppres = fopen(\"./files/printf_res\", \"a\");\n");
 	printf("\tfppret = fopen(\"./files/printf_ret\", \"a\");\n");
@@ -129,7 +145,7 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("\tfprintf(fppres, \"TESTS = %%zu\\n\", %s_tests);\n", name);
 	printf("\tfprintf(fppres, \"WIDTH = %%d\\n\", width);\n");
 	printf("\tfprintf(fppres, \"PRECISION = %%d\\n\", precision);\n");
-	printf("\tfprintf(fppres, \"VAR = %%lld\\n\\n\", var);\n\n");
+	print_var(vtype);
 
 	printf("\tft_printf(\"===\\\\ NEW TEST\\n\");\n");
 	printf("\tft_printf(\"NAME = %s.c\\n\");\n", name);

@@ -1,14 +1,18 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <wchar.h>
+#include <locale.h>
 #include "libftprintf.h"
 
 size_t testing_sbs_tests = 256;
 
-void		testing_sbs(int width, int precision, char *var)
+void		testing_sbs(int width, int precision, wchar_t *var)
 {
 	int		ret1;
 	int		ret2;
 	FILE	*fppres, *fppret, *fpftret;
+
+	setlocale(LC_ALL, "en_US.UTF-8");
 
 	fppres = fopen("./files/printf_res", "a");
 	fppret = fopen("./files/printf_ret", "a");
@@ -22,7 +26,7 @@ void		testing_sbs(int width, int precision, char *var)
 	fprintf(fppres, "TESTS = %zu\n", testing_sbs_tests);
 	fprintf(fppres, "WIDTH = %d\n", width);
 	fprintf(fppres, "PRECISION = %d\n", precision);
-	fprintf(fppres, "VAR = %lld\n\n", var);
+	fprintf(fppres, "VAR = %S\n\n", var);
 
 	ft_printf("===\\ NEW TEST\n");
 	ft_printf("NAME = testing_sbs.c\n");

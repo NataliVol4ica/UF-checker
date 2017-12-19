@@ -1,9 +1,9 @@
 
 # MAIN TESTS
 
-TEST1 = "testing_diouxbx" "intmax_t@" " 0+-\#" "diouxX"
-TEST2 = "testing_cbc" "int@" " 0+-\#" "cC"
-TEST3 = "testing_sbs" "char@*" " 0+-\#" "sS"
+TEST1 = "testing_diouxbx" "intmax_t@" " 0+-\#" "diouxX" 
+TEST2 = "testing_cbc" "wchar_t@" " 0+-\#" "cC"
+TEST3 = "testing_sbs" "wchar_t@*" " 0+-\#" "sS"
 
 # BONUS
 
