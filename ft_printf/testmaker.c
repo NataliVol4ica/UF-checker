@@ -87,27 +87,27 @@ void	print_params(t_data *data, t_params *p, char *arguments)
 	printf("*.*%s%c", p->length, p->type);
 	printf("|\\n\", %s);\n", arguments);
 	printf("\tft_printf(\"#%04zu\");\n", p->testnum);
-	printf("\tret2 = ft_printf(\"|%%");
+	printf("\tret2 = ret1 > -1 ? ft_printf(\"|%%");
 	for (size_t i = 0; i < data->flagnum; i++)
 		if (p->flags[i] != 0)
 			printf("%c", data->flaglist[i]);
 	printf("*.*%s%c", p->length, p->type);
-	printf("|\\n\", %s);\n", arguments);
+	printf("|\\n\", %s) : -1;\n", arguments);
 	printf("\tfprintf(fppret, \"%%d\\n\", ret1);\n");
 	printf("\tfprintf(fpftret, \"%%d\\n\", ret2);\n");
 	printf("\t//@");
 	p->testnum++;
 }
 
-void	print_var(char *vtype)
+void	print_var(char *vtype, char *pre)
 {
-	printf("\tfprintf(fppres, \"VAR = %%");
+	printf("\t%s\"VAR = ", pre);
 	if (strstr(vtype, "intmax_t"))
-		printf("zd");
+		printf("%%zd");
 	else if (strstr(vtype, "wchar_t *"))
-		printf("S");
+		printf("\\\"%%S\\\"");
 	else if (strstr(vtype, "wchar_t"))
-		printf("C");
+		printf("\\\'%%C\\\'");
 	printf("\\n\\n\", var);\n\n");
 }
 
@@ -121,7 +121,6 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("#include <stdio.h>\n");
 	printf("#include <stdint.h>\n");
 	printf("#include <wchar.h>\n");
-	printf("#include <locale.h>\n");
 	printf("#include \"libftprintf.h\"\n");
 	
 	printf("\nsize_t %s_tests = %zu;\n", name, data->flagvar * data->typenum * 8);
@@ -130,29 +129,27 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("\tint\t\tret1;\n\tint\t\tret2;\n");
 	printf("\tFILE\t*fppres, *fppret, *fpftret;\n\n");
 
-	printf("\tsetlocale(LC_ALL, \"en_US.UTF-8\");\n\n");
-
 	printf("\tfppres = fopen(\"./files/printf_res\", \"a\");\n");
 	printf("\tfppret = fopen(\"./files/printf_ret\", \"a\");\n");
 	printf("\tfpftret = fopen(\"./files/ft_printf_ret\", \"a\");\n\n");
 
 	printf("\tsetvbuf(fppres, NULL, _IONBF, 0);\n");
 	printf("\tsetvbuf(fppret, NULL, _IONBF, 0);\n");
-	printf("\tsetvbuf(fpftret, NULL, _IONBF, 0);\n");
+	printf("\tsetvbuf(fpftret, NULL, _IONBF, 0);\n\n");
 
 	printf("\tfprintf(fppres, \"===\\\\ NEW TEST\\n\");\n");
 	printf("\tfprintf(fppres, \"NAME = %s.c\\n\");\n", name);
 	printf("\tfprintf(fppres, \"TESTS = %%zu\\n\", %s_tests);\n", name);
 	printf("\tfprintf(fppres, \"WIDTH = %%d\\n\", width);\n");
 	printf("\tfprintf(fppres, \"PRECISION = %%d\\n\", precision);\n");
-	print_var(vtype);
+	print_var(vtype, "fprintf(fppres, ");
 
 	printf("\tft_printf(\"===\\\\ NEW TEST\\n\");\n");
 	printf("\tft_printf(\"NAME = %s.c\\n\");\n", name);
 	printf("\tft_printf(\"TESTS = %%zu\\n\", %s_tests);\n", name);
 	printf("\tft_printf(\"WIDTH = %%d\\n\", width);\n");
 	printf("\tft_printf(\"PRECISION = %%d\\n\", precision);\n");
-	printf("\tft_printf(\"VAR = %%lld\\n\\n\", var);\n");
+	print_var(vtype, "ft_printf(");
 	printf("\t//@");
 
 	for (size_t flags = 0; flags < data->flagvar; flags++)

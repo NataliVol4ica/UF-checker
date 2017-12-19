@@ -132,6 +132,7 @@ int		main(void)
 			r_getline(r->source_code);
 			print_error(p, r);
 			getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
+			break;
 		}
 		curtest++;
 	}
@@ -245,8 +246,8 @@ void	print_error2(t_params *p, t_read_lines *r)
 	printf("%s", &r->source_code->str[cp]);
 	r->source_code->str[i + 1] = '\"';
 	printf(", %s)\n", p->var);
-	printf("Your   str: \"%s\"\n", r->ft_printf_line->str);
-	printf("printf str: \"%s\"\n", r->printf_line->str);
+	printf("Your   str: \"%S\"\n", r->ft_printf_line->str);
+	printf("printf str: \"%S\"\n", r->printf_line->str);
 	printf("Youret: %s\t | Libret: %s\n", r->ft_printf_ret->str, r->printf_ret->str);
 }
 
