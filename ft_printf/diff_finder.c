@@ -50,20 +50,13 @@ void	write_params(t_params *p);
 void	skip_lines(t_line *line, int n);
 void	print_error(t_params *p, t_read_lines *r);
 void	print_error2(t_params *p, t_read_lines *r);
+int		r_getline(t_line *line);
 t_read_lines	*new_read_lines(void);
 
 void	fatal_error(char *str)
 {
 	printf("[FATAL ERROR] %s\n", str);
 	exit (0);
-}
-
-int		r_getline(t_line *line)
-{
-	line->len = getline(&line->str, &as_you_wish, line->fd);
-	if (line->len > 0)
-		line->str[line->len - 1] = '\0';
-	return(line->len > 0 ? 1 : 0); 
 }
 
 void	print_error(t_params *p, t_read_lines *r)
@@ -100,11 +93,7 @@ int		main(void)
 	size_t	cur_c_line;
 
 	p = (t_params*)malloc(sizeof(t_params));
-	if (!(r = new_read_lines()))
-	{
-		printf("Malloc ERROR\n");
-		exit (1);
-	}
+	r = new_read_lines();
 	while (r_getline(r->printf_line))
 	{
 		r_getline(r->ft_printf_line);
@@ -145,6 +134,26 @@ int		main(void)
 	printf("Total number of errors: %zu\n", errors);
 	//system("leaks differ");
 	return (0);
+}
+
+int		r_getline(t_line *line)
+{
+	line->len = getline(&line->str, &as_you_wish, line->fd);
+	if (line->len > 0)
+		line->str[line->len - 1] = '\0';
+	return(line->len > 0 ? 1 : 0); 
+}
+
+void	skip_lines(t_line *line, int n)
+{
+	size_t	r;
+	
+	while (n-- > 0)
+		if ((r_getline(line)) <= 0)
+		{
+			printf("No more lines in file.\n");
+			break;
+		}
 }
 
 t_read_lines	*new_read_lines(void)
@@ -208,18 +217,6 @@ void	write_params(t_params *p)
 	printf("Width = \"%s\"\n", p->width);
 	printf("Precision = \"%s\"\n", p->precision);
 	printf("Var = \"%s\"\n", p->var);
-}
-
-void	skip_lines(t_line *line, int n)
-{
-	size_t	r;
-	
-	while (n-- > 0)
-		if ((r_getline(line)) <= 0)
-		{
-			printf("No more lines in file.\n");
-			break;
-		}
 }
 
 void	print_error2(t_params *p, t_read_lines *r)

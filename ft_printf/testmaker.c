@@ -86,7 +86,7 @@ void	print_params(t_data *data, t_params *p, char *arguments)
 			printf("%c", data->flaglist[i]);
 	printf("*.*%s%c", p->length, p->type);
 	printf("|\\n\", %s);\n", arguments);
-	printf("\tft_printf(\"#%04zu\");\n", p->testnum);
+	printf("\tret1 > -1 ? ft_printf(\"#%04zu\") : 1;\n", p->testnum);
 	printf("\tret2 = ret1 > -1 ? ft_printf(\"|%%");
 	for (size_t i = 0; i < data->flagnum; i++)
 		if (p->flags[i] != 0)
@@ -120,6 +120,7 @@ void	make_tests(t_data *data, char *name, char *vtype)
 
 	printf("#include <stdio.h>\n");
 	printf("#include <stdint.h>\n");
+	printf("#include <locale.h>\n");
 	printf("#include <wchar.h>\n");
 	printf("#include \"libftprintf.h\"\n");
 	
@@ -127,7 +128,11 @@ void	make_tests(t_data *data, char *name, char *vtype)
 
 	printf("\nvoid\t\t%s(int width, int precision, %svar)\n{\n", name, vtype);
 	printf("\tint\t\tret1;\n\tint\t\tret2;\n");
+	printf("\tchar\t*loc;\n");
 	printf("\tFILE\t*fppres, *fppret, *fpftret;\n\n");
+
+	printf("\tloc = setlocale(LC_CTYPE, NULL);\n");
+	printf("\tsetlocale(LC_CTYPE, \"\");\n\n");
 
 	printf("\tfppres = fopen(\"./files/printf_res\", \"a\");\n");
 	printf("\tfppret = fopen(\"./files/printf_ret\", \"a\");\n");
@@ -150,8 +155,8 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("\tft_printf(\"WIDTH = %%d\\n\", width);\n");
 	printf("\tft_printf(\"PRECISION = %%d\\n\", precision);\n");
 	print_var(vtype, "ft_printf(");
+	printf("\tsetlocale(LC_CTYPE, loc);\n");
 	printf("\t//@");
-
 	for (size_t flags = 0; flags < data->flagvar; flags++)
 	{
 		set_flags(data, p, flags);
@@ -165,6 +170,8 @@ void	make_tests(t_data *data, char *name, char *vtype)
 			}
 		}
 	}
+	printf("\n\tfprintf(fppres, \"\\n\");\n");
+	printf("\tft_printf(\"\\n\");\n");
 	printf("\tfclose(fppres);\n");
 	printf("\tfclose(fppret);\n");
 	printf("\tfclose(fpftret);\n");

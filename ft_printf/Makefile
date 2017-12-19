@@ -1,5 +1,6 @@
 
 # MAIN TESTS
+# bs == big s == S, etc.
 
 TEST1 = "testing_diouxbx" "intmax_t@" " 0+-\#" "diouxX" 
 TEST2 = "testing_cbc" "wchar_t@" " 0+-\#" "cC"
