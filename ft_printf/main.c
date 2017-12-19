@@ -17,8 +17,11 @@
 #include <limits.h>
 
 int		main(void)
-{
-	
+{	
+	testing_percent(0, 0, 0);
+	testing_percent(2, 0, 0);
+	testing_percent(6, 5, 0);
+
 	testing_diouxbx(0, 0, 0);
 	testing_diouxbx(0, -1, 0);
 	testing_diouxbx(0, 4, 0);
@@ -42,7 +45,6 @@ int		main(void)
 	testing_cbc(2, -1, L'α');
 	testing_cbc(2, -1, L'我');
 
-	setlocale(LC_ALL, "en_US.UTF-8");
 	testing_sbs(0, 0, L"");
 	testing_sbs(0, -1, L"");
 	testing_sbs(0, 5, L"");
@@ -54,5 +56,7 @@ int		main(void)
 	testing_sbs(13, 12, L"casual string");
 	testing_sbs(20, -1, L"我是一只猫。");
 	testing_sbs(30, -1, L"我是一只猫。");
+
+
 	return (0);
 }

@@ -1,7 +1,11 @@
 
-# MAIN TESTS
-# bs == big s == S, etc.
+### TEST[NUM] = "[FUNC & FILE NAME]" "[VAR TYPE]" "[FLAGS]" "[TYPES]"
+### bs == big s == S, etc.
+### '@' is replaced with ' '. This was implemented in order to give an opportunity to use pointers * 
 
+# MAIN TESTS
+
+TEST0 = "testing_percent" "int@" " 0+-\#" "%"
 TEST1 = "testing_diouxbx" "intmax_t@" " 0+-\#" "diouxX" 
 TEST2 = "testing_cbc" "wchar_t@" " 0+-\#" "cC"
 TEST3 = "testing_sbs" "wchar_t@*" " 0+-\#" "sS"
@@ -11,13 +15,15 @@ TEST3 = "testing_sbs" "wchar_t@*" " 0+-\#" "sS"
 TEST10 = "testing_diouxbx_bonus" "intmax_t@" " 0+-\#\'" "diufF" 
 
 TESTDIR = ./testers
-TESTFILES = testing_diouxbx \
+TESTFILES = testing_percent \
+			testing_diouxbx \
 			testing_cbc \
 			testing_sbs
 DFILES = $(patsubst %, $(TESTDIR)/%.c, $(TESTFILES))
 
 EXEDIR = ./executables
 FILEDIR = ./files
+DIFDIR = ./diff_finder
 
 TESTSCRIPT = $(TESTDIR)/test_comp.sh
 
@@ -52,6 +58,7 @@ res_delete:
 
 test_files:
 	@echo ${CYAN}"[Creating test files]"${NC}
+	sh $(TESTSCRIPT) $(TEST0) $(EXEDIR)
 	sh $(TESTSCRIPT) $(TEST1) $(EXEDIR)
 	sh $(TESTSCRIPT) $(TEST2) $(EXEDIR)
 	sh $(TESTSCRIPT) $(TEST3) $(EXEDIR)
@@ -64,9 +71,9 @@ print_res:
 	@echo ${GREEN}"[========| Test results |========]"${NC}
 	@make diff2
 
-diff_finder: diff_finder.c
+diff_finder: $(DIFDIR)/diff_finder.c
 	@echo ${CYAN}"[Compiling diff finder]"${NC}
-	gcc $(FLAGS) -o $(EXEDIR)/differ diff_finder.c
+	gcc $(FLAGS) -o $(EXEDIR)/differ $(DIFDIR)/*.c
 
 test:
 	@echo ${RED}"[========| Test building |========]"${NC}

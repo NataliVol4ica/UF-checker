@@ -16,10 +16,11 @@
 #include <libc.h>
 
 #define ARGUMENTS "width, precision, var"
+#define MAXLEN 6
 
 typedef enum	e_length
 {
-	EMPTY = 0, HH = 2, H, L, LL, J, T, Z, BL
+	EMPTY = 0, HH = 2, H, L, LL, J, Z, T, BL
 }				t_length;
 
 typedef struct s_data
@@ -108,7 +109,7 @@ void	print_var(char *vtype, char *pre)
 		printf("\\\"%%S\\\"");
 	else if (strstr(vtype, "wchar_t"))
 		printf("\\\'%%C\\\'");
-	printf("\\n\\n\", var);\n\n");
+	printf("\\n\", var);\n");
 }
 
 void	make_tests(t_data *data, char *name, char *vtype)
@@ -124,7 +125,7 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("#include <wchar.h>\n");
 	printf("#include \"libftprintf.h\"\n");
 	
-	printf("\nsize_t %s_tests = %zu;\n", name, data->flagvar * data->typenum * 8);
+	printf("\nsize_t %s_tests = %zu;\n", name, data->flagvar * data->typenum * (MAXLEN + 1));
 
 	printf("\nvoid\t\t%s(int width, int precision, %svar)\n{\n", name, vtype);
 	printf("\tint\t\tret1;\n\tint\t\tret2;\n");
@@ -148,6 +149,7 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("\tfprintf(fppres, \"WIDTH = %%d\\n\", width);\n");
 	printf("\tfprintf(fppres, \"PRECISION = %%d\\n\", precision);\n");
 	print_var(vtype, "fprintf(fppres, ");
+	printf("\tfprintf(fppres, \"LOCALE = \\\"%%s\\\"\\n\\n\", loc);\n\n");
 
 	printf("\tft_printf(\"===\\\\ NEW TEST\\n\");\n");
 	printf("\tft_printf(\"NAME = %s.c\\n\");\n", name);
@@ -155,6 +157,8 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("\tft_printf(\"WIDTH = %%d\\n\", width);\n");
 	printf("\tft_printf(\"PRECISION = %%d\\n\", precision);\n");
 	print_var(vtype, "ft_printf(");
+	printf("\tft_printf(\"LOCALE = \\\"%%s\\\"\\n\\n\", loc);\n\n");
+	
 	printf("\tsetlocale(LC_CTYPE, loc);\n");
 	printf("\t//@");
 	for (size_t flags = 0; flags < data->flagvar; flags++)
@@ -163,7 +167,7 @@ void	make_tests(t_data *data, char *name, char *vtype)
 		for (size_t type = 0; type < data->typenum; type++)
 		{
 			p->type = data->typelist[type];
-			for (size_t length = 1; length < 9; length++)
+			for (size_t length = 1; length < (MAXLEN + 2); length++)
 			{
 				set_length(p, length);
 				print_params(data, p, ARGUMENTS);
