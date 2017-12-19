@@ -305,8 +305,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (s1)
 		while (s1[++i])
 			res[i] = s1[i];
+	else
+		i = 0;
 	if (s2)
 		while (s2[++j])
 			res[i + j] = s2[j];
+	else
+		j = 0;
+	res[i + j] = '\0';
 	return (res);
 }

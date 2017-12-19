@@ -27,7 +27,7 @@ int		main(void)
 	loc = localeconv();
 	printf("Separator %s\n", loc->thousands_sep);
 	*/
-	/*testing_diouxbx(0, 0, 0);
+	testing_diouxbx(0, 0, 0);
 	testing_diouxbx(0, -1, 0);
 	testing_diouxbx(0, 4, 0);
 	testing_diouxbx(5, 3, 25);
@@ -38,7 +38,7 @@ int		main(void)
 	testing_diouxbx(-4, 3, -25);
 	testing_diouxbx(-13, 12, -2147483648);
 	testing_diouxbx(-13, 12, 2147483648);
-	testing_diouxbx(-13, 12, 2147483647);*/
+	testing_diouxbx(-13, 12, 2147483647);
 
 	testing_cbc(0, 0, 'v');
 	return (0);
