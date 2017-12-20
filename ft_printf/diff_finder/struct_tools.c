@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "diff_finder.h"
+#include <stdio.h>
 
 t_read_lines	*new_read_lines(void)
 {

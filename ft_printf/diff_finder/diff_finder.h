@@ -13,7 +13,7 @@
 #ifndef DIFF_FINDER_H
 # define DIFF_FINDER_H
 
-int		as_you_wish;
+# include <stdio.h>
 
 typedef struct	s_params
 {
@@ -41,39 +41,33 @@ typedef struct	s_read_lines
 	t_line		*source_code;
 }				t_read_lines;
 
-typedef struct	s_lengthes
+enum m_types
 {
-	_Bool		hh : 0;
-	_Bool		h : 0;
-	_Bool		l : 0;
-	_Bool		ll : 0;
-	_Bool		j : 0;
-	_Bool		z : 0;
-	_Bool		t : 0;
-	_Bool		L : 0;
-}				t_lengthes;
+	td = 0, tD, ti, to, tO, tu, tU, tx, tX, tc, tC, ts, tS, tp, tperc //15
+};
+
+enum b_types
+{
+	te = 0, tE, tf, tF, ta, tA, tg, tG, tn //9
+};
+
+enum lens
+{
+	lhh = 0, lh, ll, lll, lj, lz, lL, lt //8
+};
 
 typedef struct	s_result
 {
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
-	t_lengthes	*d;
+	int		main_vals[15][8];
+	int		bon_vals[9][8];
 }				t_result;
 
+t_result		result;
+int				as_you_wish;
+
+
 char			*ft_strdup(const char *str);
-char			ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin(char const *s1, char const *s2);
 void			read_params(t_line *line, t_params *p);
 void			write_params(t_params *p);
 void			skip_lines(t_line *line, int n);

@@ -71,7 +71,7 @@ print_res:
 	@echo ${GREEN}"[========| Test results |========]"${NC}
 	@make diff2
 
-diff_finder: $(DIFDIR)/diff_finder.c
+differ:
 	@echo ${CYAN}"[Compiling diff finder]"${NC}
 	gcc $(FLAGS) -o $(EXEDIR)/differ $(DIFDIR)/*.c
 
@@ -83,7 +83,7 @@ test:
 	@make test_files
 	@make main
 	@make do_testing
-	@make diff_finder
+	@make differ
 	@make print_res
 
 diff2:
