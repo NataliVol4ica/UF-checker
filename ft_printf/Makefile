@@ -14,17 +14,24 @@ TEST5 = "testing_p" "void@*" " 0+-\#" "p" "0"
 
 # BONUS
 
-TEST8 = "testing_apostrophe_numeric" "intmax_t@" " 0+-\#\'" "dDioOuUxXaAeEfFgG" "1"
+TEST8 = "testing_apostrophe_numeric" "intmax_t@" " 0+-\#\'" "%dDioOuUxXaAeEfFgG" "1"
+TEST9 = "testing_apostrophe_cbc" "wchar_t@" " 0+-\#\'" "cC" "1"
+TEST10 = "testing_apostrophe_sbs" "wchar_t@*" " 0+-\#\'" "sS" "1"
+TEST11 = "testing_apostrophe_p" "void@*" " 0+-\#\'" "p" "1"
 
 TESTDIR = ./testers
-TESTFILES = testing_percent \
-			testing_diouxbx \
-			testing_cbc \
-			testing_sbs \
-			testing_bdbobu \
-			testing_p \
-			testing_apostrophe_numeric
-DFILES = $(patsubst %, $(TESTDIR)/%.c, $(TESTFILES))
+MAINTESTFILES = testing_percent \
+				testing_diouxbx \
+				testing_cbc \
+				testing_sbs \
+				testing_bdbobu \
+				testing_p
+MAINDFILES = $(patsubst %, $(TESTDIR)/%.c, $(MAINTESTFILES))
+BONUSTESTFILES =	testing_apostrophe_numeric \
+					testing_apostrophe_cbc \
+					testing_apostrophe_sbs \
+					testing_apostrophe_p
+BONUSDFILES = $(patsubst %, $(TESTDIR)/%.c, $(BONUSTESTFILES))
 
 EXEDIR = ./executables
 FILEDIR = ./files
@@ -49,22 +56,16 @@ NC = '\033[0m' # No Color
 
 main:
 	@echo ${CYAN}"[Compiling main]"${NC}
-	gcc $(FLAGS) -o $(EXEDIR)/main_tester -I. -L. -lftprintf tests_main.c $(DFILES)
-	gcc $(FLAGS) -o $(EXEDIR)/bonus_tester -I. -L. -lftprintf tests_bonus.c $(DFILES)
+	gcc $(FLAGS) -o $(EXEDIR)/main_tester -I. -L. -lftprintf tests_main.c $(MAINDFILES)
+	gcc $(FLAGS) -o $(EXEDIR)/bonus_tester -I. -L. -lftprintf tests_bonus.c $(BONUSDFILES)
 
 testmaker:
 	@echo ${CYAN}"[Building a testmaker file]"${NC}
 	gcc -o $(EXEDIR)/testmaker testmaker.c
 
 res_delete:
-	@rm $(FILEDIR)/main_printf_res || true
-	@rm $(FILEDIR)/main_ft_printf_res || true
-	@rm $(FILEDIR)/main_printf_ret || true
-	@rm $(FILEDIR)/main_ft_printf_ret || true
-	@rm $(FILEDIR)/bonus_printf_res || true
-	@rm $(FILEDIR)/bonus_ft_printf_res || true
-	@rm $(FILEDIR)/bonus_printf_ret || true
-	@rm $(FILEDIR)/bonus_ft_printf_ret || true
+	@rm -rf $(FILEDIR) || true
+	@mkdir $(FILEDIR)
 
 test_files:
 	@echo ${CYAN}"[Creating test files]"${NC}
@@ -74,10 +75,14 @@ test_files:
 	sh $(TESTSCRIPT) $(TEST3) $(EXEDIR)
 	sh $(TESTSCRIPT) $(TEST4) $(EXEDIR)
 	sh $(TESTSCRIPT) $(TEST5) $(EXEDIR)
+
 	sh $(TESTSCRIPT) $(TEST8) $(EXEDIR)
+	sh $(TESTSCRIPT) $(TEST9) $(EXEDIR)
+	sh $(TESTSCRIPT) $(TEST10) $(EXEDIR)
+	sh $(TESTSCRIPT) $(TEST11) $(EXEDIR)
 
 do_testing:
-	@echo ${PURPLE}"[Running tests. This may take some time.]"${NC}
+	@echo ${PURPLE}"[Running tests]"${NC}
 	$(EXEDIR)/main_tester > files/main_ft_printf_res
 	$(EXEDIR)/bonus_tester > files/bonus_ft_printf_res
 
@@ -91,9 +96,8 @@ differ:
 
 test:
 	@echo ${RED}"[========| Test building |========]"${NC}
-	@mkdir files || true
-	@make testmaker
 	@make res_delete
+	@make testmaker
 	@make test_files
 	@make main
 	@make do_testing

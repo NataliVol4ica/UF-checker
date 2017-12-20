@@ -65,6 +65,7 @@ void			save_fail(char *str)
 	char	t;
 	size_t	type_index;
 
+	if (strchr(str, '\'')) apostrophe_fails++;
 	t = str[strlen(str) - 4];
 	if (t == 'd') type_index = td; else
 	if (t == 'D') type_index = tD; else
@@ -190,5 +191,8 @@ void			print_result(int is_bonus)
 	printf("\n");
 	for (enum b_types t = td; t <= tn; t++)
 		print_b_res(t);
+	printf("\n   Apostrophe fails: ");
+	if (apostrophe_fails == 0) print_green("[0]\n");
+	else printf("\x1b[31m""[%d]\n""\x1b[0m", apostrophe_fails);
 	printf("|============================|\n");
 }

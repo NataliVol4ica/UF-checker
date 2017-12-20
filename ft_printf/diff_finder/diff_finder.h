@@ -58,13 +58,13 @@ enum lens
 
 typedef struct	s_result
 {
-	int		main_vals[15][9];
-	int		bon_vals[9][9];
+	size_t	main_vals[15][9];
+	size_t	bon_vals[9][9];
 }				t_result;
 
 t_result		result;
 int				as_you_wish;
-
+size_t			apostrophe_fails;
 
 char			*ft_strdup(const char *str);
 char			*ft_strjoin(char const *s1, char const *s2);
