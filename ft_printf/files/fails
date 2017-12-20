@@ -1,5 +1,0 @@
-=============
-Test fail: printf("|%*.*%|\n", 0, 0, 0);
-Your   str: "#0000|%|"
-printf str: "#0000|% |"
-Youret: 4	 | Libret: 4

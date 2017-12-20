@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tests_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkolosov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -57,6 +57,28 @@ int		main(void)
 	testing_sbs(20, -1, L"我是一只猫。");
 	testing_sbs(30, -1, L"我是一只猫。");
 
+	testing_bdbobu(0, 0, 0);
+	testing_bdbobu(0, -1, 0);
+	testing_bdbobu(0, 4, 0);
+	testing_bdbobu(5, 3, 25);
+	testing_bdbobu(5, 0, 25);
+	testing_bdbobu(5, 1, 25);
+	testing_bdbobu(5, 4, -25);
+	testing_bdbobu(-5, 3, -25);
+	testing_bdbobu(-4, 3, -25);
+	testing_bdbobu(-13, 12, -2147483648);
+	testing_bdbobu(-13, 12, 2147483648);
+	testing_bdbobu(-13, 12, 2147483647);
 
+	int		num = 256;
+	void	*p = &num;
+	testing_p(0, 0, NULL);
+	testing_p(0, 1, NULL);
+	testing_p(1, 0, NULL);
+	testing_p(5, 4, NULL);
+	testing_p(0, 0, p);
+	testing_p(0, 1, p);
+	testing_p(1, 0, p);
+	testing_p(5, 4, p);
 	return (0);
 }

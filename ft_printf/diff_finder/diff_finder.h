@@ -58,8 +58,8 @@ enum lens
 
 typedef struct	s_result
 {
-	size_t	main_vals[15][9];
-	size_t	bon_vals[9][9];
+	int		main_vals[15][9];
+	int		bon_vals[9][9];
 }				t_result;
 
 t_result		result;
@@ -76,6 +76,7 @@ void			print_error2(t_params *p, t_read_lines *r);
 int				r_getline(t_line *line);
 void			save_fail(char *str);
 
-t_read_lines	*new_read_lines(void);
+t_read_lines	*new_read_lines_main(void);
+t_read_lines	*new_read_lines_bonus(void);
 
 #endif

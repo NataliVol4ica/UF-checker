@@ -14,7 +14,7 @@
 #include "diff_finder.h"
 #include <stdio.h>
 
-t_read_lines	*new_read_lines(void)
+t_read_lines	*new_read_lines_main(void)
 {
 	t_read_lines	*r;
 
@@ -27,29 +27,74 @@ t_read_lines	*new_read_lines(void)
 	r->printf_line = (t_line*)malloc(sizeof(t_line));
 	r->printf_line->str = (char*)malloc(sizeof(char) * 1024);
 	r->printf_line->len = 0;
-	r->printf_line->fd = fopen("./files/printf_res", "r");
+	r->printf_line->fd = fopen("./files/main_printf_res", "r");
 	r->printf_ret = (t_line*)malloc(sizeof(t_line));
 	r->printf_ret->str = (char*)malloc(sizeof(char) * 1024);
 	r->printf_ret->len = 0;
-	r->printf_ret->fd = fopen("./files/printf_ret", "r");
+	r->printf_ret->fd = fopen("./files/main_printf_ret", "r");
 	r->ft_printf_line = (t_line*)malloc(sizeof(t_line));
 	r->ft_printf_line->str = (char*)malloc(sizeof(char) * 1024);
 	r->ft_printf_line->len = 0;
-	r->ft_printf_line->fd = fopen("./files/ft_printf_res", "r");
+	r->ft_printf_line->fd = fopen("./files/main_ft_printf_res", "r");
 	r->ft_printf_ret = (t_line*)malloc(sizeof(t_line));
 	r->ft_printf_ret->str = (char*)malloc(sizeof(char) * 1024);
 	r->ft_printf_ret->len = 0;
-	r->ft_printf_ret->fd = fopen("./files/ft_printf_ret", "r");
+	r->ft_printf_ret->fd = fopen("./files/main_ft_printf_ret", "r");
 	r->source_code = (t_line*)malloc(sizeof(t_line));
 	r->source_code->str = (char*)malloc(sizeof(char) * 1024);
 	r->source_code->len = 0;
-	r->source_code->fd = fopen("./files/ft_printf_ret", "r"); //чтоб потом закрыть
+	r->source_code->fd = fopen("./files/main_ft_printf_ret", "r"); //чтоб потом закрыть
 	setvbuf(r->printf_line->fd, NULL, _IONBF, 0);
 	setvbuf(r->printf_ret->fd, NULL, _IONBF, 0);
 	setvbuf(r->ft_printf_line->fd, NULL, _IONBF, 0);
 	setvbuf(r->ft_printf_ret->fd, NULL, _IONBF, 0);
 	setvbuf(r->source_code->fd, NULL, _IONBF, 0);
 	return (r);
+}
+
+t_read_lines	*new_read_lines_bonus(void)
+{
+	t_read_lines	*r;
+
+	r = (t_read_lines*)malloc(sizeof(t_read_lines));
+	if (!r)
+	{
+		printf("Malloc ERROR\n");
+		return (NULL);
+	}
+	r->printf_line = (t_line*)malloc(sizeof(t_line));
+	r->printf_line->str = (char*)malloc(sizeof(char) * 1024);
+	r->printf_line->len = 0;
+	r->printf_line->fd = fopen("./files/bonus_printf_res", "r");
+	r->printf_ret = (t_line*)malloc(sizeof(t_line));
+	r->printf_ret->str = (char*)malloc(sizeof(char) * 1024);
+	r->printf_ret->len = 0;
+	r->printf_ret->fd = fopen("./files/bonus_printf_ret", "r");
+	r->ft_printf_line = (t_line*)malloc(sizeof(t_line));
+	r->ft_printf_line->str = (char*)malloc(sizeof(char) * 1024);
+	r->ft_printf_line->len = 0;
+	r->ft_printf_line->fd = fopen("./files/bonus_ft_printf_res", "r");
+	r->ft_printf_ret = (t_line*)malloc(sizeof(t_line));
+	r->ft_printf_ret->str = (char*)malloc(sizeof(char) * 1024);
+	r->ft_printf_ret->len = 0;
+	r->ft_printf_ret->fd = fopen("./files/bonus_ft_printf_ret", "r");
+	r->source_code = (t_line*)malloc(sizeof(t_line));
+	r->source_code->str = (char*)malloc(sizeof(char) * 1024);
+	r->source_code->len = 0;
+	r->source_code->fd = fopen("./files/bonus_ft_printf_ret", "r"); //чтоб потом закрыть
+	setvbuf(r->printf_line->fd, NULL, _IONBF, 0);
+	setvbuf(r->printf_ret->fd, NULL, _IONBF, 0);
+	setvbuf(r->ft_printf_line->fd, NULL, _IONBF, 0);
+	setvbuf(r->ft_printf_ret->fd, NULL, _IONBF, 0);
+	setvbuf(r->source_code->fd, NULL, _IONBF, 0);
+	return (r);
+}
+
+void	free_read_lines(t_read_lines *r)
+{
+	free(r->printf_line->str);
+	free(r->printf_line);
+	free(r);
 }
 
 void	read_params(t_line *line, t_params *p)

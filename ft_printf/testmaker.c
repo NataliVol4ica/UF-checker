@@ -16,11 +16,11 @@
 #include <libc.h>
 
 #define ARGUMENTS "width, precision, var"
-#define MAXLEN 6
+#define MAXLEN 7
 
 typedef enum	e_length
 {
-	EMPTY = 0, HH = 2, H, L, LL, J, Z, T, BL
+	EMPTY = 0, HH = 2, H, L, LL, J, Z, BL, T
 }				t_length;
 
 typedef struct s_data
@@ -39,6 +39,16 @@ typedef struct	s_params
 	char	type;
 	size_t	testnum;
 }				t_params;
+
+int		is_main_type(char c)
+{
+	char	*str = "dDioOuUxXcCsSp%";
+	size_t	i = -1;
+	while (++i < 15)
+		if (c == str[i])
+			return (1);
+	return (0);
+}
 
 void	set_flags(t_data *data, t_params *p, size_t num)
 {
@@ -76,10 +86,49 @@ void	set_length(t_params *p, size_t len)
 		p->length[0] = 'j';
 	else if (len == 7)
 		p->length[0] = 'z';
+	else if (len == 8)
+		p->length[0] = 'L';
+	else if (len == 9)
+		p->length[0] = 't';
+}
+
+void	print_var(char *vtype, char *pre)
+{
+	printf("\t%s\"VAR = ", pre);
+	if (strstr(vtype, "intmax_t"))
+		printf("%%zd");
+	else if (strstr(vtype, "wchar_t *"))
+		printf("\\\"%%S\\\"");
+	else if (strstr(vtype, "wchar_t"))
+		printf("\\\'%%C\\\'");
+	else if (strstr(vtype, "int"))
+		printf("%%d");
+	else if (strstr(vtype, "void *"))
+		printf("\\\"%%p\\\"");
+	printf("\\n\", var);\n");
+}
+
+size_t	to_return(t_data *data, t_params *p)
+{
+	size_t	i;
+
+	if (!(is_main_type(p->type)))
+		return (0);
+	i = -1;
+	while (++i < data->flagnum)
+		if (data->flaglist[i] == '\'')
+			break;
+	if (i == data->flagnum)
+		return (0);
+	if (p->flags[i] == 0)
+		return (1);
+	return (0);
 }
 
 void	print_params(t_data *data, t_params *p, char *arguments)
 {
+	if (to_return(data, p))
+		return ;
 	printf("\n\tfprintf(fppres, \"#%04zu\");\n", p->testnum);
 	printf("\tret1 = fprintf(fppres, \"|%%");
 	for (size_t i = 0; i < data->flagnum; i++)
@@ -100,23 +149,37 @@ void	print_params(t_data *data, t_params *p, char *arguments)
 	p->testnum++;
 }
 
-void	print_var(char *vtype, char *pre)
+char	*get_isb_word(int is_bonus)
 {
-	printf("\t%s\"VAR = ", pre);
-	if (strstr(vtype, "intmax_t"))
-		printf("%%zd");
-	else if (strstr(vtype, "wchar_t *"))
-		printf("\\\"%%S\\\"");
-	else if (strstr(vtype, "wchar_t"))
-		printf("\\\'%%C\\\'");
-	else if (strstr(vtype, "int"))
-		printf("%%d");
-	printf("\\n\", var);\n");
+	if (is_bonus)
+		return ("bonus");
+	return ("main");
 }
 
-void	make_tests(t_data *data, char *name, char *vtype)
+size_t	get_num_of_tests(t_data *data, int is_bonus)
 {
-	t_params *p = (t_params*)malloc(sizeof(t_params));
+	size_t	ans;
+	size_t	i;
+	size_t	count;
+
+	ans = data->flagvar * data->typenum * (MAXLEN + is_bonus * 2);
+	if (is_bonus && strchr(data->flaglist, '\''))
+	{
+		count = 0;
+		i = -1;
+		while (++i < data->typenum)
+			count += is_main_type(data->typelist[i]);
+		ans = (data->flagvar / 2) * count * (MAXLEN + is_bonus * 2);
+		ans += data->flagvar * (data->typenum - count) * (MAXLEN + is_bonus * 2);
+	}
+	return (ans);
+}
+
+void	make_tests(t_data *data, char *name, char *vtype, int is_bonus)
+{
+	t_params *p;
+
+	p = (t_params*)malloc(sizeof(t_params));
 	p->length = (char*)malloc(sizeof(char) * 3);
 	p->length[2] = '\0';
 	p->testnum = 0;
@@ -127,7 +190,7 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("#include <wchar.h>\n");
 	printf("#include \"libftprintf.h\"\n");
 	
-	printf("\nsize_t %s_tests = %zu;\n", name, data->flagvar * data->typenum * (MAXLEN + 1));
+	printf("\nsize_t %s_tests = %zu;\n", name, get_num_of_tests(data, is_bonus));
 
 	printf("\nvoid\t\t%s(int width, int precision, %svar)\n{\n", name, vtype);
 	printf("\tint\t\tret1;\n\tint\t\tret2;\n");
@@ -137,9 +200,9 @@ void	make_tests(t_data *data, char *name, char *vtype)
 	printf("\tloc = setlocale(LC_CTYPE, NULL);\n");
 	printf("\tsetlocale(LC_CTYPE, \"\");\n\n");
 
-	printf("\tfppres = fopen(\"./files/printf_res\", \"a\");\n");
-	printf("\tfppret = fopen(\"./files/printf_ret\", \"a\");\n");
-	printf("\tfpftret = fopen(\"./files/ft_printf_ret\", \"a\");\n\n");
+	printf("\tfppres = fopen(\"./files/%s_printf_res\", \"a\");\n", get_isb_word(is_bonus));
+	printf("\tfppret = fopen(\"./files/%s_printf_ret\", \"a\");\n", get_isb_word(is_bonus));
+	printf("\tfpftret = fopen(\"./files/%s_ft_printf_ret\", \"a\");\n\n", get_isb_word(is_bonus));
 
 	printf("\tsetvbuf(fppres, NULL, _IONBF, 0);\n");
 	printf("\tsetvbuf(fppret, NULL, _IONBF, 0);\n");
@@ -169,7 +232,7 @@ void	make_tests(t_data *data, char *name, char *vtype)
 		for (size_t type = 0; type < data->typenum; type++)
 		{
 			p->type = data->typelist[type];
-			for (size_t length = 1; length < (MAXLEN + 2); length++)
+			for (size_t length = 1; length < (MAXLEN + is_bonus * 2 + 1); length++)
 			{
 				set_length(p, length);
 				print_params(data, p, ARGUMENTS);
@@ -211,11 +274,11 @@ int		main(int ac, char **av)
 {
 	t_data		*data;
 
-	if (ac == 5)
+	if (ac == 6)
 	{
 		data = (t_data*)malloc(sizeof(t_data));
 		set_data(data, av[3], av[4]);
-		make_tests(data, av[1], replacedog(av[2]));
+		make_tests(data, av[1], replacedog(av[2]), atoi(av[5]));
 	}
 	return (0);
 }

@@ -43,7 +43,7 @@ void	print_error(FILE *f, t_params *p, t_read_lines *r)
 	fprintf(f, "Youret: %s\t | Libret: %s\n", r->ft_printf_ret->str, r->printf_ret->str);
 }
 
-int		main(void)
+void	main_testing()
 {
 	t_params		*p;
 	t_read_lines	*r;
@@ -57,9 +57,9 @@ int		main(void)
 
 	FILE	*fails;
 
-	fails = fopen("./files/fails", "w");
+	fails = fopen("./files/main_fails", "w");
 	p = (t_params*)malloc(sizeof(t_params));
-	r = new_read_lines();
+	r = new_read_lines_main();
 	zero_result();
 	while (r_getline(r->printf_line))
 	{
@@ -97,10 +97,85 @@ int		main(void)
 	fclose(r->ft_printf_ret->fd);
 	fclose(r->source_code->fd);
 	fclose(fails);
-	print_result();
-	printf("Total number of tests:  %zu\n", num_of_tests);
-	printf("Total number of errors: %zu\n", errors);
-	//system("leaks differ");
+	free(p);
+	free(r);
+	printf("===\\\tMain tests\n");
+	print_result(0);
+	printf("Total number of tests: %zu\n", num_of_tests);
+	printf("Total number of fails: %zu\n", errors);
+	if (errors)
+		printf("You can get more info at \"./files/main_fails\".\n");
+}
+
+void	bonus_testing()
+{
+	t_params		*p;
+	t_read_lines	*r;
+
+	char	*temp;
+	
+	size_t	num_of_tests = 0;
+	size_t	errors = 0;
+	size_t	curtest;
+	size_t	cur_c_line;
+
+	FILE	*fails;
+
+	fails = fopen("./files/bonus_fails", "w");
+	p = (t_params*)malloc(sizeof(t_params));
+	r = new_read_lines_bonus();
+	zero_result();
+	while (r_getline(r->printf_line))
+	{
+		r_getline(r->ft_printf_line);
+		if (r->printf_line->str[0] == '=')
+		{
+			fclose(r->source_code->fd);
+			curtest = 0;
+			cur_c_line = 1;
+			read_params(r->printf_line, p);
+			num_of_tests += p->num_of_tests;
+			skip_lines(r->ft_printf_line, 8);
+			temp = ft_strjoin("./testers/", p->codefile);
+			r->source_code->fd = fopen(temp, "r");
+			free(temp);
+			getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
+		}
+		r_getline(r->printf_ret);
+		r_getline(r->ft_printf_ret);
+		if (strcmp(r->printf_line->str, r->ft_printf_line->str) || strcmp(r->printf_ret->str, r->printf_ret->str))
+		{
+			errors++;
+			while (cur_c_line++ <= curtest)
+				getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
+			skip_lines(r->source_code, 2);
+			r_getline(r->source_code);
+			print_error(fails, p, r);
+			getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
+		}
+		curtest++;
+	}
+	fclose(r->printf_line->fd);
+	fclose(r->printf_ret->fd);
+	fclose(r->ft_printf_line->fd);
+	fclose(r->ft_printf_ret->fd);
+	fclose(r->source_code->fd);
+	fclose(fails);
+	free(p);
+	free(r);
+	printf("===\\\tBonus tests\n");
+	print_result(1);
+	printf("Total number of tests: %zu\n", num_of_tests);
+	printf("Total number of fails: %zu\n", errors);
+	if (errors)
+		printf("You can get more info at \"./files/bonus_fails\".\n");
+}
+
+int		main(void)
+{
+	
+	main_testing();
+	bonus_testing();	
 	return (0);
 }
 

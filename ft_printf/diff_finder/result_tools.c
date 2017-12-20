@@ -25,15 +25,17 @@ void			zero_result(void)
 	}
 }
 
+//============= FAIL HANDLING =============\\
+
 size_t			get_len_ind(char *str)
 {
 	size_t	len;
 
 	len = strlen(str);
 	if (str[len - 5] == '*') return (0);
-	if (str[len - 5] == 'h' && str[len = 6] - 'h' ) return (1);
+	if (str[len - 5] == 'h' && str[len - 6] - 'h' ) return (1);
 	if (str[len - 5] == 'h') return (2);
-	if (str[len - 5] == 'l' && str[len = 6] - 'l' ) return (4);
+	if (str[len - 5] == 'l' && str[len - 6] - 'l' ) return (4);
 	if (str[len - 5] == 'l') return (3);
 	if (str[len - 5] == 'j') return (5);
 	if (str[len - 5] == 'z') return (6);
@@ -50,11 +52,11 @@ void			save_fail_bonus(char *str, char t)
 	if (t == 'E') type_index = tE; else
 	if (t == 'f') type_index = tf; else
 	if (t == 'F') type_index = tF; else
-	if (t == 'g') type_index = ta; else
+	if (t == 'a') type_index = ta; else
 	if (t == 'A') type_index = tA; else
 	if (t == 'g') type_index = tg; else
 	if (t == 'G') type_index = tG; else
-	if (t == '%') type_index = tn;
+	if (t == 'n') type_index = tn;
 	result.bon_vals[type_index][get_len_ind(str)]++;
 }
 
@@ -64,7 +66,6 @@ void			save_fail(char *str)
 	size_t	type_index;
 
 	t = str[strlen(str) - 4];
-	printf("fail str %s\n", str);
 	if (t == 'd') type_index = td; else
 	if (t == 'D') type_index = tD; else
 	if (t == 'i') type_index = ti; else
@@ -86,6 +87,8 @@ void			save_fail(char *str)
 	}
 	result.main_vals[type_index][get_len_ind(str)]++;
 }
+
+//============ RESULT PRINTING =============\\
 
 void			print_red(char *str)
 {
@@ -153,6 +156,8 @@ void			print_m_res(enum m_types t)
 
 void			print_b_res(enum b_types t)
 {
+	size_t fails = 0;
+
 	printf("   %%");
 	if (t == te) printf("e"); else
 	if (t == tE) printf("E"); else
@@ -166,18 +171,23 @@ void			print_b_res(enum b_types t)
 	printf(" : [");
 	for (enum lens l = lnone; l <= lt; l++)
 	{
-		choose_color(get_len_word(l), result.main_vals[t][l]);
+		choose_color(get_len_word(l), result.bon_vals[t][l]);
+		fails += result.bon_vals[t][l];
 		if (l != lt) printf("|");
 	}
-	printf("]\n");
+	printf("]");
+	if (fails)
+		printf("\x1b[31m"" Fails : %d""\x1b[0m", fails);
+	printf("\n");
 }
 
-void			print_result(void)
+void			print_result(int is_bonus)
 {
-	printf("Main tests:\n");
 	for (enum m_types t = td; t <= tperc; t++)
 		print_m_res(t);
-	printf("Bonus tests:\n");
+	if (!is_bonus)
+		return ;
+	printf("\n");
 	for (enum b_types t = td; t <= tn; t++)
 		print_b_res(t);
 	printf("|============================|\n");

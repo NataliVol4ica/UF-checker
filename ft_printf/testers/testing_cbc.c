@@ -16,9 +16,9 @@ void		testing_cbc(int width, int precision, wchar_t var)
 	loc = setlocale(LC_CTYPE, NULL);
 	setlocale(LC_CTYPE, "");
 
-	fppres = fopen("./files/printf_res", "a");
-	fppret = fopen("./files/printf_ret", "a");
-	fpftret = fopen("./files/ft_printf_ret", "a");
+	fppres = fopen("./files/main_printf_res", "a");
+	fppret = fopen("./files/main_printf_ret", "a");
+	fpftret = fopen("./files/main_ft_printf_ret", "a");
 
 	setvbuf(fppres, NULL, _IONBF, 0);
 	setvbuf(fppret, NULL, _IONBF, 0);
