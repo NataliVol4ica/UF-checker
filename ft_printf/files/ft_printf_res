@@ -3,7 +3,7 @@ NAME = testing_percent.c
 TESTS = 112
 WIDTH = 0
 PRECISION = 0
-VAR = 
+VAR = 0
 LOCALE = "en_US.UTF-8"
 
 #0000|%|
@@ -124,7 +124,7 @@ NAME = testing_percent.c
 TESTS = 112
 WIDTH = 2
 PRECISION = 0
-VAR = 
+VAR = 0
 LOCALE = "en_US.UTF-8"
 
 #0000| %|
@@ -245,7 +245,7 @@ NAME = testing_percent.c
 TESTS = 112
 WIDTH = 6
 PRECISION = 5
-VAR = 
+VAR = 0
 LOCALE = "en_US.UTF-8"
 
 #0000|     %|

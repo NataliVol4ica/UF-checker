@@ -53,13 +53,13 @@ enum b_types
 
 enum lens
 {
-	lhh = 0, lh, ll, lll, lj, lz, lL, lt //8
+	lnone = 0, lhh, lh, ll, lll, lj, lz, lL, lt //9
 };
 
 typedef struct	s_result
 {
-	int		main_vals[15][8];
-	int		bon_vals[9][8];
+	size_t	main_vals[15][9];
+	size_t	bon_vals[9][9];
 }				t_result;
 
 t_result		result;
@@ -69,11 +69,12 @@ int				as_you_wish;
 char			*ft_strdup(const char *str);
 char			*ft_strjoin(char const *s1, char const *s2);
 void			read_params(t_line *line, t_params *p);
-void			write_params(t_params *p);
+void			print_params(t_params *p);
 void			skip_lines(t_line *line, int n);
-void			print_error(t_params *p, t_read_lines *r);
+void			print_error(FILE *f, t_params *p, t_read_lines *r);
 void			print_error2(t_params *p, t_read_lines *r);
 int				r_getline(t_line *line);
+void			save_fail(char *str);
 
 t_read_lines	*new_read_lines(void);
 

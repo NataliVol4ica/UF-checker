@@ -70,7 +70,7 @@ void	read_params(t_line *line, t_params *p)
 	r_getline(line); //getting next;
 }
 
-void	write_params(t_params *p)
+void	print_params(t_params *p)
 {
 	printf("Code file = \"%s\"\n", p->codefile);
 	printf("Num of tests = %zu\n", p->num_of_tests);

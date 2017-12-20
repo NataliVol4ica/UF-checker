@@ -29,7 +29,7 @@ void		testing_percent(int width, int precision, int var)
 	fprintf(fppres, "TESTS = %zu\n", testing_percent_tests);
 	fprintf(fppres, "WIDTH = %d\n", width);
 	fprintf(fppres, "PRECISION = %d\n", precision);
-	fprintf(fppres, "VAR = \n", var);
+	fprintf(fppres, "VAR = %d\n", var);
 	fprintf(fppres, "LOCALE = \"%s\"\n\n", loc);
 
 	ft_printf("===\\ NEW TEST\n");
@@ -37,7 +37,7 @@ void		testing_percent(int width, int precision, int var)
 	ft_printf("TESTS = %zu\n", testing_percent_tests);
 	ft_printf("WIDTH = %d\n", width);
 	ft_printf("PRECISION = %d\n", precision);
-	ft_printf("VAR = \n", var);
+	ft_printf("VAR = %d\n", var);
 	ft_printf("LOCALE = \"%s\"\n\n", loc);
 
 	setlocale(LC_CTYPE, loc);

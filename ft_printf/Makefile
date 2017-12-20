@@ -69,7 +69,7 @@ do_testing:
 
 print_res:
 	@echo ${GREEN}"[========| Test results |========]"${NC}
-	@make diff2
+	@$(EXEDIR)/differ
 
 differ:
 	@echo ${CYAN}"[Compiling diff finder]"${NC}
@@ -85,14 +85,3 @@ test:
 	@make do_testing
 	@make differ
 	@make print_res
-
-diff2:
-	@$(EXEDIR)/differ
-
-diff:
-	@diff $(FILEDIR)/ft_printf_ret $(FILEDIR)/printf_ret > $(FILEDIR)/diff_ret || true
-	@diff $(FILEDIR)/ft_printf_res $(FILEDIR)/printf_res > $(FILEDIR)/diff_res || true
-	@echo "print diff:"
-	@wc -l < $(FILEDIR)/diff_res
-	@echo "return diff:"
-	@wc -l < $(FILEDIR)/diff_ret

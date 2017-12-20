@@ -109,6 +109,8 @@ void	print_var(char *vtype, char *pre)
 		printf("\\\"%%S\\\"");
 	else if (strstr(vtype, "wchar_t"))
 		printf("\\\'%%C\\\'");
+	else if (strstr(vtype, "int"))
+		printf("%%d");
 	printf("\\n\", var);\n");
 }
 

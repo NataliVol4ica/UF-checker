@@ -21,13 +21,13 @@ void	fatal_error(char *str)
 	exit (0);
 }
 
-void	print_error(t_params *p, t_read_lines *r)
+void	print_error(FILE *f, t_params *p, t_read_lines *r)
 {
 	size_t i = 0;
 	size_t	cp;
 
-	printf("=============\n");
-	printf("Test fail: printf(");
+	fprintf(f, "=============\n");
+	fprintf(f, "Test fail: printf(");
 	while (r->source_code->str[i] != '\"')
 		i++;
 	cp = i;
@@ -35,11 +35,12 @@ void	print_error(t_params *p, t_read_lines *r)
 	while (r->source_code->str[i] != '\"')
 		i++;
 	r->source_code->str[i] = '\0';
-	printf("%s", &r->source_code->str[cp]);
-	printf("\", %s, %s, %s);\n", p->width, p->precision, p->var);
-	printf("Your   str: \"%s\"\n", r->ft_printf_line->str);
-	printf("printf str: \"%s\"\n", r->printf_line->str);
-	printf("Youret: %s\t | Libret: %s\n", r->ft_printf_ret->str, r->printf_ret->str);
+	save_fail(&r->source_code->str[cp]);
+	fprintf(f, "%s", &r->source_code->str[cp]);
+	fprintf(f, "\", %s, %s, %s);\n", p->width, p->precision, p->var);
+	fprintf(f, "Your   str: \"%s\"\n", r->ft_printf_line->str);
+	fprintf(f, "printf str: \"%s\"\n", r->printf_line->str);
+	fprintf(f, "Youret: %s\t | Libret: %s\n", r->ft_printf_ret->str, r->printf_ret->str);
 }
 
 int		main(void)
@@ -54,8 +55,12 @@ int		main(void)
 	size_t	curtest;
 	size_t	cur_c_line;
 
+	FILE	*fails;
+
+	fails = fopen("./files/fails", "w");
 	p = (t_params*)malloc(sizeof(t_params));
 	r = new_read_lines();
+	zero_result();
 	while (r_getline(r->printf_line))
 	{
 		r_getline(r->ft_printf_line);
@@ -81,9 +86,8 @@ int		main(void)
 				getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
 			skip_lines(r->source_code, 2);
 			r_getline(r->source_code);
-			print_error(p, r);
+			print_error(fails, p, r);
 			getdelim(&r->source_code->str, &as_you_wish, '@', r->source_code->fd);
-			break;
 		}
 		curtest++;
 	}
@@ -92,6 +96,8 @@ int		main(void)
 	fclose(r->ft_printf_line->fd);
 	fclose(r->ft_printf_ret->fd);
 	fclose(r->source_code->fd);
+	fclose(fails);
+	print_result();
 	printf("Total number of tests:  %zu\n", num_of_tests);
 	printf("Total number of errors: %zu\n", errors);
 	//system("leaks differ");
