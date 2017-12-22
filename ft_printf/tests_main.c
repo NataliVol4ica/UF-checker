@@ -23,17 +23,16 @@ int		main(void)
 	testing_percent(6, 5, 0);
 
 	testing_diouxbx(0, 0, 0);
-	testing_diouxbx(0, -1, 0);
 	testing_diouxbx(0, 4, 0);
 	testing_diouxbx(5, 3, 25);
 	testing_diouxbx(5, 0, 25);
 	testing_diouxbx(5, 1, 25);
 	testing_diouxbx(5, 4, -25);
-	testing_diouxbx(-5, 3, -25);
-	testing_diouxbx(-4, 3, -25);
-	testing_diouxbx(-13, 12, -2147483648);
-	testing_diouxbx(-13, 12, 2147483648);
-	testing_diouxbx(-13, 12, 2147483647);
+	testing_diouxbx(5, 3, -25);
+	testing_diouxbx(4, 3, -25);
+	testing_diouxbx(13, 12, -2147483648);
+	testing_diouxbx(13, 12, 2147483648);
+	testing_diouxbx(13, 12, 2147483647);
 
 	testing_cbc(0, 0, 'v');
 	testing_cbc(0, -1, 'v');

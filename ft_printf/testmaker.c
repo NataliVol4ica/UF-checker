@@ -1,284 +1,147 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   testmaker.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nkolosov <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 16:43:29 by nkolosov          #+#    #+#             */
-/*   Updated: 2017/12/13 16:43:29 by nkolosov         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <libc.h>
+#include "tools.h"
 
-#define ARGUMENTS "width, precision, var"
-#define MAXLEN 7
+#define TESTPATH "../testers/"
 
-typedef enum	e_length
+void	set_flags(t_test *t, size_t num)
 {
-	EMPTY = 0, HH = 2, H, L, LL, J, Z, BL, T
-}				t_length;
+	size_t i;
 
-typedef struct s_data
-{
-	char	*flaglist;
-	size_t	flagnum;
-	char	*typelist;
-	size_t	typenum;
-	size_t	flagvar;
-}				t_data;
-
-typedef struct	s_params
-{
-	size_t	flags[6];
-	char	*length;
-	char	type;
-	size_t	testnum;
-}				t_params;
-
-int		is_main_type(char c)
-{
-	char	*str = "dDioOuUxXcCsSp%";
-	size_t	i = -1;
-	while (++i < 15)
-		if (c == str[i])
-			return (1);
-	return (0);
-}
-
-void	set_flags(t_data *data, t_params *p, size_t num)
-{
-	size_t	i;
-
-	for (i = 0; i < data->flagnum; i++)
-		p->flags[i] = 0;
+	for (i = 0; i < t->numof_flags; i++)
+		t->flagmass[i] = 0;
 	i = 0;
 	while (num > 0)
 	{
-		p->flags[i++] = num % 2;
+		t->flagmass[i++] = num % 2;
 		num /= 2;
 	}
 }
 
-void	set_length(t_params *p, size_t len)
+void	print_flags(t_test *t)
 {
-	p->length[0] = '\0';
-	p->length[1] = '\0';
-	if (len == 2)
+	for (size_t i = 0; i < t->numof_flags; i++)
+		if (t->flagmass[i])
+			fprintf(t->fd, "%c", t->flags[i]);
+}
+
+void	print_test(t_test *t)
+{
+	fprintf(t->fd, "//@\n");
+	fprintf(t->fd, "\tft_printf(\"#%04zu\");\n", t->testnum);
+	fprintf(t->fd, "\tfprintf(printf_, \"#%04zu\");\n", t->testnum);
+	fprintf(t->fd, "\tret1 = fprintf(printf_, \"|%%%s", t->n);
+	print_flags(t);
+	fprintf(t->fd, "%s%s%s%c|", t->width, t->precision, t->length, t->type);
+	fprintf(t->fd, "%s\\n\"", t->extra_print);
+	if (t->args[0] != '\0') fprintf(t->fd, ", %s", t->args);
+	fprintf(t->fd, ");\n");
+	fprintf(t->fd, "\tret2 = ft_printf(\"|%%%s", t->n);
+	print_flags(t);
+	fprintf(t->fd, "%s%s%s%c|", t->width, t->precision, t->length, t->type);
+	fprintf(t->fd, "%s\\n\"", t->extra_print);
+	if (t->args[0] != '\0') fprintf(t->fd, ", %s", t->args);
+	fprintf(t->fd, ");\n");
+	fprintf(t->fd, "\tfprintf(printf_ret, \"%%d\", ret1);\n");
+	fprintf(t->fd, "\tfprintf(ft_printf_ret, \"%%d\", ret2);\n");
+}
+
+void	print_tests(t_test *t)
+{
+	for (size_t flags = 0; flags < t->numof_flagcombinations; flags++)
 	{
-		p->length[0] = 'h';
-		p->length[1] = 'h';
-	}
-	else if (len == 3)
-		p->length[0] = 'h';
-	else if (len == 4)
-		p->length[0] = 'l';
-	else if (len == 5)
-	{
-		p->length[0] = 'l';
-		p->length[1] = 'l';
-	}
-	else if (len == 6)
-		p->length[0] = 'j';
-	else if (len == 7)
-		p->length[0] = 'z';
-	else if (len == 8)
-		p->length[0] = 'L';
-	else if (len == 9)
-		p->length[0] = 't';
-}
-
-void	print_var(char *vtype, char *pre)
-{
-	printf("\t%s\"VAR = ", pre);
-	if (strstr(vtype, "intmax_t"))
-		printf("%%zd");
-	else if (strstr(vtype, "wchar_t *"))
-		printf("\\\"%%S\\\"");
-	else if (strstr(vtype, "wchar_t"))
-		printf("\\\'%%C\\\'");
-	else if (strstr(vtype, "int"))
-		printf("%%d");
-	else if (strstr(vtype, "void *"))
-		printf("\\\"%%p\\\"");
-	printf("\\n\", var);\n");
-}
-
-size_t	to_return(t_data *data, t_params *p)
-{
-	size_t	i;
-
-	if (!(is_main_type(p->type)))
-		return (0);
-	i = -1;
-	while (++i < data->flagnum)
-		if (data->flaglist[i] == '\'')
-			break;
-	if (i == data->flagnum)
-		return (0);
-	if (p->flags[i] == 0)
-		return (1);
-	return (0);
-}
-
-void	print_params(t_data *data, t_params *p, char *arguments)
-{
-	if (to_return(data, p))
-		return ;
-	printf("\n\tfprintf(fppres, \"#%04zu\");\n", p->testnum);
-	printf("\tret1 = fprintf(fppres, \"|%%");
-	for (size_t i = 0; i < data->flagnum; i++)
-		if (p->flags[i] != 0)
-			printf("%c", data->flaglist[i]);
-	printf("*.*%s%c", p->length, p->type);
-	printf("|\\n\", %s);\n", arguments);
-	printf("\tret1 > -1 ? ft_printf(\"#%04zu\") : 1;\n", p->testnum);
-	printf("\tret2 = ret1 > -1 ? ft_printf(\"|%%");
-	for (size_t i = 0; i < data->flagnum; i++)
-		if (p->flags[i] != 0)
-			printf("%c", data->flaglist[i]);
-	printf("*.*%s%c", p->length, p->type);
-	printf("|\\n\", %s) : -1;\n", arguments);
-	printf("\tfprintf(fppret, \"%%d\\n\", ret1);\n");
-	printf("\tfprintf(fpftret, \"%%d\\n\", ret2);\n");
-	printf("\t//@");
-	p->testnum++;
-}
-
-char	*get_isb_word(int is_bonus)
-{
-	if (is_bonus)
-		return ("bonus");
-	return ("main");
-}
-
-size_t	get_num_of_tests(t_data *data, int is_bonus)
-{
-	size_t	ans;
-	size_t	i;
-	size_t	count;
-
-	ans = data->flagvar * data->typenum * (MAXLEN + is_bonus * 2);
-	if (is_bonus && strchr(data->flaglist, '\''))
-	{
-		count = 0;
-		i = -1;
-		while (++i < data->typenum)
-			count += is_main_type(data->typelist[i]);
-		ans = (data->flagvar / 2) * count * (MAXLEN + is_bonus * 2);
-		ans += data->flagvar * (data->typenum - count) * (MAXLEN + is_bonus * 2);
-	}
-	return (ans);
-}
-
-void	make_tests(t_data *data, char *name, char *vtype, int is_bonus)
-{
-	t_params *p;
-
-	p = (t_params*)malloc(sizeof(t_params));
-	p->length = (char*)malloc(sizeof(char) * 3);
-	p->length[2] = '\0';
-	p->testnum = 0;
-
-	printf("#include <stdio.h>\n");
-	printf("#include <stdint.h>\n");
-	printf("#include <locale.h>\n");
-	printf("#include <wchar.h>\n");
-	printf("#include \"libftprintf.h\"\n");
-	
-	printf("\nsize_t %s_tests = %zu;\n", name, get_num_of_tests(data, is_bonus));
-
-	printf("\nvoid\t\t%s(int width, int precision, %svar)\n{\n", name, vtype);
-	printf("\tint\t\tret1;\n\tint\t\tret2;\n");
-	printf("\tchar\t*loc;\n");
-	printf("\tFILE\t*fppres, *fppret, *fpftret;\n\n");
-
-	printf("\tloc = setlocale(LC_CTYPE, NULL);\n");
-	printf("\tsetlocale(LC_CTYPE, \"\");\n\n");
-
-	printf("\tfppres = fopen(\"./files/%s_printf_res\", \"a\");\n", get_isb_word(is_bonus));
-	printf("\tfppret = fopen(\"./files/%s_printf_ret\", \"a\");\n", get_isb_word(is_bonus));
-	printf("\tfpftret = fopen(\"./files/%s_ft_printf_ret\", \"a\");\n\n", get_isb_word(is_bonus));
-
-	printf("\tsetvbuf(fppres, NULL, _IONBF, 0);\n");
-	printf("\tsetvbuf(fppret, NULL, _IONBF, 0);\n");
-	printf("\tsetvbuf(fpftret, NULL, _IONBF, 0);\n\n");
-
-	printf("\tfprintf(fppres, \"===\\\\ NEW TEST\\n\");\n");
-	printf("\tfprintf(fppres, \"NAME = %s.c\\n\");\n", name);
-	printf("\tfprintf(fppres, \"TESTS = %%zu\\n\", %s_tests);\n", name);
-	printf("\tfprintf(fppres, \"WIDTH = %%d\\n\", width);\n");
-	printf("\tfprintf(fppres, \"PRECISION = %%d\\n\", precision);\n");
-	print_var(vtype, "fprintf(fppres, ");
-	printf("\tfprintf(fppres, \"LOCALE = \\\"%%s\\\"\\n\\n\", loc);\n\n");
-
-	printf("\tft_printf(\"===\\\\ NEW TEST\\n\");\n");
-	printf("\tft_printf(\"NAME = %s.c\\n\");\n", name);
-	printf("\tft_printf(\"TESTS = %%zu\\n\", %s_tests);\n", name);
-	printf("\tft_printf(\"WIDTH = %%d\\n\", width);\n");
-	printf("\tft_printf(\"PRECISION = %%d\\n\", precision);\n");
-	print_var(vtype, "ft_printf(");
-	printf("\tft_printf(\"LOCALE = \\\"%%s\\\"\\n\\n\", loc);\n\n");
-	
-	printf("\tsetlocale(LC_CTYPE, loc);\n");
-	printf("\t//@");
-	for (size_t flags = 0; flags < data->flagvar; flags++)
-	{
-		set_flags(data, p, flags);
-		for (size_t type = 0; type < data->typenum; type++)
+		set_flags(t, flags);
+		for (size_t type = 0; type < t->numof_types; type++)
 		{
-			p->type = data->typelist[type];
-			for (size_t length = 1; length < (MAXLEN + is_bonus * 2 + 1); length++)
+			t->type = t->types[type];
+			for (size_t length = 0; length < t->numof_lengthes; length++)
 			{
-				set_length(p, length);
-				print_params(data, p, ARGUMENTS);
+				t->length = t->lengthes[length];
+				print_test(t);
+				t->testnum++;
 			}
 		}
 	}
-	printf("\n\tfprintf(fppres, \"\\n\");\n");
-	printf("\tft_printf(\"\\n\");\n");
-	printf("\tfclose(fppres);\n");
-	printf("\tfclose(fppret);\n");
-	printf("\tfclose(fpftret);\n");
-	printf("}\n");
 }
 
-char	*replacedog(char *str)
+void	print_main(t_test *t)
 {
-	size_t	i;
+	fprintf(t->fd, "int\t\tmain(void)\n");
+	fprintf(t->fd, "{\n");
+	fprintf(t->fd, "\tFILE\t*printf_, *printf_ret, *ft_printf_ret;\n");
+	fprintf(t->fd, "\tint\t\tret1, ret2;\n");
+	fprintf(t->fd, "\n");
 
-	i = -1;
-	while (str[++i])
-		if (str[i] == '@')
-			str[i] = ' ';
-	return(str);
+	fprintf(t->fd, "\t%s\n", t->extra_code);
+	fprintf(t->fd, "\tprintf_ = fopen(\"../files/%s_printf_print\", \"w\");\n", t->name);
+	fprintf(t->fd, "\tprintf_ret = fopen(\"../files/%s_printf_ret\", \"w\");\n", t->name);
+	fprintf(t->fd, "\tft_printf_ret = fopen(\"../files/%s_ft_printf_ret\", \"w\");\n", t->name);
+	fprintf(t->fd, "\tsetvbuf(printf_, NULL, _IONBF, 0);\n");
+	fprintf(t->fd, "\tsetvbuf(printf_ret, NULL, _IONBF, 0);\n");
+	fprintf(t->fd, "\tsetvbuf(ft_printf_ret, NULL, _IONBF, 0);\n");
+	fprintf(t->fd, "\n");
+
+	print_tests(t);
+	fprintf(t->fd, "\tfclose(printf_);\n");
+	fprintf(t->fd, "\tfclose(printf_ret);\n");
+	fprintf(t->fd, "\tfclose(ft_printf_ret);\n");
+	fprintf(t->fd, "\treturn (0);\n");
+	fprintf(t->fd, "}\n\n");
 }
 
-void	set_data(t_data *data, char *flags, char *types)
+void	print_includes(t_test *t)
 {
-	data->flaglist = flags;
-	data->flagnum = strlen(flags);
-	data->typelist = types;
-	data->typenum = strlen(types);
-	data->flagvar = 1;
-	while (data->flagnum-- > 0)
-		data->flagvar *= 2;
-	data->flagnum = strlen(flags);
+	fprintf(t->fd, "#include <stdio.h>\n");
+	fprintf(t->fd, "#include <stdint.h>\n");
+	fprintf(t->fd, "#include <locale.h>\n");
+	fprintf(t->fd, "#include \"libftprintf.h\"\n\n");
+}
+
+void	set_param(char **ptr, char *av, size_t *len)
+{
+	if (av[0] == '\0' || av[0] == '-')
+		*ptr = ft_strnew(0);
+	else
+		*ptr = av;
+	if (len)
+		*len = strlen(*ptr);
+}
+
+t_test *set_test(char **av)
+{
+	t_test	*t;
+
+	if (!(t = (t_test*)malloc(sizeof(t_test)))) bad_malloc();
+	t->name = av[0];
+	t->fd = fopen(ft_strjoin(ft_strjoin(TESTPATH, av[0]), ".c"), "w");
+	set_param(&t->n, av[1], NULL);
+	set_param(&t->flags, av[2], &t->numof_flags);
+	t->numof_flagcombinations = 1;
+	for (size_t i = 0; i < t->numof_flags; i++)
+		t->numof_flagcombinations *= 2;
+	set_param(&t->width, av[3], NULL);
+	set_param(&t->precision, av[4], NULL);
+	t->lengthes = ft_strsplit(av[5], &t->numof_lengthes, '|');
+	set_param(&t->types, av[6], &t->numof_types);
+	set_param(&t->args, av[7], NULL);
+	set_param(&t->extra_code, av[8], NULL);
+	set_param(&t->extra_print, av[9], NULL);
+	t->testnum = 0;
+	return (t);
 }
 
 int		main(int ac, char **av)
 {
-	t_data		*data;
+	t_test	*t;
 
-	if (ac == 6)
-	{
-		data = (t_data*)malloc(sizeof(t_data));
-		set_data(data, av[3], av[4]);
-		make_tests(data, av[1], replacedog(av[2]), atoi(av[5]));
-	}
+	if (ac != 11)
+		return (1);
+	t = set_test(&av[1]);
+	print_includes(t);
+	print_main(t);
+	fclose(t->fd);
 	return (0);
 }

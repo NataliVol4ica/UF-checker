@@ -189,8 +189,6 @@ int		r_getline(t_line *line)
 
 void	skip_lines(t_line *line, int n)
 {
-	size_t	r;
-	
 	while (n-- > 0)
 		if ((r_getline(line)) <= 0)
 		{
