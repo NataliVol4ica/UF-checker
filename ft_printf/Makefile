@@ -5,7 +5,11 @@ TOOLS_OBJ_DIR = $(TOOLS_DIR)/obj
 TESTER_DIR = ./testers
 FILES_DIR = ./files
 
-TOOLS = def_tools errors list_tools read_line_tools
+TOOLS = default_tools \
+		differ_tools \
+		errors \
+		list_tools \
+		read_line_tools
 C_TOOLS = $(patsubst %, $(TOOLS_DIR)/%.c, $(TOOLS))
 O_TOOLS = $(patsubst %, $(TOOLS_OBJ_DIR)/%.o, $(TOOLS))
 
@@ -31,6 +35,7 @@ all:
 	@make -C $(TESTER_DIR)/ create_testers
 	@make -C $(TESTER_DIR)/ compile_testers
 	@make test
+	@make differ
 
 clean:
 	@echo ${GREEN}"[Recreating testers folder]"${NC}
@@ -43,6 +48,12 @@ clean:
 	rm -rf $(EXE_DIR) || true
 	mkdir $(EXE_DIR)
 	mkdir $(EXE_DIR)/testers
+
+# DIFFERENCE FINDER
+
+differ:
+	@echo ${CYAN}"[Compiling differ]"${NC}
+	gcc -o $(EXE_DIR)/differ diff_finder.c $(O_TOOLS) -I$(TOOLS_DIR)
 
 # TEST
 

@@ -14,7 +14,7 @@ t_line	*new_readline(char *file, char *flags)
 	if (!(l->str = (char*)malloc(sizeof(char))))
 		bad_malloc();
 	l->len = 0;
-	l->filename = file;
+	l->filename = ft_strdup(file);
 	l->fd = fopen(file, flags);
 	return (l);
 }
@@ -22,6 +22,7 @@ t_line	*new_readline(char *file, char *flags)
 void	close_readline(t_line *l)
 {
 	fclose(l->fd);
+	free(l->filename);
 	free(l->str);
 	free(l);
 }

@@ -12,6 +12,15 @@ typedef struct	s_line
 	FILE	*fd;
 }				t_line;
 
+typedef struct	s_read_lines
+{
+	t_line		*printf_line;
+	t_line		*printf_ret;
+	t_line		*ft_printf_line;
+	t_line		*ft_printf_ret;
+	t_line		*source_code;
+}				t_read_lines;
+
 typedef struct		s_list
 {
 	char			*str;

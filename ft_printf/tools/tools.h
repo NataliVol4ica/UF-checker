@@ -5,7 +5,10 @@
 # include <string.h>
 # include "structs.h"
 
-// > ../files/$(test_m%02zu_ft_printf_print)\n"
+# define P_PRINT "printf_print"
+# define P_RET   "printf_ret"
+# define F_PRINT "ft_printf_print"
+# define F_RET "ft_printf_ret"
 
 //	FILE TOOLS
 
@@ -34,5 +37,11 @@ char	**ft_strsplit(char const *s, size_t *n, char c);	//splits str into **words
 void	bad_malloc(void);
 void	bad_file(void);
 void	bad_input(void);
+
+//	DIFFERERS
+
+char			*get_test_name(int n, int ismain);
+t_read_lines	*new_differ_test(char *name);
+void			close_differ_test(t_read_lines *r);
 
 #endif
