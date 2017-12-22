@@ -30,7 +30,7 @@ all:
 	@echo ${GREEN}"[Creating testers]"${NC}
 	@make -C $(TESTER_DIR)/ create_testers
 	@make -C $(TESTER_DIR)/ compile_testers
-	@make -C $(TESTER_DIR)/ run_testers
+	@make test
 
 clean:
 	@echo ${GREEN}"[Recreating testers folder]"${NC}
@@ -43,6 +43,11 @@ clean:
 	rm -rf $(EXE_DIR) || true
 	mkdir $(EXE_DIR)
 	mkdir $(EXE_DIR)/testers
+
+# TEST
+
+test:
+	@make -C $(TESTER_DIR)/ run_testers
 
 # TESTMAKER
 

@@ -178,4 +178,4 @@ run_testers:
 	@printf "\n"
 
 diff:
-	../executables/differ $(TEST_NAMES)
+	../executables/differ "47" "0"

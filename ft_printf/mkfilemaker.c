@@ -114,7 +114,7 @@ int		main()
 	fprintf(mkfile->fd, "\t@printf \"\\n\"\n");
 
 	fprintf(mkfile->fd, "\ndiff:\n");
-	fprintf(mkfile->fd, "\t../executables/differ $(TEST_NAMES)");
+	fprintf(mkfile->fd, "\t../executables/differ \"%zu\" \"%zu\"", num_of_main_tests, num_of_bonus_tests);
 	fprintf(mkfile->fd, "\n");
 	close_readline(mkfile);
 	return (0);
