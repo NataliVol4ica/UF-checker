@@ -60,12 +60,12 @@ typedef struct	s_result_info
 
 enum m_types
 {
-	td = 0, tD, ti, to, tO, tu, tU, tx, tX, tc, tC, ts, tS, tp, tperc //15
+	td = 0, tD, ti, to, tO, tu, tU, tx, tX, tc, tC, ts, tS, tp, tperc, tmmax //15
 };
 
 enum b_types
 {
-	te = 0, tE, tf, tF, ta, tA, tg, tG, tn //9
+	te = 0, tE, tf, tF, ta, tA, tg, tG, tn, tbmax //9
 };
 
 enum lens

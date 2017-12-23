@@ -106,10 +106,16 @@ void			zero_result(void)
 
 void			choose_color(t_result_info t)
 {
+	int	percent;
+
 	if (t.num_of_fails == 0)
+	{
 		printf("\x1b[32m""100%%""\x1b[0m");
-	else
-		printf("\x1b[31m""%3.2d%%""\x1b[0m", 100 - (int)(100 * t.num_of_fails / t.num_of_tests));
+		return ;
+	}
+	percent = (int)(100 - 100 * t.num_of_fails / t.num_of_tests);
+	percent = percent == 100 ? 99 : percent;
+	printf("\x1b[31m""%3.2d%%""\x1b[0m", percent);
 }
 
 void			print_m_res(enum m_types t)

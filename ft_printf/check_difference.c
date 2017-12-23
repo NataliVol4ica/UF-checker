@@ -15,12 +15,59 @@
 #include <stdlib.h>
 #include "tools.h"
 
+#define MAINTYPES "dDioOuUxXcCsSp%" //15
+#define BONUSTYPES "eEfFaAgGn" //9
+
+void	save_test(char *str, int is_fail)
+{
+	size_t	i;
+	size_t	len;
+
+	while (str[0] != '|')
+		str++;
+	str++;
+	i = 1;
+	while (str[i] != '|')
+		i++;
+	str[i] = '\0';
+	i -= 2;
+	printf("fail inp %s\n", str);
+	if (str[i] == 'h' && str[i - 1] == 'h' ) len = lhh; else
+	if (str[i] == 'h') len = lh; else
+	if (str[i] == 'l' && str[i - 1] == 'l' ) len = lll; else
+	if (str[i]  == 'l') len = ll; else
+	if (str[i] == 'j') len = lj; else
+	if (str[i] == 'z') len = lz; else
+	if (str[i] == 'L') len = lL; else
+	if (str[i] == 't') len = lt; else
+	len = lnone;
+	i++;
+	for (size_t typ = 0; typ < tmmax; typ++)
+		if (str[i] == MAINTYPES[typ])
+		{
+			if (is_fail)
+				result.main_values[typ][len].num_of_fails++;
+			result.main_values[typ][len].num_of_tests++;
+			return ;
+		}
+	for (size_t typ = 0; typ < tbmax; typ++)
+		if (str[i] == MAINTYPES[typ])
+		{
+			if (is_fail)
+				result.bonus_values[typ][len].num_of_fails++;
+			result.bonus_values[typ][len].num_of_tests++;
+			return ;
+	}
+}
+
 void	print_fail(FILE *fails, t_read_lines *r)
 {
 	printf("=============\\\n");
-	printf("Fail test : %s\n", &r->source_code->str[11]);
-	printf("Your str : \"%s\"\n", r->ft_printf_line->str);
-	printf("Corr str : \"%s\"\n", r->printf_line->str);
+	r->printf_line->str[5] = '\0';
+	printf("Fail test %s : %s\n", r->printf_line->str, &r->source_code->str[11]);
+	r->printf_line->str[5] = '|';
+	printf("Your str : \"%s\"\n", &r->ft_printf_line->str[5]);
+	printf("Corr str : \"%s\"\n", &r->printf_line->str[5]);
 	printf("Your ret : \"%s\"\n", r->ft_printf_ret->str);
 	printf("Corr ret : \"%s\"\n", r->printf_ret->str);
 	printf("Test name: %s\n", r->source_code->filename);
@@ -40,21 +87,18 @@ void	check_file(t_read_lines *r, FILE *fails)
 			continue ;
 		read_line(r->printf_ret);
 		read_line(r->ft_printf_ret);
+		skip_read_line(r->source_code, 5);
 		if ((strcmp(r->printf_line->str, r->ft_printf_line->str) != 0 ||
 			strcmp(r->printf_ret->str, r->ft_printf_ret->str) != 0) &&
 			!(strcmp(r->printf_ret->str, "-1") == 0))
 		{
-			while (curcode < curtest)
-			{
-				read_delim(r->source_code, '@');
-				curcode++;
-			}
-			skip_read_line(r->source_code, 5);
+			save_test(r->source_code->str, 1);
 			print_fail(fails, r);
-			read_delim(r->source_code, '@');
 			total.num_of_fails++;
-			exit (0);
 		}
+		else
+			save_test(r->source_code->str, 0);
+		read_delim(r->source_code, '@');
 		curtest++;
 	}
 }
