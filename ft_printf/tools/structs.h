@@ -8,7 +8,7 @@ typedef struct	s_line
 {
 	char	*filename;
 	char	*str;
-	char	len;
+	int		len;
 	FILE	*fd;
 }				t_line;
 
@@ -52,8 +52,35 @@ typedef struct	s_test
 	size_t	testnum;
 }				t_test;
 
-typedef struct	s_curtest
+typedef struct	s_result_info
 {
-}				t_curtest;
+	size_t	num_of_tests;
+	size_t	num_of_fails;
+}				t_result_info;
+
+enum m_types
+{
+	td = 0, tD, ti, to, tO, tu, tU, tx, tX, tc, tC, ts, tS, tp, tperc //15
+};
+
+enum b_types
+{
+	te = 0, tE, tf, tF, ta, tA, tg, tG, tn //9
+};
+
+enum lens
+{
+	lnone = 0, lhh, lh, ll, lll, lj, lz, lL, lt //9
+};
+
+typedef struct	s_result
+{
+	t_result_info	main_values[15][9];
+	t_result_info	bonus_values[9][9];
+	t_result_info	apostrophe_fails;
+}				t_result;
+
+t_result		result;
+t_result_info	total;
 
 #endif

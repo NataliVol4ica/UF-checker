@@ -36,6 +36,7 @@ all:
 	@make -C $(TESTER_DIR)/ compile_testers
 	@make test
 	@make differ
+	@make -C $(TESTER_DIR)/ diff
 
 clean:
 	@echo ${GREEN}"[Recreating testers folder]"${NC}
@@ -53,7 +54,7 @@ clean:
 
 differ:
 	@echo ${CYAN}"[Compiling differ]"${NC}
-	gcc -o $(EXE_DIR)/differ diff_finder.c $(O_TOOLS) -I$(TOOLS_DIR)
+	gcc -o $(EXE_DIR)/check_difference check_difference.c $(O_TOOLS) -I$(TOOLS_DIR)
 
 # TEST
 
@@ -82,3 +83,7 @@ $(TOOLS_OBJ_DIR):
 run_mkfilemaker:
 	@echo ${PURPLE}"[Running mkfilemaker]"${NC}
 	$(EXE_DIR)/mkfilemaker
+
+run_differ:
+	@make differ
+	@make -C $(TESTER_DIR)/ diff

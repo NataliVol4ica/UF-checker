@@ -33,7 +33,7 @@ TEST_M25 = "test_m25" "-" " 0+-\#" "0" ".0" "|hh|h|l|ll|j|z" "sS" "L\"\"" "setlo
 TEST_M26 = "test_m26" "-" " 0+-\#" "0" ".5" "|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 TEST_M27 = "test_m27" "-" " 0+-\#" "2" ".1" "|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 TEST_M28 = "test_m28" "-" " 0+-\#" "2" ".0" "|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
-TEST_M29 = "test_m29" "-" " 0+-\#" "30" "20" "|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+TEST_M29 = "test_m29" "-" " 0+-\#" "30" ".20" "|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 TEST_M30 = "test_m30" "-" " 0+-\#" "10" ".0" "|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 TEST_M31 = "test_m31" "-" " 0+-\#" "10" ".20" "|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 TEST_M32 = "test_m32" "-" " 0+-\#" "13" ".12" "|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
@@ -55,6 +55,7 @@ TEST_M46 = "test_m46" "-" " 0+-\#" "13" ".12" "|hh|h|l|ll|j|z" "DOU" "2147483647
 # BONUS TESTS
 
 TEST_NAMES = test_m00 test_m01 test_m02 test_m03 test_m04 test_m05 test_m06 test_m07 test_m08 test_m09 test_m10 test_m11 test_m12 test_m13 test_m14 test_m15 test_m16 test_m17 test_m18 test_m19 test_m20 test_m21 test_m22 test_m23 test_m24 test_m25 test_m26 test_m27 test_m28 test_m29 test_m30 test_m31 test_m32 test_m33 test_m34 test_m35 test_m36 test_m37 test_m38 test_m39 test_m40 test_m41 test_m42 test_m43 test_m44 test_m45 test_m46
+TESTERS_C = $(patsubst %, ../testers/%.c, $(TEST_NAMES))
 
 TEST_EXE = $(patsubst %, ../executables/testers/%, $(TEST_NAMES))
 
@@ -178,4 +179,6 @@ run_testers:
 	@printf "\n"
 
 diff:
-	../executables/differ "47" "0"
+	@echo ${PURPLE}"[Running difference check]"${NC}
+	rm ../files/fails || true
+	../executables/check_difference "47" "0"

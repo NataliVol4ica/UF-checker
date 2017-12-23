@@ -31,22 +31,23 @@ void	print_flags(t_test *t)
 void	print_test(t_test *t)
 {
 	fprintf(t->fd, "//@\n");
-	fprintf(t->fd, "\tft_printf(\"#%04zu\");\n", t->testnum);
-	fprintf(t->fd, "\tfprintf(printf_, \"#%04zu\");\n", t->testnum);
+	fprintf(t->fd, "\tft_printf(\"\\n#%04zu\");\n", t->testnum);
+	fprintf(t->fd, "\tfprintf(printf_, \"\\n#%04zu\");\n", t->testnum);
 	fprintf(t->fd, "\tret1 = fprintf(printf_, \"|%%%s", t->n);
 	print_flags(t);
 	fprintf(t->fd, "%s%s%s%c|", t->width, t->precision, t->length, t->type);
-	fprintf(t->fd, "%s\\n\"", t->extra_print);
+	fprintf(t->fd, "%s\"", t->extra_print);
 	if (t->args[0] != '\0') fprintf(t->fd, ", %s", t->args);
 	fprintf(t->fd, ");\n");
 	fprintf(t->fd, "\tret2 = ft_printf(\"|%%%s", t->n);
 	print_flags(t);
 	fprintf(t->fd, "%s%s%s%c|", t->width, t->precision, t->length, t->type);
-	fprintf(t->fd, "%s\\n\"", t->extra_print);
+	fprintf(t->fd, "%s\"", t->extra_print);
 	if (t->args[0] != '\0') fprintf(t->fd, ", %s", t->args);
 	fprintf(t->fd, ");\n");
-	fprintf(t->fd, "\tfprintf(printf_ret, \"%%d\", ret1);\n");
-	fprintf(t->fd, "\tfprintf(ft_printf_ret, \"%%d\", ret2);\n");
+	fprintf(t->fd, "\tfprintf(printf_ret, \"%%d\\n\", ret1);\n");
+	fprintf(t->fd, "\tfprintf(ft_printf_ret, \"%%d\\n\", ret2);\n");
+	fprintf(t->fd, "\tif (ret1 == -1) printf_ = fopen(\"../files/%s_printf_print\", \"a\");\n", t->name);
 }
 
 void	print_tests(t_test *t)
@@ -102,7 +103,7 @@ void	print_includes(t_test *t)
 
 void	set_param(char **ptr, char *av, size_t *len)
 {
-	if (av[0] == '\0' || av[0] == '-')
+	if (av[0] == '\0' || (av[0] == '-' && av[1] == '\0'))
 		*ptr = ft_strnew(0);
 	else
 		*ptr = av;

@@ -41,7 +41,13 @@ void	bad_input(void);
 //	DIFFERERS
 
 char			*get_test_name(int n, int ismain);
-t_read_lines	*new_differ_test(char *name);
+char			*get_code_name(int n, int ismain);
+t_read_lines	*new_differ_test(char *name, char *code_file);
 void			close_differ_test(t_read_lines *r);
+
+// RESULT FUNCS
+
+void			zero_result(void);
+void			print_result(int is_bonus);
 
 #endif

@@ -16,6 +16,7 @@
 
 void			zero_result(void)
 {
+	result.apostrophe_fails = 0;
 	for (enum lens l = lhh; l <= lt; l++)
 	{
 		for (enum m_types t = td; t <= tperc; t++)
@@ -178,7 +179,7 @@ void			print_b_res(enum b_types t)
 	}
 	printf("]");
 	if (fails)
-		printf("\x1b[31m"" Fails : %d""\x1b[0m", fails);
+		printf("\x1b[31m"" Fails : %zu""\x1b[0m", fails);
 	printf("\n");
 }
 
@@ -192,7 +193,7 @@ void			print_result(int is_bonus)
 	for (enum b_types t = td; t <= tn; t++)
 		print_b_res(t);
 	printf("\n   Apostrophe fails: ");
-	if (apostrophe_fails == 0) print_green("[0]\n");
-	else printf("\x1b[31m""[%d]\n""\x1b[0m", apostrophe_fails);
+	if (result.apostrophe_fails == 0) print_green("[0]\n");
+	else printf("\x1b[31m""[%zu]\n""\x1b[0m", result.apostrophe_fails);
 	printf("|============================|\n");
 }

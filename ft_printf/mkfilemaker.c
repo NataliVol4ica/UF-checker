@@ -81,13 +81,17 @@ int		main()
 		fprintf(mkfile->fd, " test_m%02zu", i);
 	for (size_t i = 0; i < num_of_bonus_tests; i++)
 		fprintf(mkfile->fd, " test_b%02zu", i);
+	fprintf(mkfile->fd, "\nTESTERS_C = $(patsubst %%, ../testers/%%.c, $(TEST_NAMES))");
+
 
 	fprintf(mkfile->fd, "\n\nTEST_EXE = $(patsubst %%, ../executables/testers/%%, $(TEST_NAMES))");
 	//fprintf(mkfile->fd, "\nTEST_C = $(patsubst %%, ../testers/%%, $(TEST_NAMES))");
 	fprintf(mkfile->fd, "\n\n# COLORS\n\nGREEN = \'\\033[0;32m\'\n");
 	fprintf(mkfile->fd, "PURPLE = \'\\033[0;35m\'\nCYAN = \'\\033[0;36m\'\nNC = \'\\033[0m\'");
 
-	fprintf(mkfile->fd, "\n\ncreate_testers:\n");
+	fprintf(mkfile->fd, "\n");
+
+	fprintf(mkfile->fd, "\ncreate_testers:\n");
 	for (size_t i = 0; i < num_of_main_tests; i++)
 		fprintf(mkfile->fd, "\t@../executables/testmaker $(TEST_M%02zu) && printf \".\"\n", i);
 	for (size_t i = 0; i < num_of_bonus_tests; i++)
@@ -114,7 +118,9 @@ int		main()
 	fprintf(mkfile->fd, "\t@printf \"\\n\"\n");
 
 	fprintf(mkfile->fd, "\ndiff:\n");
-	fprintf(mkfile->fd, "\t../executables/differ \"%zu\" \"%zu\"", num_of_main_tests, num_of_bonus_tests);
+	fprintf(mkfile->fd, "\t@echo ${PURPLE}\"[Running difference check]\"${NC}\n");
+	fprintf(mkfile->fd, "\trm ../files/fails || true\n");
+	fprintf(mkfile->fd, "\t../executables/check_difference \"%zu\" \"%zu\"", num_of_main_tests, num_of_bonus_tests);
 	fprintf(mkfile->fd, "\n");
 	close_readline(mkfile);
 	return (0);
