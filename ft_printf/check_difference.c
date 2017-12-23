@@ -31,7 +31,6 @@ void	save_test(char *str, int is_fail)
 		i++;
 	str[i] = '\0';
 	i -= 2;
-	printf("fail inp %s\n", str);
 	if (str[i] == 'h' && str[i - 1] == 'h' ) len = lhh; else
 	if (str[i] == 'h') len = lh; else
 	if (str[i] == 'l' && str[i - 1] == 'l' ) len = lll; else
@@ -51,7 +50,7 @@ void	save_test(char *str, int is_fail)
 			return ;
 		}
 	for (size_t typ = 0; typ < tbmax; typ++)
-		if (str[i] == MAINTYPES[typ])
+		if (str[i] == BONUSTYPES[typ])
 		{
 			if (is_fail)
 				result.bonus_values[typ][len].num_of_fails++;
@@ -62,15 +61,16 @@ void	save_test(char *str, int is_fail)
 
 void	print_fail(FILE *fails, t_read_lines *r)
 {
-	printf("=============\\\n");
+	fprintf(fails, "=============\\\n");
 	r->printf_line->str[5] = '\0';
-	printf("Fail test %s : %s\n", r->printf_line->str, &r->source_code->str[11]);
+	r->source_code->filename[6] = '\0';
+	fprintf(fails, "Fail %s[%s]: %s\n", &r->source_code->filename[11], r->printf_line->str, &r->source_code->str[11]);
 	r->printf_line->str[5] = '|';
-	printf("Your str : \"%s\"\n", &r->ft_printf_line->str[5]);
-	printf("Corr str : \"%s\"\n", &r->printf_line->str[5]);
-	printf("Your ret : \"%s\"\n", r->ft_printf_ret->str);
-	printf("Corr ret : \"%s\"\n", r->printf_ret->str);
-	printf("Test name: %s\n", r->source_code->filename);
+	r->source_code->filename[8] = '.';
+	fprintf(fails, "Your str : \"%s\"\n", &r->ft_printf_line->str[5]);
+	fprintf(fails, "Corr str : \"%s\"\n", &r->printf_line->str[5]);
+	fprintf(fails, "Your ret : \"%s\"\n", r->ft_printf_ret->str);
+	fprintf(fails, "Corr ret : \"%s\"\n", r->printf_ret->str);
 }
 
 void	check_file(t_read_lines *r, FILE *fails)
@@ -92,8 +92,8 @@ void	check_file(t_read_lines *r, FILE *fails)
 			strcmp(r->printf_ret->str, r->ft_printf_ret->str) != 0) &&
 			!(strcmp(r->printf_ret->str, "-1") == 0))
 		{
-			save_test(r->source_code->str, 1);
 			print_fail(fails, r);
+			save_test(r->source_code->str, 1);
 			total.num_of_fails++;
 		}
 		else

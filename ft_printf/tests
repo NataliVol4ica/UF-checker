@@ -57,3 +57,7 @@
 "-" " 0+-\#" "13" ".12" "|hh|h|l|ll|j|z" "DOU" "2147483647" "-" "-"
 
 === || BONUS TESTS || ===
+
+"-" " 0+-\#\'" "0" "."  "|hh|h|l|ll|j|z" "%dDioOuUxXaAeEfFgG" "0" "-" "-"
+"-" " 0+-\#\'" "0" "0"  "|hh|h|l|ll|j|z" "%dDioOuUxXaAeEfFgG" "0" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-\#\'" "0" "0"  "|hh|h|l|ll|j|z" "%dDioOuUxXaAeEfFgG" "1024" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
