@@ -7,3 +7,6 @@
 *ft_printf/files/
 *ft_printf/testers/
 *ft_printf/executables/
+*obj/
+*get_next_line/*tests/*_ans
+*.o

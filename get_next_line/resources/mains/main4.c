@@ -59,13 +59,13 @@ int		main(int ac, char **av)
 			c = get_next_line(fd2, &ans);
 			do_print(c, ans);
 			c = get_next_line(fd1, &ans);
-			do_print(c, ans);
+			printf("%d\n", c);
 			c = get_next_line(fd3, &ans);
 			do_print(c, ans);
 			c = get_next_line(fd2, &ans);
-			do_print(c, ans);
+			printf("%d\n", c);
 			c = get_next_line(fd3, &ans);
-			do_print(c, ans);
+			printf("%d\n", c);
 		}
 		close(fd1);
 		close(fd2);

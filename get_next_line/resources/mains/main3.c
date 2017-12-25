@@ -39,7 +39,7 @@ int		main(void)
 		c = get_next_line(fd, &ans);
 		if (c < 0)
 			break;
-		do_print(c, ans);
+		printf("%d\n", c);
 	}
 	do_print(c, ans);
 	close(fd);

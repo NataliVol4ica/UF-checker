@@ -42,7 +42,7 @@ int		main(int ac, char **av)
 				printf("\n""\x1b[32m""File name = \"%s\"\n\n""\x1b[0m", av[1]);
 			while ((c = get_next_line(fd, &ans) > 0))
 				do_print(c, ans);
-			do_print(c, ans);
+			printf("%d\n", c);
 		}
 		close(fd);
 	}

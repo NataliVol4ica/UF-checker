@@ -36,7 +36,7 @@ int		main(void)
 	fd = 0;
 	while ((c = get_next_line(fd, &ans) > 0))
 		do_print(c, ans);
-	do_print(c, ans);
+	printf("%d\n", c);
 	close(fd);
 	return (0);
 }
