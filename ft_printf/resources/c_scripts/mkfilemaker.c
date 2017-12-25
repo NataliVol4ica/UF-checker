@@ -121,7 +121,7 @@ int		main(int ac, char **av)
 	for (size_t i = 0; i < num_of_main_tests; i++)
 		fprintf(mkfile->fd, "\t@.%s/test_m%02zu > ../testing_results/test_m%02zu_ft_printf_print && printf \".\" || printf \"x\"\n", exetests, i, i);
 	for (size_t i = 0; i < num_of_bonus_tests; i++)
-		fprintf(mkfile->fd, "\t@.%s/test_b%02zu > ../testing_results/test_m%02zu_ft_printf_print && printf \".\" || printf \"x\"\n", exetests, i, i);
+		fprintf(mkfile->fd, "\t@.%s/test_b%02zu > ../testing_results/test_b%02zu_ft_printf_print && printf \".\" || printf \"x\"\n", exetests, i, i);
 	fprintf(mkfile->fd, "\t@printf \"\\n\"\n");
 
 	fprintf(mkfile->fd, "\ndiff:\n");

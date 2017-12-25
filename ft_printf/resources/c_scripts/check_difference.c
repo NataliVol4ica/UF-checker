@@ -34,13 +34,18 @@ void	save_test(char *str, int is_fail)
 	if (str[i] == 'h' && str[i - 1] == 'h' ) len = lhh; else
 	if (str[i] == 'h') len = lh; else
 	if (str[i] == 'l' && str[i - 1] == 'l' ) len = lll; else
-	if (str[i]  == 'l') len = ll; else
+	if (str[i] == 'l') len = ll; else
 	if (str[i] == 'j') len = lj; else
 	if (str[i] == 'z') len = lz; else
 	if (str[i] == 'L') len = lL; else
 	if (str[i] == 't') len = lt; else
 	len = lnone;
 	i++;
+	if (strchr(str, '\''))
+	{
+		result.apostrophe.num_of_tests++;
+		result.apostrophe.num_of_fails += is_fail;
+	}
 	for (size_t typ = 0; typ < tmmax; typ++)
 		if (str[i] == MAINTYPES[typ])
 		{
@@ -117,8 +122,8 @@ int		main(int ac, char **av)
 	total.num_of_fails = 0;
 	num_of_main_tests = atoi(av[1]);
 	num_of_bonus_tests = atoi(av[2]);
-	zero_result();
 	fails = fopen("../../fails", "w");
+	zero_result();
 	setvbuf(fails, NULL, _IONBF, 0);
 	for(int i = 0; i < num_of_main_tests; i++)
 	{
@@ -129,7 +134,12 @@ int		main(int ac, char **av)
 	printf("\n=== \\\\ Main results:\n");
 	print_result(0);
 	zero_result();
-	//same cycle for bonus
+	for(int i = 0; i < num_of_bonus_tests; i++)
+	{
+		r = new_differ_test(get_test_name(i, 0), get_code_name(i, 0));
+		check_file(r, fails);
+		close_differ_test(r);
+	}
 	printf("\n=== \\\\ Bonus results:\n");
 	print_result(1);
 	printf("Total number of tests: %zu\n", total.num_of_tests);

@@ -77,7 +77,7 @@ typedef struct	s_result
 {
 	t_result_info	main_values[15][9];
 	t_result_info	bonus_values[9][9];
-	t_result_info	apostrophe_fails;
+	t_result_info	apostrophe;
 }				t_result;
 
 t_result		result;

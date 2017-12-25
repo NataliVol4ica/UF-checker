@@ -87,7 +87,7 @@ void		close_differ_test(t_read_lines *r)
 
 void			zero_result(void)
 {
-	for (enum lens l = lhh; l <= lt; l++)
+	for (enum lens l = lnone; l <= lt; l++)
 	{
 		for (enum m_types t = td; t <= tperc; t++)
 		{
@@ -108,6 +108,11 @@ void			choose_color(t_result_info t)
 {
 	int	percent;
 
+	if (t.num_of_tests == 0)
+	{
+		printf("\033[0;37m""none""\033[0m");
+		return ;
+	}
 	if (t.num_of_fails == 0)
 	{
 		printf("\x1b[32m""100%%""\x1b[0m");
@@ -118,9 +123,10 @@ void			choose_color(t_result_info t)
 	printf("\x1b[31m""%3.2d%%""\x1b[0m", percent);
 }
 
-void			print_m_res(enum m_types t)
+void			print_m_res(enum m_types t, int is_bonus)
 {
-	size_t fails = 0;
+	size_t	fails = 0;
+	int		max;
 
 	printf("   %%");
 	if (t == td) printf("d"); else
@@ -139,11 +145,12 @@ void			print_m_res(enum m_types t)
 	if (t == tp) printf("p"); else
 	if (t == tperc) printf("%%");
 	printf(" : [");
-	for (enum lens l = lnone; l <= lt; l++)
+	max = is_bonus ? lt : lz;
+	for (enum lens l = lnone; l <= max; l++)
 	{
 		choose_color(result.main_values[t][l]);
 		fails += result.main_values[t][l].num_of_fails;
-		if (l != lt) printf("|");
+		if (l != max) printf("|");
 	}
 	printf("]");
 	if (fails)
@@ -180,15 +187,21 @@ void			print_b_res(enum b_types t)
 
 void			print_result(int is_bonus)
 {
-	printf("        [ -  | hh | h  | l  | ll | j  | z  | L  | t  ]\n");
+	if (is_bonus == 0)
+	{
+	printf("        [ -  | hh | h  | l  | ll | j  | z  ]\n");
 	for (enum m_types t = td; t <= tperc; t++)
-		print_m_res(t);
+		print_m_res(t, is_bonus);
 	if (!is_bonus)
 		return ;
+	}
 	printf("\n        [ -  | hh | h  | l  | ll | j  | z  | L  | t  ]\n");
+	for (enum m_types t = td; t <= tperc; t++)
+		print_m_res(t, is_bonus);
+	printf("\n");
 	for (enum b_types t = te; t <= tn; t++)
 		print_b_res(t);
 	printf("\n   Apostrophe flag : [");
-	choose_color(result.apostrophe_fails);
+	choose_color(result.apostrophe);
 	printf("]\n|============================|\n");
 }
