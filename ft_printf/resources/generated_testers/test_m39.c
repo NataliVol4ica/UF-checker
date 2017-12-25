@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <locale.h>
+#include <stddef.h>
 #include "libftprintf.h"
 
 int		main(void)
@@ -8,7 +9,6 @@ int		main(void)
 	FILE	*printf_, *printf_ret, *ft_printf_ret;
 	int		ret1, ret2;
 
-	
 	printf_ = fopen("../testing_results/test_m39_printf_print", "w");
 	printf_ret = fopen("../testing_results/test_m39_printf_ret", "w");
 	ft_printf_ret = fopen("../testing_results/test_m39_ft_printf_ret", "w");
@@ -16,6 +16,7 @@ int		main(void)
 	setvbuf(printf_ret, NULL, _IONBF, 0);
 	setvbuf(ft_printf_ret, NULL, _IONBF, 0);
 
+	
 //@
 	ft_printf("\n#0000");
 	fprintf(printf_, "\n#0000");

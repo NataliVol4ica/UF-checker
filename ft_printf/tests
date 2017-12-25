@@ -56,8 +56,20 @@
 "-" " 0+-\#" "13" ".12" "-|hh|h|l|ll|j|z" "DOU" "2147483648" "-" "-"
 "-" " 0+-\#" "13" ".12" "-|hh|h|l|ll|j|z" "DOU" "2147483647" "-" "-"
 
+"-" " 0+-\#" "0" "." "-|hh|h|l|ll|j|z" "p" "&p" "int p;" "-"
+"-" " 0+-\#" "0" "." "-|hh|h|l|ll|j|z" "p" "NULL" "" "-"
+
 === || BONUS TESTS || ===
 
-"-" " 0+-\#\'" "0" "."  "-|hh|h|l|ll|j|z" "%dDioOuUxXaAeEfFgG" "0" "-" "-"
-"-" " 0+-\#\'" "0" "0"  "-|hh|h|l|ll|j|z" "%dDioOuUxXaAeEfFgG" "0" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
-"-" " 0+-\#\'" "0" "0"  "-|hh|h|l|ll|j|z" "%dDioOuUxXaAeEfFgG" "1024" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-\#" "0" "." "t" "dDioOuUxXcCp%" "m" "int m[25];" "-"
+"-" "\'" "0" "." "-" "%dDioOuUxXcCpaAeEfFgG" "0" "-" "-"
+"-" "\'" "0" "." "-" "%dDioOuUxXcCpaAeEfFgG" "0" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-\#\'" "0" "0" "-|hh|h|l|ll|j|z|L|t" "%dDioOuUxXcCpaAeEfFgG" "1024" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-\#" "0" "0" "-|hh|h|l|ll|j|z|L|t" "aAeEfFgG" "102420484096" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-\#" "*" ".*" "-" "%dDioOuUxXp" "5, 4, -25" "-" "-"
+"-" " 0+-\#" "*" ".*" "-" "dDioOuUxX" "-5, 4, -25" "-" "-"
+"-" " 0+-\#" "*" ".*" "-" "dDioOuUxX" "-5, -4, -25" "-" "-"
+"2$$" " 0+-\#" "5" ".4" "-" "%diouxX" "25, -25" "-" "-"
+"2$$" " 0+-\#" "*3$$" ".*1$$" "-" "%diouxX" "4, -25, 5" "-" "-"
+"5$$" " 0+-\#" "5" ".4" "-" "%diouxX" "0, -25, 25, 24, -24" "-" "-"
+"3$$4.3d-%1$$" "-" "5" ".*2$$" "-" "%diouxX" "4, 25, -25" "-" "-"

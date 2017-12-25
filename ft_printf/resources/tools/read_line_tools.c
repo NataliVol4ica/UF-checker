@@ -30,7 +30,7 @@ void	close_readline(t_line *l)
 int		read_line(t_line *line)
 {
 	line->len = getline(&line->str, &as_you_wish, line->fd);
-	if (line->len > 0)
+	if (line->len > 0 && line->str[line->len - 1] == '\n')
 		line->str[line->len - 1] = '\0';
 	return(line->len > 0 ? 1 : 0); 
 }
@@ -38,7 +38,7 @@ int		read_line(t_line *line)
 int		read_delim(t_line *line, char delim)
 {
 	line->len = getdelim(&line->str, &as_you_wish, delim, line->fd);
-	if (line->len > 0)
+	if (line->len > 0 && line->str[line->len - 1] == delim)
 		line->str[line->len - 1] = '\0';
 	return(line->len > 0 ? 1 : 0); 
 }

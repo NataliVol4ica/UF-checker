@@ -16,7 +16,9 @@
 #include "tools.h"
 
 #define MAINTYPES "dDioOuUxXcCsSp%" //15
-#define BONUSTYPES "eEfFaAgGn" //9
+#define BONUSTYPES "eEfFaAgG" //9
+
+char	*extra;
 
 void	save_test(char *str, int is_fail)
 {
@@ -49,19 +51,35 @@ void	save_test(char *str, int is_fail)
 	for (size_t typ = 0; typ < tmmax; typ++)
 		if (str[i] == MAINTYPES[typ])
 		{
-			if (is_fail)
-				result.main_values[typ][len].num_of_fails++;
+			result.main_values[typ][len].num_of_fails += is_fail;
 			result.main_values[typ][len].num_of_tests++;
+			if (strchr(str, '*'))
+			{
+				if (strchr(str, '$'))
+				{
+					result.dollar.num_of_tests++;
+					result.dollar.num_of_fails += is_fail;
+				}
+				else
+				{
+					result.stars.num_of_tests++;
+					result.stars.num_of_fails += is_fail;
+				}
+			}
+			else if (strchr(str, '$'))
+			{
+				result.dollar.num_of_tests++;
+				result.dollar.num_of_fails += is_fail;
+			}
 			return ;
 		}
-	for (size_t typ = 0; typ < tbmax; typ++)
+	for (size_t typ = 0; typ < tbmax - 1; typ++)
 		if (str[i] == BONUSTYPES[typ])
 		{
-			if (is_fail)
-				result.bonus_values[typ][len].num_of_fails++;
+			result.bonus_values[typ][len].num_of_fails += is_fail;
 			result.bonus_values[typ][len].num_of_tests++;
 			return ;
-	}
+		}
 }
 
 void	print_fail(FILE *fails, t_read_lines *r)
@@ -69,21 +87,29 @@ void	print_fail(FILE *fails, t_read_lines *r)
 	fprintf(fails, "=============\\\n");
 	r->printf_line->str[5] = '\0';
 	r->source_code->filename[6] = '\0';
-	fprintf(fails, "Fail %s[%s]: %s\n", &r->source_code->filename[11], r->printf_line->str, &r->source_code->str[11]);
+	fprintf(fails, "Fail %s[%s]: %s\n", &r->source_code->filename[21], r->printf_line->str, &r->source_code->str[11]);
 	r->printf_line->str[5] = '|';
 	r->source_code->filename[8] = '.';
 	fprintf(fails, "Your str : \"%s\"\n", &r->ft_printf_line->str[5]);
 	fprintf(fails, "Corr str : \"%s\"\n", &r->printf_line->str[5]);
 	fprintf(fails, "Your ret : \"%s\"\n", r->ft_printf_ret->str);
 	fprintf(fails, "Corr ret : \"%s\"\n", r->printf_ret->str);
+	if (extra) fprintf(fails, "Extra code: %s", extra);
 }
 
 void	check_file(t_read_lines *r, FILE *fails)
 {
 	size_t	curtest = 0;
 	size_t	curcode = 0;
+	size_t	i = 0;
 
 	read_delim(r->source_code, '@');
+	extra = strstr(r->source_code->str, "setvbuf(ft_printf_ret, NULL, _IONBF, 0);");
+	extra = strchr(extra, '\n');
+	extra++;
+	extra[strlen(extra) - 2] = '\0';
+	while (extra[0] == '\n' || extra[0] == '\t' || extra[0] == ' ') extra++;
+	if (extra[0] == '\0') extra = NULL; else extra = ft_strdup(extra);
 	while (read_line(r->printf_line))
 	{
 		total.num_of_tests++;
@@ -106,6 +132,7 @@ void	check_file(t_read_lines *r, FILE *fails)
 		read_delim(r->source_code, '@');
 		curtest++;
 	}
+	free(extra);
 }
 
 int		main(int ac, char **av)
@@ -133,6 +160,8 @@ int		main(int ac, char **av)
 	}
 	printf("\n=== \\\\ Main results:\n");
 	print_result(0);
+	printf("\nNumber of tests: %zu\n", total.num_of_tests);
+	printf("Number of fails: %zu\n", total.num_of_fails);
 	zero_result();
 	for(int i = 0; i < num_of_bonus_tests; i++)
 	{

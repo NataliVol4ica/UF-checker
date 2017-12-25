@@ -51,13 +51,24 @@ TEST_M43 = "test_m43" "-" " 0+-\#" "4" ".3" "-|hh|h|l|ll|j|z" "DOU" "-25" "-" "-
 TEST_M44 = "test_m44" "-" " 0+-\#" "13" ".12" "-|hh|h|l|ll|j|z" "DOU" "-2147483648" "-" "-"
 TEST_M45 = "test_m45" "-" " 0+-\#" "13" ".12" "-|hh|h|l|ll|j|z" "DOU" "2147483648" "-" "-"
 TEST_M46 = "test_m46" "-" " 0+-\#" "13" ".12" "-|hh|h|l|ll|j|z" "DOU" "2147483647" "-" "-"
+TEST_M47 = "test_m47" "-" " 0+-\#" "0" "." "-|hh|h|l|ll|j|z" "p" "&p" "int p;" "-"
+TEST_M48 = "test_m48" "-" " 0+-\#" "0" "." "-|hh|h|l|ll|j|z" "p" "NULL" "" "-"
 
 # BONUS TESTS
 
-TEST_B00 = "test_b00" "-" " 0+-\#\'" "0" "."  "-|hh|h|l|ll|j|z" "%dDioOuUxXaAeEfFgG" "0" "-" "-"
-TEST_B01 = "test_b01" "-" " 0+-\#\'" "0" "0"  "-|hh|h|l|ll|j|z" "%dDioOuUxXaAeEfFgG" "0" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
-TEST_B02 = "test_b02" "-" " 0+-\#\'" "0" "0"  "-|hh|h|l|ll|j|z" "%dDioOuUxXaAeEfFgG" "1024" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
-TEST_NAMES = test_m00 test_m01 test_m02 test_m03 test_m04 test_m05 test_m06 test_m07 test_m08 test_m09 test_m10 test_m11 test_m12 test_m13 test_m14 test_m15 test_m16 test_m17 test_m18 test_m19 test_m20 test_m21 test_m22 test_m23 test_m24 test_m25 test_m26 test_m27 test_m28 test_m29 test_m30 test_m31 test_m32 test_m33 test_m34 test_m35 test_m36 test_m37 test_m38 test_m39 test_m40 test_m41 test_m42 test_m43 test_m44 test_m45 test_m46 test_b00 test_b01 test_b02
+TEST_B00 = "test_b00" "-" " 0+-\#" "0" "." "t" "dDioOuUxXcCp%" "m" "int m[25];" "-"
+TEST_B01 = "test_b01" "-" "\'" "0" "." "-" "%dDioOuUxXcCpaAeEfFgG" "0" "-" "-"
+TEST_B02 = "test_b02" "-" "\'" "0" "." "-" "%dDioOuUxXcCpaAeEfFgG" "0" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+TEST_B03 = "test_b03" "-" " 0+-\#\'" "0" "0" "-|hh|h|l|ll|j|z|L|t" "%dDioOuUxXcCpaAeEfFgG" "1024" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+TEST_B04 = "test_b04" "-" " 0+-\#" "0" "0" "-|hh|h|l|ll|j|z|L|t" "aAeEfFgG" "102420484096" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+TEST_B05 = "test_b05" "-" " 0+-\#" "*" ".*" "-" "%dDioOuUxXp" "5, 4, -25" "-" "-"
+TEST_B06 = "test_b06" "-" " 0+-\#" "*" ".*" "-" "dDioOuUxX" "-5, 4, -25" "-" "-"
+TEST_B07 = "test_b07" "-" " 0+-\#" "*" ".*" "-" "dDioOuUxX" "-5, -4, -25" "-" "-"
+TEST_B08 = "test_b08" "2$$" " 0+-\#" "5" ".4" "-" "%diouxX" "25, -25" "-" "-"
+TEST_B09 = "test_b09" "2$$" " 0+-\#" "*3$$" ".*1$$" "-" "%diouxX" "4, -25, 5" "-" "-"
+TEST_B10 = "test_b10" "5$$" " 0+-\#" "5" ".4" "-" "%diouxX" "0, -25, 25, 24, -24" "-" "-"
+TEST_B11 = "test_b11" "3$$4.3d-%1$$" "-" "5" ".*2$$" "-" "%diouxX" "4, 25, -25" "-" "-"
+TEST_NAMES = test_m00 test_m01 test_m02 test_m03 test_m04 test_m05 test_m06 test_m07 test_m08 test_m09 test_m10 test_m11 test_m12 test_m13 test_m14 test_m15 test_m16 test_m17 test_m18 test_m19 test_m20 test_m21 test_m22 test_m23 test_m24 test_m25 test_m26 test_m27 test_m28 test_m29 test_m30 test_m31 test_m32 test_m33 test_m34 test_m35 test_m36 test_m37 test_m38 test_m39 test_m40 test_m41 test_m42 test_m43 test_m44 test_m45 test_m46 test_m47 test_m48 test_b00 test_b01 test_b02 test_b03 test_b04 test_b05 test_b06 test_b07 test_b08 test_b09 test_b10 test_b11
 TESTERS_C = $(patsubst %, ../generated_testers/%.c, $(TEST_NAMES))
 
 TEST_EXE = $(patsubst %, ../executables/testers/%, $(TEST_NAMES))
@@ -117,9 +128,20 @@ create_testers:
 	@../executables/testmaker $(TEST_M44) && printf "."
 	@../executables/testmaker $(TEST_M45) && printf "."
 	@../executables/testmaker $(TEST_M46) && printf "."
+	@../executables/testmaker $(TEST_M47) && printf "."
+	@../executables/testmaker $(TEST_M48) && printf "."
 	@../executables/testmaker $(TEST_B00) && printf "."
 	@../executables/testmaker $(TEST_B01) && printf "."
 	@../executables/testmaker $(TEST_B02) && printf "."
+	@../executables/testmaker $(TEST_B03) && printf "."
+	@../executables/testmaker $(TEST_B04) && printf "."
+	@../executables/testmaker $(TEST_B05) && printf "."
+	@../executables/testmaker $(TEST_B06) && printf "."
+	@../executables/testmaker $(TEST_B07) && printf "."
+	@../executables/testmaker $(TEST_B08) && printf "."
+	@../executables/testmaker $(TEST_B09) && printf "."
+	@../executables/testmaker $(TEST_B10) && printf "."
+	@../executables/testmaker $(TEST_B11) && printf "."
 	@printf "\n"
 
 ../executables/testers/%: ../generated_testers/%.c
@@ -129,12 +151,12 @@ create_testers:
 compiler: $(TEST_EXE)
 
 compile_testers:
-	@echo ${CYAN}"[Compiling testers]"${NC}
+	@echo ${CYAN}"[Compiling testers]"${NC} May take long
 	@make compiler
 	@printf "\n"
 
 run_testers:
-	@echo ${PURPLE}"[Running testers]"${NC}
+	@echo ${PURPLE}"[Running testers]"${NC} "Shouldn't take long!"
 	@../executables/testers/test_m00 > ../testing_results/test_m00_ft_printf_print && printf "." || printf "x"
 	@../executables/testers/test_m01 > ../testing_results/test_m01_ft_printf_print && printf "." || printf "x"
 	@../executables/testers/test_m02 > ../testing_results/test_m02_ft_printf_print && printf "." || printf "x"
@@ -182,12 +204,23 @@ run_testers:
 	@../executables/testers/test_m44 > ../testing_results/test_m44_ft_printf_print && printf "." || printf "x"
 	@../executables/testers/test_m45 > ../testing_results/test_m45_ft_printf_print && printf "." || printf "x"
 	@../executables/testers/test_m46 > ../testing_results/test_m46_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_m47 > ../testing_results/test_m47_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_m48 > ../testing_results/test_m48_ft_printf_print && printf "." || printf "x"
 	@../executables/testers/test_b00 > ../testing_results/test_b00_ft_printf_print && printf "." || printf "x"
 	@../executables/testers/test_b01 > ../testing_results/test_b01_ft_printf_print && printf "." || printf "x"
 	@../executables/testers/test_b02 > ../testing_results/test_b02_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_b03 > ../testing_results/test_b03_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_b04 > ../testing_results/test_b04_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_b05 > ../testing_results/test_b05_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_b06 > ../testing_results/test_b06_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_b07 > ../testing_results/test_b07_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_b08 > ../testing_results/test_b08_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_b09 > ../testing_results/test_b09_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_b10 > ../testing_results/test_b10_ft_printf_print && printf "." || printf "x"
+	@../executables/testers/test_b11 > ../testing_results/test_b11_ft_printf_print && printf "." || printf "x"
 	@printf "\n"
 
 diff:
 	@echo ${PURPLE}"[Running difference check]"${NC}
 	rm fails || true
-	../executables/check_difference "47" "3"
+	../executables/check_difference "49" "12"

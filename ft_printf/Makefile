@@ -45,6 +45,8 @@ all:
 	@make run_differ
 
 clean:
+	@echo ${GREEN}"[Removing old obj]"${NC}
+	rm -rf $(TOOLS_OBJ_DIR)
 	@echo ${GREEN}"[Recreating testers folder]"${NC}
 	rm -rf $(TESTER_DIR) || true
 	mkdir $(TESTER_DIR)

@@ -100,6 +100,12 @@ void			zero_result(void)
 			result.bonus_values[t][l].num_of_fails = 0;
 		}
 	}
+	result.apostrophe.num_of_tests = 0;
+	result.apostrophe.num_of_fails = 0;
+	result.stars.num_of_tests = 0;
+	result.stars.num_of_fails = 0;
+	result.dollar.num_of_tests = 0;
+	result.dollar.num_of_fails = 0;
 }
 
 //============ RESULT PRINTING =============\\
@@ -195,13 +201,17 @@ void			print_result(int is_bonus)
 	if (!is_bonus)
 		return ;
 	}
-	printf("\n        [ -  | hh | h  | l  | ll | j  | z  | L  | t  ]\n");
+	printf("        [ -  | hh | h  | l  | ll | j  | z  | L  | t  ]\n");
 	for (enum m_types t = td; t <= tperc; t++)
 		print_m_res(t, is_bonus);
 	printf("\n");
-	for (enum b_types t = te; t <= tn; t++)
+	for (enum b_types t = te; t < tn; t++)
 		print_b_res(t);
-	printf("\n   Apostrophe flag : [");
+	printf("\n   \'      : [");
 	choose_color(result.apostrophe);
+	printf("]\n   *.*    : [");
+	choose_color(result.stars);
+	printf("]\n   $, *.$ : [");
+	choose_color(result.dollar);
 	printf("]\n|============================|\n");
 }

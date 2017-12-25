@@ -79,7 +79,6 @@ void	print_main(t_test *t)
 	fprintf(t->fd, "\tint\t\tret1, ret2;\n");
 	fprintf(t->fd, "\n");
 
-	fprintf(t->fd, "\t%s\n", t->extra_code);
 	fprintf(t->fd, "\tprintf_ = fopen(\"../testing_results/%s_printf_print\", \"w\");\n", t->name);
 	fprintf(t->fd, "\tprintf_ret = fopen(\"../testing_results/%s_printf_ret\", \"w\");\n", t->name);
 	fprintf(t->fd, "\tft_printf_ret = fopen(\"../testing_results/%s_ft_printf_ret\", \"w\");\n", t->name);
@@ -87,7 +86,7 @@ void	print_main(t_test *t)
 	fprintf(t->fd, "\tsetvbuf(printf_ret, NULL, _IONBF, 0);\n");
 	fprintf(t->fd, "\tsetvbuf(ft_printf_ret, NULL, _IONBF, 0);\n");
 	fprintf(t->fd, "\n");
-
+	fprintf(t->fd, "\t%s\n", t->extra_code);
 	print_tests(t);
 	fprintf(t->fd, "\tfclose(printf_);\n");
 	fprintf(t->fd, "\tfclose(printf_ret);\n");
@@ -101,6 +100,7 @@ void	print_includes(t_test *t)
 	fprintf(t->fd, "#include <stdio.h>\n");
 	fprintf(t->fd, "#include <stdint.h>\n");
 	fprintf(t->fd, "#include <locale.h>\n");
+	fprintf(t->fd, "#include <stddef.h>\n");
 	fprintf(t->fd, "#include \"libftprintf.h\"\n\n");
 }
 

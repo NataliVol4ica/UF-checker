@@ -112,12 +112,12 @@ int		main(int ac, char **av)
 	fprintf(mkfile->fd, "\ncompiler: $(TEST_EXE)\n");
 
 	fprintf(mkfile->fd, "\ncompile_testers:\n");
-	fprintf(mkfile->fd, "\t@echo ${CYAN}\"[Compiling testers]\"${NC}\n");
+	fprintf(mkfile->fd, "\t@echo ${CYAN}\"[Compiling testers]\"${NC} May take long\n");
 	fprintf(mkfile->fd, "\t@make compiler\n");
 	fprintf(mkfile->fd, "\t@printf \"\\n\"\n");
 
 	fprintf(mkfile->fd, "\nrun_testers:\n");
-	fprintf(mkfile->fd, "\t@echo ${PURPLE}\"[Running testers]\"${NC}\n");
+	fprintf(mkfile->fd, "\t@echo ${PURPLE}\"[Running testers]\"${NC} \"Shouldn\'t take long!\"\n");
 	for (size_t i = 0; i < num_of_main_tests; i++)
 		fprintf(mkfile->fd, "\t@.%s/test_m%02zu > ../testing_results/test_m%02zu_ft_printf_print && printf \".\" || printf \"x\"\n", exetests, i, i);
 	for (size_t i = 0; i < num_of_bonus_tests; i++)
