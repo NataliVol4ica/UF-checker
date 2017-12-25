@@ -1,9 +1,16 @@
 
-EXE_DIR = ./executables
-TOOLS_DIR = ./tools
+RES_DIR = ./resources
+SHORT_EXE_DIR = ./executables
+EXE_DIR = $(RES_DIR)/$(SHORT_EXE_DIR)
+SHORT_EXE_TESTERS_DIR = $(SHORT_EXE_DIR)/testers
+EXE_TESTERS_DIR = $(EXE_DIR)/$(SHORT_EXE_TESTERS_DIR)
+TOOLS_DIR = $(RES_DIR)/tools
 TOOLS_OBJ_DIR = $(TOOLS_DIR)/obj
-TESTER_DIR = ./testers
-FILES_DIR = ./files
+SHORT_TESTER_DIR = ./generated_testers
+TESTER_DIR = $(RES_DIR)/$(SHORT_TESTER_DIR)
+RESULTS = $(RES_DIR)/testing_results
+C_SCRIPTS = $(RES_DIR)/C_SCRIPTS
+BASH_SCRIPTS = $(RES_DIR)/BASH_SCRIPTS
 
 TOOLS = default_tools \
 		differ_tools \
@@ -35,16 +42,15 @@ all:
 	@make -C $(TESTER_DIR)/ create_testers
 	@make -C $(TESTER_DIR)/ compile_testers
 	@make test
-	@make differ
-	@make -C $(TESTER_DIR)/ diff
+	@make run_differ
 
 clean:
 	@echo ${GREEN}"[Recreating testers folder]"${NC}
 	rm -rf $(TESTER_DIR) || true
 	mkdir $(TESTER_DIR)
-	@echo ${GREEN}"[Recreating files folder]"${NC}
-	rm -rf $(FILES_DIR) || true
-	mkdir $(FILES_DIR)
+	@echo ${GREEN}"[Recreating results folder]"${NC}
+	rm -rf $(RESULTS) || true
+	mkdir $(RESULTS)
 	@echo ${GREEN}"[Recreating exe folders]"${NC}
 	rm -rf $(EXE_DIR) || true
 	mkdir $(EXE_DIR)
@@ -54,7 +60,11 @@ clean:
 
 differ:
 	@echo ${CYAN}"[Compiling differ]"${NC}
-	gcc -o $(EXE_DIR)/check_difference check_difference.c $(O_TOOLS) -I$(TOOLS_DIR)
+	gcc -o $(EXE_DIR)/check_difference $(C_SCRIPTS)/check_difference.c $(O_TOOLS) -I$(TOOLS_DIR)
+
+run_differ:
+	@make differ
+	@make -C $(TESTER_DIR)/ diff
 
 # TEST
 
@@ -65,13 +75,19 @@ test:
 
 testmaker: $(TOOLS_OBJ_DIR) $(O_TOOLS)
 	@echo ${CYAN}"[Compiling testmaker]"${NC}
-	gcc -o $(EXE_DIR)/testmaker testmaker.c $(O_TOOLS) -I$(TOOLS_DIR)
+	gcc -o $(EXE_DIR)/testmaker $(C_SCRIPTS)/testmaker.c $(O_TOOLS) -I$(TOOLS_DIR)
 
 # MKFILEMAKER
 
 mkfilemaker: $(TOOLS_OBJ_DIR) $(O_TOOLS)
 	@echo ${CYAN}"[Compiling mkfilemaker]"${NC}
-	gcc -o $(EXE_DIR)/mkfilemaker mkfilemaker.c $(O_TOOLS) -I$(TOOLS_DIR)
+	gcc -o $(EXE_DIR)/mkfilemaker $(C_SCRIPTS)/mkfilemaker.c $(O_TOOLS) -I$(TOOLS_DIR)
+
+run_mkfilemaker:
+	@echo ${PURPLE}"[Running mkfilemaker]"${NC}
+	$(EXE_DIR)/mkfilemaker $(SHORT_TESTER_DIR) $(SHORT_EXE_DIR) $(SHORT_EXE_TESTERS_DIR)
+
+# TOOLS
 
 $(TOOLS_OBJ_DIR)/%.o: $(TOOLS_DIR)/%.c
 	gcc -o $@ -c $< -I$(TOOLS_DIR)
@@ -79,11 +95,3 @@ $(TOOLS_OBJ_DIR)/%.o: $(TOOLS_DIR)/%.c
 $(TOOLS_OBJ_DIR):
 	@echo ${CYAN}"[Creating $(TOOLS_OBJ_DIR)]"${NC}
 	mkdir $(TOOLS_OBJ_DIR)
-
-run_mkfilemaker:
-	@echo ${PURPLE}"[Running mkfilemaker]"${NC}
-	$(EXE_DIR)/mkfilemaker
-
-run_differ:
-	@make differ
-	@make -C $(TESTER_DIR)/ diff
