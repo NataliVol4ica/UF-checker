@@ -4,8 +4,8 @@
 *get_next_line/get_next_line.h
 *author
 *auteur
-*ft_printf/files/
-*ft_printf/testers/
+*ft_printf/testing_results/
+*ft_printf/generated_testers/
 *ft_printf/executables/
 *obj/
 *get_next_line/*tests/*_ans
