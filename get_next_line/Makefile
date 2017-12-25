@@ -314,12 +314,7 @@ eval:
 	@echo ${PURPLE}"===================>>>>>>||    get_next_line.h:   ||<<<<<<==================="${NC}
 	@tail -n+13 $(GNLH)
 	@echo ${PURPLE}"===================>>>>>>||     [NORM] Errors:    ||<<<<<<==================="${RED}
-	@norminette $(GNLC) $(GNLH) > norm
-	@norminette $(LIBDIR)/ >> norm
-	@grep "Error " < norm > norm2 || true
-	@cat norm2
-	@sh $(SHDIR)/norm_ok.sh
-	@rm norm norm2
+	@norminette $(GNLC) $(GNLH) > norm && norminette $(LIBDIR)/ >> norm && grep "Error " < norm > norm2 && cat norm2 && sh $(SHDIR)/norm_ok.sh && rm norm norm2 || rm norm && echo "norminette not found" 
 	@echo ${PURPLE}"===================>>>>>>||    Static testing:    ||<<<<<<==================="${NC}
 	@./$(EXEDIR)/checker_static
 	@echo ${PURPLE}"===================>>>>>>||     Compiling lib:    ||<<<<<<==================="${NC}
