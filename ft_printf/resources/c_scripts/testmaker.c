@@ -8,8 +8,8 @@
 #define TESTPATH "../generated_testers/"
 
 #define UNDEF 0 //are undefined behavior tests allowed
-#define APOST_TYPES "duifF" // 5
-#define NONLEN_TYPES "cCsSpaAeEfFgG" // 13
+#define APOST_TYPES "dDuUifF" // 5
+#define NONDEFLEN_TYPES "cCsSp%" // 6
 #define L_TYPES "aAeEfFgG" // 8
 
 int		is_flag_available(char flag, t_test *t)
@@ -57,11 +57,13 @@ int		is_undef(t_test *t)
 		if (i == 5)
 			return (1);
 	}
+	if (t->length && (t->type == '%' || t->type == 'p'))
+		return (1);
 	if (t->length && !(t->length[0] == 'l' && t->length[1] == '\0'))
-		for (i = 0; i < 13; i++)
-			if (t->type == NONLEN_TYPES[i])
+		for (i = 0; i < 6; i++)
+			if (t->type == NONDEFLEN_TYPES[i])
 				return (1);
-	if (t->length && t->length[0] != 'L')
+	if (t->length && t->length[0] != 'L' && t->length[0] != 't' && !(t->length[0] == 'l' && t->length[1] != 'l'))
 	{
 		for (i = 0; i <8; i++)
 			if (t->type == L_TYPES[i])
@@ -132,6 +134,7 @@ void	print_tests(t_test *t)
 			{
 				t->length = t->lengthes[length];
 				t->length = t->length[0] == '-' ? '\0' : t->length;
+				
 				print_test(t);
 			}
 		}
@@ -164,10 +167,7 @@ void	print_main(t_test *t)
 
 void	print_includes(t_test *t)
 {
-	fprintf(t->fd, "#include <stdio.h>\n");
-	fprintf(t->fd, "#include <stdint.h>\n");
-	fprintf(t->fd, "#include <locale.h>\n");
-	fprintf(t->fd, "#include <stddef.h>\n");
+	fprintf(t->fd, "#include \"../tools/test_headers.h\"\n");
 	fprintf(t->fd, "#include \"libftprintf.h\"\n\n");
 }
 
@@ -197,6 +197,7 @@ t_test *set_test(char **av)
 	set_param(&t->precision, av[4], NULL);
 	t->lengthes = ft_strsplit(av[5], &t->numof_lengthes, '|');
 	set_param(&t->types, av[6], &t->numof_types);
+	if (t->numof_types == 0) bad_input();
 	set_param(&t->args, av[7], NULL);
 	set_param(&t->extra_code, av[8], NULL);
 	set_param(&t->extra_print, av[9], NULL);
