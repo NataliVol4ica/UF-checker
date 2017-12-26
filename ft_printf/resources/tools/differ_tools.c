@@ -205,7 +205,7 @@ void			print_result(int is_bonus)
 	for (enum m_types t = td; t <= tperc; t++)
 		print_m_res(t, is_bonus);
 	printf("\n");
-	for (enum b_types t = te; t < tn; t++)
+	for (enum b_types t = te; t <= tn; t++)
 		print_b_res(t);
 	printf("\n   \'      : [");
 	choose_color(result.apostrophe);

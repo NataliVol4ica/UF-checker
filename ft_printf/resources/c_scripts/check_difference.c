@@ -16,7 +16,7 @@
 #include "tools.h"
 
 #define MAINTYPES "dDioOuUxXcCsSp%" //15
-#define BONUSTYPES "eEfFaAgG" //9
+#define BONUSTYPES "eEfFaAgGn" //9
 
 char	*extra;
 
@@ -73,7 +73,7 @@ void	save_test(char *str, int is_fail)
 			}
 			return ;
 		}
-	for (size_t typ = 0; typ < tbmax - 1; typ++)
+	for (size_t typ = 0; typ < tbmax; typ++)
 		if (str[i] == BONUSTYPES[typ])
 		{
 			result.bonus_values[typ][len].num_of_fails += is_fail;
@@ -158,10 +158,10 @@ int		main(int ac, char **av)
 		check_file(r, fails);
 		close_differ_test(r);
 	}
-	printf("\n=== \\\\ Main results:\n");
+	printf("\n=== \\\\ Main results: [%6zu/%6zu]\n", total.num_of_tests - total.num_of_fails, total.num_of_tests);
 	print_result(0);
-	printf("\nNumber of tests: %zu\n", total.num_of_tests);
-	printf("Number of fails: %zu\n", total.num_of_fails);
+	temp.num_of_tests = total.num_of_tests;
+	temp.num_of_fails = total.num_of_fails;
 	zero_result();
 	for(int i = 0; i < num_of_bonus_tests; i++)
 	{
@@ -169,7 +169,7 @@ int		main(int ac, char **av)
 		check_file(r, fails);
 		close_differ_test(r);
 	}
-	printf("\n=== \\\\ Bonus results:\n");
+	printf("\n=== \\\\ Bonus results: [%6zu/%6zu]\n", (total.num_of_tests - temp.num_of_tests) - (total.num_of_fails - temp.num_of_fails), total.num_of_tests - temp.num_of_tests);
 	print_result(1);
 	printf("Total number of tests: %zu\n", total.num_of_tests);
 	printf("Total number of fails: %zu\n", total.num_of_fails);

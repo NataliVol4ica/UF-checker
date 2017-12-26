@@ -2,7 +2,7 @@
 #[n$] [flags] [width] [.precision] [lengthes] [types]
 #[args] [code piece] [print something extra(for %n)]
 
-=== || MAIN TESTS || ===
+=========================== || MAIN TESTS || ===========================
 
 "-" " 0+-\#" "0" "."  "-|hh|h|l|ll|j|z" "%" "-" "-" "-"
 "-" " 0+-\#" "0" ".0" "-|hh|h|l|ll|j|z" "%" "-" "-" "-"
@@ -32,13 +32,14 @@
 "-" " 0+-\#" "2" "-" "-|hh|h|l|ll|j|z" "cC" "L'我'" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 
 "-" " 0+-\#" "0" "-" "-|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-\#" "0" "-" "-|hh|h|l|ll|j|z" "sS" "NULL" "-" "-"
 "-" " 0+-\#" "0" ".0" "-|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "0" ".5" "-|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "2" ".1" "-|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "2" ".0" "-|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "30" ".20" "-|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "10" ".0" "-|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
-"-" " 0+-\#" "10" ".20" "-|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-\#" "10" ".20" "-|hh|h|l|ll|j|z" "sS" "L\"casual stringα\"" "-" "-"
 "-" " 0+-\#" "13" ".12" "-|hh|h|l|ll|j|z" "sS" "L\"casual string\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "20" "." "-|hh|h|l|ll|j|z" "sS" "L\"我是一只猫。\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "30" "-" "-|hh|h|l|ll|j|z" "sS" "L\"我是一只猫。\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
@@ -59,17 +60,23 @@
 "-" " 0+-\#" "0" "." "-|hh|h|l|ll|j|z" "p" "&p" "int p;" "-"
 "-" " 0+-\#" "0" "." "-|hh|h|l|ll|j|z" "p" "NULL" "" "-"
 
-=== || BONUS TESTS || ===
+=========================== || BONUS TESTS || ===========================
 
-"-" " 0+-\#" "0" "." "t" "dDioOuUxXcCp%" "m" "int m[25];" "-"
+"-" " 0+-\#" "0" "." "t" "dDioOuUxXcCp%" "pdt" "int p1 = 2; ptrdiff_t pdt = &p1;" "-"
+
 "-" "\'" "0" "." "-" "%dDioOuUxXcCpaAeEfFgG" "0" "-" "-"
 "-" "\'" "0" "." "-" "%dDioOuUxXcCpaAeEfFgG" "0" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
-"-" " 0+-\#\'" "0" "0" "-|hh|h|l|ll|j|z|L|t" "%dDioOuUxXcCpaAeEfFgG" "1024" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
-"-" " 0+-\#" "0" "0" "-|hh|h|l|ll|j|z|L|t" "aAeEfFgG" "102420484096" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-\#\'" "0" "0" "-|hh|h|l|ll|j|z" "%dDioOuUxXcCpaAeEfFgG" "1024" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+
+"-" " 0+-\#" "0" "0" "-|hh|h|l|ll|j|z" "aAeEfFgG" "102420484096" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "*" ".*" "-" "%dDioOuUxXp" "5, 4, -25" "-" "-"
 "-" " 0+-\#" "*" ".*" "-" "dDioOuUxX" "-5, 4, -25" "-" "-"
 "-" " 0+-\#" "*" ".*" "-" "dDioOuUxX" "-5, -4, -25" "-" "-"
+
 "2$$" " 0+-\#" "5" ".4" "-" "%diouxX" "25, -25" "-" "-"
 "2$$" " 0+-\#" "*3$$" ".*1$$" "-" "%diouxX" "4, -25, 5" "-" "-"
 "5$$" " 0+-\#" "5" ".4" "-" "%diouxX" "0, -25, 25, 24, -24" "-" "-"
 "3$$4.3d-%1$$" "-" "5" ".*2$$" "-" "%diouxX" "4, 25, -25" "-" "-"
+
+"-" " 0+-\#" "0" "."  "-|hh|h|l|ll|j|z|L|t" "aAeEfFgG" "-256" "-" "-"
+"-" " 0+-\#" "0" "." "L" "dDioOuUxXp%" "-256" "-" "-"

@@ -7,6 +7,71 @@
 
 #define TESTPATH "../generated_testers/"
 
+#define UNDEF 0 //are undefined behavior tests allowed
+#define APOST_TYPES "duifF" // 5
+#define NONLEN_TYPES "cCsSpaAeEfFgG" // 13
+#define L_TYPES "aAeEfFgG" // 8
+
+int		is_flag_available(char flag, t_test *t)
+{
+	size_t	i;
+
+	for (i = 0; i < t->numof_flags; i++)
+		if (t->flags[i] == flag)
+			break;
+	if (i == t->numof_flags)
+		return (0);
+	return (t->flagmass[i]);
+}
+
+int		is_len_available(char *len, t_test *t)
+{
+	if (!len && !t->length[0])
+		return (1);
+	if (!len)
+		return (0);
+	for (int i = 0; i < strlen(len); i++)
+		if (len[i] != t->length[i])
+			return (0);
+	return (1);
+}
+
+int		is_undef(t_test *t)
+{
+	size_t	i;
+
+	if (UNDEF)
+		return (0);
+	if (t->precision && t->precision[1] != '\0' && t->type == 'p')
+		return (1);
+	if (is_flag_available('0', t) && t->type == 'p')
+		return (1);
+	if (is_flag_available('#', t))
+		if (t->type == 'n' || t->type == 'p')
+			return (1);
+	if (is_flag_available('\'', t))
+	{
+		for (i = 0; i < 5; i++)
+			if (t->type == APOST_TYPES[i])
+				break;
+		if (i == 5)
+			return (1);
+	}
+	if (t->length && !(t->length[0] == 'l' && t->length[1] == '\0'))
+		for (i = 0; i < 13; i++)
+			if (t->type == NONLEN_TYPES[i])
+				return (1);
+	if (t->length && t->length[0] != 'L')
+	{
+		for (i = 0; i <8; i++)
+			if (t->type == L_TYPES[i])
+				break;
+		if (i < 8)
+			return (1);
+	}
+	return (0);
+}
+
 void	set_flags(t_test *t, size_t num)
 {
 	size_t i;
@@ -30,6 +95,8 @@ void	print_flags(t_test *t)
 
 void	print_test(t_test *t)
 {
+	if (is_undef(t))
+		return ;
 	fprintf(t->fd, "//@\n");
 	fprintf(t->fd, "\tft_printf(\"\\n#%04zu\");\n", t->testnum);
 	fprintf(t->fd, "\tfprintf(printf_, \"\\n#%04zu\");\n", t->testnum);
@@ -49,7 +116,8 @@ void	print_test(t_test *t)
 	fprintf(t->fd, ");\n");
 	fprintf(t->fd, "\tfprintf(printf_ret, \"%%d\\n\", ret1);\n");
 	fprintf(t->fd, "\tfprintf(ft_printf_ret, \"%%d\\n\", ret2);\n");
-	fprintf(t->fd, "\tif (ret1 == -1) printf_ = fopen(\"../testing_results/%s_printf_print\", \"a\");\n", t->name);
+	fprintf(t->fd, "\tif (ret1 == -1) {printf_ = fopen(\"../testing_results/%s_printf_print\", \"a\"); setvbuf(printf_, NULL, _IONBF, 0);}\n", t->name);
+	t->testnum++;
 }
 
 void	print_tests(t_test *t)
@@ -65,7 +133,6 @@ void	print_tests(t_test *t)
 				t->length = t->lengthes[length];
 				t->length = t->length[0] == '-' ? '\0' : t->length;
 				print_test(t);
-				t->testnum++;
 			}
 		}
 	}

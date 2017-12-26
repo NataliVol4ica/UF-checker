@@ -84,5 +84,6 @@ typedef struct	s_result
 
 t_result		result;
 t_result_info	total;
+t_result_info	temp;
 
 #endif
