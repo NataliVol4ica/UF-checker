@@ -25,6 +25,12 @@ void	save_test(char *str, int is_fail)
 	size_t	i;
 	size_t	len;
 
+	if (strstr(str, "%n"))
+	{
+		result.bonus_values[tn][0].num_of_tests++;
+		result.bonus_values[tn][0].num_of_fails += is_fail;
+		return ;
+	}
 	while (str[0] != '|')
 		str++;
 	str++;
@@ -84,9 +90,17 @@ void	save_test(char *str, int is_fail)
 
 void	print_fail(FILE *fails, t_read_lines *r)
 {
+	char	*temp;
+
 	fprintf(fails, "=============\\\n");
 	r->printf_line->str[5] = '\0';
 	r->source_code->filename[6] = '\0';
+	if ((temp = strstr(&r->source_code->str[11], "ft_")))
+	{
+		temp[0] = ' ';
+		temp[1] = ' ';
+		temp[2] = ' ';
+	}
 	fprintf(fails, "Fail %s[%s]: %s\n", &r->source_code->filename[21], r->printf_line->str, &r->source_code->str[11]);
 	r->printf_line->str[5] = '|';
 	r->source_code->filename[8] = '.';

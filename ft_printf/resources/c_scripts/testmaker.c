@@ -102,20 +102,37 @@ void	print_test(t_test *t)
 	fprintf(t->fd, "//@\n");
 	fprintf(t->fd, "\tft_printf(\"\\n#%04zu\");\n", t->testnum);
 	fprintf(t->fd, "\tfprintf(printf_, \"\\n#%04zu\");\n", t->testnum);
+
 	fprintf(t->fd, "\tret1 = fprintf(printf_, \"|%%%s", t->n);
 	print_flags(t);
 	fprintf(t->fd, "%s%s", t->width, t->precision);
 	if (t->length) fprintf(t->fd, "%s", t->length);
-	fprintf(t->fd, "%c|%s\"", t->type, t->extra_print);
+	fprintf(t->fd, "%c|", t->type);
+	if (t->extra_print[0]) fprintf(t->fd, "%%n");
+	fprintf(t->fd, "\"");
 	if (t->args[0] != '\0') fprintf(t->fd, ", %s", t->args);
-	fprintf(t->fd, ");\n");
+	fprintf(t->fd, ");");
+
+	if (t->extra_print[0])
+		fprintf(t->fd, "fprintf(printf_,\"%%d|\", %s); %s = 0;\n", t->extra_print, t->extra_print);
+	else
+		fprintf(t->fd, "\n");
+
 	fprintf(t->fd, "\tret2 = ft_printf(\"|%%%s", t->n);
 	print_flags(t);
 	fprintf(t->fd, "%s%s", t->width, t->precision);
 	if (t->length) fprintf(t->fd, "%s", t->length);
-	fprintf(t->fd, "%c|%s\"", t->type, t->extra_print);
+	fprintf(t->fd, "%c|", t->type);
+	if (t->extra_print[0]) fprintf(t->fd, "%%n");
+	fprintf(t->fd, "\"");
 	if (t->args[0] != '\0') fprintf(t->fd, ", %s", t->args);
-	fprintf(t->fd, ");\n");
+	fprintf(t->fd, ");");
+	
+	if (t->extra_print[0])
+		fprintf(t->fd, "ft_printf(\"%%d|\", %s); %s = 0;\n", t->extra_print, t->extra_print);
+	else
+		fprintf(t->fd, "\n");
+	
 	fprintf(t->fd, "\tfprintf(printf_ret, \"%%d\\n\", ret1);\n");
 	fprintf(t->fd, "\tfprintf(ft_printf_ret, \"%%d\\n\", ret2);\n");
 	fprintf(t->fd, "\tif (ret1 == -1) {printf_ = fopen(\"../testing_results/%s_printf_print\", \"a\"); setvbuf(printf_, NULL, _IONBF, 0);}\n", t->name);

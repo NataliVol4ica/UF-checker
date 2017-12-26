@@ -34,11 +34,11 @@ Every field, if empty, can be marked as "-" or "". In no way it can be skipped.
 	Example: " 0+-\#'"
 
 02: width
-	Optional. Can be written as number and *number$.
+	Optional. Can be written as number and *number$. $ should be written as $$.
 	Remember to include the used argument to arguments field.
 
 03: precision
-	Optional. If used, must always starts with . Can be written as .number, .*number$.
+	Optional. If used, must always starts with . Can be written as .number, .*number$. $ should be written as $$.
 	Remember to include the used argument to arguments field.
 
 04: lengthes
