@@ -6,7 +6,7 @@ Test fail log is put to the ./fails.
 .c test files can be found at ./resources/generated_testers
 
 Run make to compile and run everything
-Run test to run the testing without compilation. Remember to run make before at least once
+Run test to run the testing without extra compilation (if no tests changes were made). Remember to run make before at least once
 
 ============|| TEST FILE FORMAT ||============
 
