@@ -41,7 +41,14 @@ all:
 	@echo ${GREEN}"[Creating testers]"${NC}
 	@make -C $(TESTER_DIR)/ create_testers
 	@make -C $(TESTER_DIR)/ compile_testers
-	@make test
+	@make run_test
+	@make run_differ
+
+test:
+	@rm -rf $(EXE_DIR)/testers || true
+	@mkdir $(EXE_DIR)/testers
+	@make -C $(TESTER_DIR)/ compile_testers
+	@make run_test
 	@make run_differ
 
 clean:
@@ -70,7 +77,7 @@ run_differ:
 
 # TEST
 
-test:
+run_test:
 	@make -C $(TESTER_DIR)/ run_testers
 
 # TESTMAKER
