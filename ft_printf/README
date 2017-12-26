@@ -1,3 +1,6 @@
+
+Put your libftprintf.a
+
 ============|| TEST FILE FORMAT ||============
 
 # means the beginning of a comment
@@ -54,3 +57,5 @@ In no way should test execution last longer than compilation. Neither it should 
 You can set UNDEF at 1 in testmaker.c in order to not avoid undefined behaviour tests. By default, such cases are skipped even if they are included to the test.
 
 Test fail log is put to the ./fails.
+
+If original printf function returns -1 then comparation result does not count.
