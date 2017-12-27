@@ -59,6 +59,8 @@ int		is_undef(t_test *t)
 	}
 	if (t->length && (t->type == '%' || t->type == 'p'))
 		return (1);
+	if (t->length && t->length[0] == 'l' && (t->type == 'C' || t->type == 'S'))
+		return (1);
 	if (t->length && !(t->length[0] == 'l' && t->length[1] == '\0'))
 		for (i = 0; i < 6; i++)
 			if (t->type == NONDEFLEN_TYPES[i])

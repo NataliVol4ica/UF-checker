@@ -104,3 +104,10 @@ $(TOOLS_OBJ_DIR)/%.o: $(TOOLS_DIR)/%.c
 $(TOOLS_OBJ_DIR):
 	@echo ${CYAN}"[Creating $(TOOLS_OBJ_DIR)]"${NC}
 	mkdir $(TOOLS_OBJ_DIR)
+
+# GETLIB
+
+getlib:
+	@rm libftprintf.a
+	@make -C ../../ft_printf re
+	@cp ../../ft_printf/libftprintf.a .
