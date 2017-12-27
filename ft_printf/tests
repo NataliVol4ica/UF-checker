@@ -33,6 +33,7 @@
 
 "-" " 0+-\#" "-" "-" "-|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "-" "-" "-|hh|h|l|ll|j|z" "sS" "NULL" "-" "-"
+"-" " 0+-\#" "-" ".3" "-|hh|h|l|ll|j|z" "sS" "NULL" "-" "-"
 "-" " 0+-\#" "-" ".0" "-|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "-" ".5" "-|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 "-" " 0+-\#" "2" ".1" "-|hh|h|l|ll|j|z" "sS" "L\"\"" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
@@ -59,6 +60,8 @@
 
 "-" " 0+-\#" "-" "." "-|hh|h|l|ll|j|z" "p" "&p" "int p;" "-"
 "-" " 0+-\#" "-" "." "-|hh|h|l|ll|j|z" "p" "NULL" "" "-"
+
+"-" " 0+-\#" "-" "-" "-|hh|h|l|ll|j|z" "dDioOuUxXcC" "0" "-" "-"
 
 =========================== || BONUS TESTS || ===========================
 
