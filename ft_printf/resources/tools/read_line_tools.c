@@ -11,7 +11,7 @@ t_line	*new_readline(char *file, char *flags)
 
 	if (!(l = (t_line*)malloc(sizeof(t_line))))
 		bad_malloc();
-	if (!(l->str = (char*)malloc(sizeof(char) * 1024)))
+	if (!(l->str = (char*)malloc(sizeof(char) * 100000)))
 		bad_malloc();
 	l->len = 0;
 	l->filename = ft_strdup(file);

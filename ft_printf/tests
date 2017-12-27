@@ -62,14 +62,23 @@
 "-" " 0+-\#" "-" "." "-|hh|h|l|ll|j|z" "p" "NULL" "" "-"
 
 "-" " 0+-\#" "-" "-" "-|hh|h|l|ll|j|z" "dDioOuUxXcC" "0" "-" "-"
+"-" " 0+-\#" "-" "-" "-|hh|h|l|ll|j|z" "dDioOuUxX" "-42" "-" "-"
+
+"-" "0" "10000" "-"  "-" "dDioOuUxXcC" "'a'" "-" "-"
+"-" "0" "-" ".10000"  "-" "dDioOuUxXcC" "'a'" "-" "-"
+"-" "0" "11000" ".10000"  "-" "dDioOuUxXcC" "'a'" "-" "-"
 
 =========================== || BONUS TESTS || ===========================
 
 "-" " 0+-\#" "-" "." "t" "dDioOuUxXcCp%" "pdt" "int p1 = 2; ptrdiff_t pdt = &p1;" "-"
 
-"-" "'" "0" "." "-" "%dDioOuUxXcCp" "0" "-" "-"
-"-" "'" "0" "." "-" "%dDioOuUxXcCp" "0" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
-"-" " 0+-\#'" "-" "0" "-|hh|h|l|ll|j|z" "%dDioOuUxXcCp" "1024" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" "'" "-" "." "-" "%dDioOuUxXcCp" "0" "-" "-"
+"-" "'" "-" "." "-" "%dDioOuUxXcCp" "0" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-\#'" "-" ".0" "-|hh|h|l|ll|j|z" "%dDioOuUxXcCp" "1024" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-'" "-" "." "-" "dDiuU" "123456" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-'" "-" ".0" "-" "dDiuU" "123456" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-'" "-" ".7" "-" "dDiuU" "123456" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
+"-" " 0+-'" "9" ".8" "-" "dDiuU" "123456" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 
 "-" " 0+-\#" "*" ".*" "-" "%dDioOuUxXp" "5, 4, -25" "-" "-"
 "-" " 0+-\#" "*" ".*" "-" "dDioOuUxX" "-5, 4, -25" "-" "-"
@@ -89,4 +98,5 @@
 
 #mix tests
 
+"-" "'" "-" "." "-" "fF" "0" "setlocale(LC_ALL, \"en_US.UTF-8\");" "-"
 

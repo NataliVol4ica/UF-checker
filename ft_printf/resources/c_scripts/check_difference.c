@@ -31,12 +31,17 @@ void	save_test(char *str, int is_fail)
 		result.bonus_values[tn][0].num_of_fails += is_fail;
 		return ;
 	}
-	while (str[0] != '|')
+	while (str[0] && str[0] != '|')
 		str++;
 	str++;
 	i = 1;
-	while (str[i] != '|')
+	while (str[0] && str[i] != '|')
 		i++;
+	if (!str[0])
+	{
+		printf("No '|' in file. Totally incorrect test. Quitting the differer. Check the fails file.\n");
+		exit (0);
+	}
 	str[i] = '\0';
 	i -= 2;
 	if (str[i] == 'h' && str[i - 1] == 'h' ) len = lhh; else
