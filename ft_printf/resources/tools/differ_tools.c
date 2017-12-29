@@ -148,8 +148,7 @@ void			print_m_res(enum m_types t, int is_bonus)
 	if (t == tC) printf("C"); else
 	if (t == ts) printf("s"); else
 	if (t == tS) printf("S"); else
-	if (t == tp) printf("p"); else
-	if (t == tperc) printf("%%");
+	if (t == tp) printf("p");
 	printf(" : [");
 	max = is_bonus ? lt : lz;
 	for (enum lens l = lnone; l <= max; l++)
@@ -196,13 +195,13 @@ void			print_result(int is_bonus)
 	if (is_bonus == 0)
 	{
 	printf("        [ -  | hh | h  | l  | ll | j  | z  ]\n");
-	for (enum m_types t = td; t <= tperc; t++)
+	for (enum m_types t = td; t < tperc; t++)
 		print_m_res(t, is_bonus);
 	if (!is_bonus)
 		return ;
 	}
 	printf("        [ -  | hh | h  | l  | ll | j  | z  | L  | t  ]\n");
-	for (enum m_types t = td; t <= tperc; t++)
+	for (enum m_types t = td; t < tperc; t++)
 		print_m_res(t, is_bonus);
 	printf("\n");
 	for (enum b_types t = te; t <= tn; t++)

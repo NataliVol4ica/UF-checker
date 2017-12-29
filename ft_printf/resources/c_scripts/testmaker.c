@@ -8,7 +8,7 @@
 #define TESTPATH "../generated_testers/"
 
 #define UNDEF 0 //are undefined behavior tests allowed
-#define APOST_TYPES "dDuUifF" // 5
+#define APOST_TYPES "dDuUifF" // 7
 #define NONDEFLEN_TYPES "cCsSp%" // 6
 #define L_TYPES "aAeEfFgG" // 8
 
@@ -51,10 +51,10 @@ int		is_undef(t_test *t)
 			return (1);
 	if (is_flag_available('\'', t))
 	{
-		for (i = 0; i < 5; i++)
+		for (i = 0; i < 7; i++)
 			if (t->type == APOST_TYPES[i])
 				break;
-		if (i == 5)
+		if (i == 7)
 			return (1);
 	}
 	if (t->length && (t->type == '%' || t->type == 'p'))

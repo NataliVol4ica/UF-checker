@@ -53,23 +53,23 @@ test:
 
 clean:
 	@echo ${GREEN}"[Removing old obj]"${NC}
-	rm -rf $(TOOLS_OBJ_DIR)
+	@rm -rf $(TOOLS_OBJ_DIR)
 	@echo ${GREEN}"[Recreating testers folder]"${NC}
-	rm -rf $(TESTER_DIR) || true
-	mkdir $(TESTER_DIR)
+	@rm -rf $(TESTER_DIR) || true
+	@mkdir $(TESTER_DIR)
 	@echo ${GREEN}"[Recreating results folder]"${NC}
-	rm -rf $(RESULTS) || true
-	mkdir $(RESULTS)
+	@rm -rf $(RESULTS) || true
+	@mkdir $(RESULTS)
 	@echo ${GREEN}"[Recreating exe folders]"${NC}
-	rm -rf $(EXE_DIR) || true
-	mkdir $(EXE_DIR)
-	mkdir $(EXE_DIR)/testers
+	@rm -rf $(EXE_DIR) || true
+	@mkdir $(EXE_DIR)
+	@mkdir $(EXE_DIR)/testers
 
 # DIFFERENCE FINDER
 
 differ:
 	@echo ${CYAN}"[Compiling differ]"${NC}
-	gcc -o $(EXE_DIR)/check_difference $(C_SCRIPTS)/check_difference.c $(O_TOOLS) -I$(TOOLS_DIR)
+	@gcc -o $(EXE_DIR)/check_difference $(C_SCRIPTS)/check_difference.c $(O_TOOLS) -I$(TOOLS_DIR)
 
 run_differ:
 	@make differ
@@ -84,26 +84,26 @@ run_test:
 
 testmaker: $(TOOLS_OBJ_DIR) $(O_TOOLS)
 	@echo ${CYAN}"[Compiling testmaker]"${NC}
-	gcc -o $(EXE_DIR)/testmaker $(C_SCRIPTS)/testmaker.c $(O_TOOLS) -I$(TOOLS_DIR)
+	@gcc -o $(EXE_DIR)/testmaker $(C_SCRIPTS)/testmaker.c $(O_TOOLS) -I$(TOOLS_DIR)
 
 # MKFILEMAKER
 
 mkfilemaker: $(TOOLS_OBJ_DIR) $(O_TOOLS)
 	@echo ${CYAN}"[Compiling mkfilemaker]"${NC}
-	gcc -o $(EXE_DIR)/mkfilemaker $(C_SCRIPTS)/mkfilemaker.c $(O_TOOLS) -I$(TOOLS_DIR)
+	@gcc -o $(EXE_DIR)/mkfilemaker $(C_SCRIPTS)/mkfilemaker.c $(O_TOOLS) -I$(TOOLS_DIR)
 
 run_mkfilemaker:
 	@echo ${PURPLE}"[Running mkfilemaker]"${NC}
-	$(EXE_DIR)/mkfilemaker $(SHORT_TESTER_DIR) $(SHORT_EXE_DIR) $(SHORT_EXE_TESTERS_DIR)
+	@$(EXE_DIR)/mkfilemaker $(SHORT_TESTER_DIR) $(SHORT_EXE_DIR) $(SHORT_EXE_TESTERS_DIR)
 
 # TOOLS
 
 $(TOOLS_OBJ_DIR)/%.o: $(TOOLS_DIR)/%.c
-	gcc -o $@ -c $< -I$(TOOLS_DIR)
+	@gcc -o $@ -c $< -I$(TOOLS_DIR)
 
 $(TOOLS_OBJ_DIR):
 	@echo ${CYAN}"[Creating $(TOOLS_OBJ_DIR)]"${NC}
-	mkdir $(TOOLS_OBJ_DIR)
+	@mkdir $(TOOLS_OBJ_DIR)
 
 # GETLIB
 
