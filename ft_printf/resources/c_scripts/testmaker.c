@@ -44,11 +44,8 @@ int		is_undef(t_test *t)
 		return (0);
 	if (t->precision && t->precision[1] != '\0' && t->type == 'p')
 		return (1);
-	if (is_flag_available('0', t) && t->type == 'p')
+	if (is_flag_available('0', t) && t->type == 'n')
 		return (1);
-	if (is_flag_available('#', t))
-		if (t->type == 'n' || t->type == 'p')
-			return (1);
 	if (is_flag_available('\'', t))
 	{
 		for (i = 0; i < 7; i++)
