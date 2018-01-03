@@ -102,7 +102,7 @@ $(TOOLS_OBJ_DIR)/%.o: $(TOOLS_DIR)/%.c
 	@gcc -o $@ -c $< -I$(TOOLS_DIR)
 
 $(TOOLS_OBJ_DIR):
-	@echo ${CYAN}"[Creating $(TOOLS_OBJ_DIR)]"${NC}
+	@echo ${GREEN}"[Creating $(TOOLS_OBJ_DIR)]"${NC}
 	@mkdir $(TOOLS_OBJ_DIR)
 
 # GETLIB
