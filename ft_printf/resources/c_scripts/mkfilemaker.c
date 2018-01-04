@@ -118,19 +118,12 @@ int		main(int ac, char **av)
 	fprintf(mkfile->fd, "\t@printf \"\\n\"\n");
 
 	fprintf(mkfile->fd, "\nrun_testers:\n");
-	fprintf(mkfile->fd, "\t@echo ${PURPLE}\"[Running testers]\"${NC} \"Shouldn\'t take long!\"\n");
-	fprintf(mkfile->fd, "\t@echo ${LGRAY}\"");
+	fprintf(mkfile->fd, "\t@echo ${PURPLE}\"[Running testers]\"${NC} \"Shouldn\'t take long! \"${LGRAY}\"[except some last long tests]\"${NC}\n");
 	for (size_t i = 0; i < num_of_main_tests; i++)
-		fprintf(mkfile->fd, "%zu", i % 10);
-	fprintf(mkfile->fd, "|");
-	for (size_t i = 0; i < num_of_bonus_tests; i++)
-		fprintf(mkfile->fd, "%zu", i % 10);
-	fprintf(mkfile->fd, "\"${NC}\n");
-	for (size_t i = 0; i < num_of_main_tests; i++)
-		fprintf(mkfile->fd, "\t@.%s/test_m%02zu > ../testing_results/test_m%02zu_ft_printf_print && printf \".\" || printf \"x\"\n", exetests, i, i);
+		fprintf(mkfile->fd, "\t@.%s/test_m%02zu > ../testing_results/test_m%02zu_ft_printf_print && printf %zu || printf \"x\"\n", exetests, i, i, i % 10);
 	fprintf(mkfile->fd, "\t@printf \"|\"\n");
 	for (size_t i = 0; i < num_of_bonus_tests; i++)
-		fprintf(mkfile->fd, "\t@.%s/test_b%02zu > ../testing_results/test_b%02zu_ft_printf_print && printf \".\" || printf \"x\"\n", exetests, i, i);
+		fprintf(mkfile->fd, "\t@.%s/test_b%02zu > ../testing_results/test_b%02zu_ft_printf_print && printf %zu || printf \"x\"\n", exetests, i, i, i % 10);
 	fprintf(mkfile->fd, "\t@printf \"\\n\"\n");
 
 	fprintf(mkfile->fd, "\ndiff:\n");
