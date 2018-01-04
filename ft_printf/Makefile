@@ -109,5 +109,5 @@ $(TOOLS_OBJ_DIR):
 
 getlib:
 	@rm libftprintf.a || true
-	@make -C ../../ft_printf re
+	#@make -C ../../ft_printf re
 	@cp ../../ft_printf/libftprintf.a .
