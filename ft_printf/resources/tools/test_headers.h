@@ -4,3 +4,4 @@
 #include <locale.h>
 #include <stddef.h>
 #include <fenv.h>
+#include <limits.h>
