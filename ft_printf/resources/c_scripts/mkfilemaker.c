@@ -30,8 +30,8 @@ void	print_list_to_makefile(size_t *n, t_line *mkfile, t_list *list, char *testt
 	fprintf(mkfile->fd, "\n# %s TESTS\n\n", testtypes);
 	while (list)
 	{
-		fprintf(mkfile->fd, "TEST_%c%02zu = ", testtypes[0], *n);
-		fprintf(mkfile->fd, "\"test_%c%02zu\" %s\n", testtypes[0] - 'A' + 'a', *n, list->str);
+		fprintf(mkfile->fd, "TEST_%c%03zu = ", testtypes[0], *n);
+		fprintf(mkfile->fd, "\"test_%c%03zu\" %s\n", testtypes[0] - 'A' + 'a', *n, list->str);
 		list = list->next;
 		*n = *n + 1;
 	}
@@ -86,9 +86,9 @@ int		main(int ac, char **av)
 	print_test_vars(mkfile, &main_test_list, &bonus_test_list, &num_of_main_tests, &num_of_bonus_tests);
 	fprintf(mkfile->fd, "TEST_NAMES =");
 	for (size_t i = 0; i < num_of_main_tests; i++)
-		fprintf(mkfile->fd, " test_m%02zu", i);
+		fprintf(mkfile->fd, " test_m%03zu", i);
 	for (size_t i = 0; i < num_of_bonus_tests; i++)
-		fprintf(mkfile->fd, " test_b%02zu", i);
+		fprintf(mkfile->fd, " test_b%03zu", i);
 	fprintf(mkfile->fd, "\nTESTERS_C = $(patsubst %%, .%s/%%.c, $(TEST_NAMES))", testers);
 
 
@@ -101,9 +101,9 @@ int		main(int ac, char **av)
 
 	fprintf(mkfile->fd, "\ncreate_testers:\n");
 	for (size_t i = 0; i < num_of_main_tests; i++)
-		fprintf(mkfile->fd, "\t@.%s/testmaker $(TEST_M%02zu) && printf \".\"\n", exedir, i);
+		fprintf(mkfile->fd, "\t@.%s/testmaker $(TEST_M%03zu) && printf \".\"\n", exedir, i);
 	for (size_t i = 0; i < num_of_bonus_tests; i++)
-		fprintf(mkfile->fd, "\t@.%s/testmaker $(TEST_B%02zu) && printf \".\"\n", exedir, i);
+		fprintf(mkfile->fd, "\t@.%s/testmaker $(TEST_B%03zu) && printf \".\"\n", exedir, i);
 	fprintf(mkfile->fd, "\t@printf \"\\n\"\n");
 
 	fprintf(mkfile->fd, "\n.%s/%%: .%s/%%.c\n", exetests, testers);
@@ -120,10 +120,10 @@ int		main(int ac, char **av)
 	fprintf(mkfile->fd, "\nrun_testers:\n");
 	fprintf(mkfile->fd, "\t@echo ${PURPLE}\"[Running testers]\"${NC} \"Shouldn\'t take long! \"${LGRAY}\"[except some last long tests]\"${NC}\n");
 	for (size_t i = 0; i < num_of_main_tests; i++)
-		fprintf(mkfile->fd, "\t@.%s/test_m%02zu > ../testing_results/test_m%02zu_ft_printf_print && printf %zu || printf \"x\"\n", exetests, i, i, i % 10);
+		fprintf(mkfile->fd, "\t@.%s/test_m%03zu > ../testing_results/test_m%03zu_ft_printf_print && printf %zu || printf \"x\"\n", exetests, i, i, i % 10);
 	fprintf(mkfile->fd, "\t@printf \"|\"\n");
 	for (size_t i = 0; i < num_of_bonus_tests; i++)
-		fprintf(mkfile->fd, "\t@.%s/test_b%02zu > ../testing_results/test_b%02zu_ft_printf_print && printf %zu || printf \"x\"\n", exetests, i, i, i % 10);
+		fprintf(mkfile->fd, "\t@.%s/test_b%03zu > ../testing_results/test_b%03zu_ft_printf_print && printf %zu || printf \"x\"\n", exetests, i, i, i % 10);
 	fprintf(mkfile->fd, "\t@printf \"\\n\"\n");
 
 	fprintf(mkfile->fd, "\ndiff:\n");

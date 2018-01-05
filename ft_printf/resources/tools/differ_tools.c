@@ -3,6 +3,17 @@
 #include <stdlib.h>
 #include <errno.h>
 
+void	set_num(char *num, int n)
+{
+	for (int i = 0; i < 3; i++)
+		num[i] = '0';
+	num[2] += n % 10;
+	n /= 10;
+	num[1] += n % 10;
+	n /= 10;
+	num[0] += n;
+}
+
 char	*get_test_name(int n, int ismain)
 {
 	char	*ans;
@@ -10,10 +21,9 @@ char	*get_test_name(int n, int ismain)
 	char	*num;
 	char	*temp;
 
-	num = ft_strnew(2);
+	num = ft_strnew(3);
 	type = ft_strnew(1);
-	num[0] = n / 10 + '0';
-	num[1] = n % 10 + '0';
+	set_num(num, n);
 	type[0] = ismain ? 'm' : 'b';
 	temp = ft_strjoin("../testing_results/test_", type);
 	free(type);
@@ -33,10 +43,9 @@ char	*get_code_name(int n, int ismain)
 	char	*num;
 	char	*temp;
 
-	num = ft_strnew(2);
+	num = ft_strnew(3);
 	type = ft_strnew(1);
-	num[0] = n / 10 + '0';
-	num[1] = n % 10 + '0';
+	set_num(num, n);
 	type[0] = ismain ? 'm' : 'b';
 	temp = ft_strjoin("../generated_testers/test_", type);
 	free(type);
