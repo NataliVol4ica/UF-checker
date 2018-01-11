@@ -56,7 +56,7 @@ Every field, if empty, can be marked as "-" or "". In no way it can be skipped.
 08: extra printing.
 	Optional. This was implemented for testing the %n type. This is what will be printed among with the casual test, after it. Example: "%n".
 
-The more field values are used in same test, the longer it will tace to compile it.
+The more field values are used in same test, the longer it will take to compile it.
 In no way should test execution last longer than compilation. Neither it should segfault, etc.
 
 -----
