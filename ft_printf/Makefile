@@ -9,8 +9,8 @@ TOOLS_OBJ_DIR = $(TOOLS_DIR)/obj
 SHORT_TESTER_DIR = ./generated_testers
 TESTER_DIR = $(RES_DIR)/$(SHORT_TESTER_DIR)
 RESULTS = $(RES_DIR)/testing_results
-C_SCRIPTS = $(RES_DIR)/C_SCRIPTS
-BASH_SCRIPTS = $(RES_DIR)/BASH_SCRIPTS
+C_SCRIPTS = $(RES_DIR)/c_scripts
+BASH_SCRIPTS = $(RES_DIR)/bash_scripts
 
 TOOLS = default_tools \
 		differ_tools \
