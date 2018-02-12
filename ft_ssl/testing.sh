@@ -1,0 +1,114 @@
+# INPUT PARSE
+
+scriptname="test.sh"
+
+if ! [ "$#" -gt 0 ]
+then
+	echo "USAGE: sh testing.sh number_of_tests [-nows]"
+	echo "    -nows    a flag that disables newlines for every 64 symbol in base64"
+	exit
+fi
+if [ "$#" -eq 2 ]
+then
+	if [ "$2" == "-nows" ]
+		then
+		scriptname="test_noWSbase64.sh"
+	else
+		echo "invalid flag "$2
+		exit
+	fi
+fi
+
+# PRE
+unt=$1
+((unt++))
+echo "If the file is not empty, HAHAHHA LOH\nThe plaintext is the text provided below" > fails
+echo "and both of its opening and closing '\"' should be excluded" >> fails
+echo "" >> fails
+cp fails fails_bonus
+count=0
+count_bonus=0
+make -C ./resources/ test
+echo '\033[1;34m'"================ TESTING ================"'\033[0;37m'
+
+# MANDATORY TESTING
+for ((i = 1; i < unt; i++))
+do
+	printf $i"|"
+
+	touch differ
+	touch differ_bonus
+
+	#one step of test
+	key=`cat -n ./resources/files/key`
+	iv=`cat -n ./resources/files/iv`
+	./resources/tester
+	sh ./resources/bash_scripts/$scriptname $key $iv 
+	err=`wc -l < differ`
+	#if there is a difference in mandatory part
+	if ! [ "$err" -eq "0" ]
+	then
+		count=$((count + err))
+		echo " ===================== " >> fails
+		printf ">>> TEXT \"" >> fails
+		cat ./resources/files/plaintext >> fails
+		echo "\"" >> fails
+		printf ">>> KEY = " >> fails
+		cat ./resources/files/key >>fails
+		echo "" >> fails
+		printf ">>> IV  = " >> fails
+		cat ./resources/files/iv >>fails
+		echo "" >> fails
+		echo ">>> FAILED:" >> fails
+		cat differ >>fails
+		echo "" >> fails
+	fi
+	err=`wc -l < differ_bonus`
+	#if there is a difference in bonus part
+	if ! [ "$err" -eq "0" ]
+	then
+		count_bonus=$((count_bonus + err))
+		echo " ===================== " >> fails_bonus
+		printf ">>> TEXT \"" >> fails_bonus
+		cat ./resources/files/plaintext >> fails_bonus
+		echo "\"" >> fails_bonus
+		printf ">>> KEY = " >> fails_bonus
+		cat ./resources/files/key >> fails_bonus
+		echo "" >> fails_bonus
+		printf ">>> IV  = " >> fails_bonus
+		cat ./resources/files/iv >>fails_bonus
+		echo "" >> fails_bonus
+		echo ">>> FAILED:" >> fails_bonus
+		cat differ >> fails_bonus
+		echo "" >> fails_bonus
+	fi
+
+	rm differ
+	rm differ_bonus
+done
+
+# RESULT PRINT
+if ! [ "$unt" -gt 1 ]
+then
+	exit
+fi
+
+echo '\033[0;36m'"\n=====| MANDATORY |====="'\033[0m'
+if ! [ "$count" -eq "0" ]
+then
+	unt=$((unt - 1))
+	unt=$((unt * 10))
+	echo '\033[0;31m'$count" FAILS!"'\033[0m'" out of "$unt" tests"
+else
+	echo '\033[0;32m'"          OK :)"'\033[0m'
+fi
+
+echo '\033[0;36m'"\n=====|   BONUS   |====="'\033[0m'
+if ! [ "$count_bonus" -eq "0" ]
+then
+	unt=$((unt - 1))
+	unt=$((unt * 0))
+	echo '\033[0;31m'$count_bonus" FAILS!"'0\33[0m'" out of "$unt" tests"
+else
+	echo '\033[0;32m'"          OK :)"'\033[0m'
+fi
