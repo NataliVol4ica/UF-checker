@@ -1,3 +1,10 @@
+i="./ft_ssl"
+if ! [ -e "$i" ]
+	then
+	echo "put ft_ssl here!"
+	exit
+fi
+
 # INPUT PARSE
 
 scriptname="test.sh"
@@ -29,8 +36,17 @@ cp fails fails_bonus
 count=0
 count_bonus=0
 make -C ./resources/ test
-mkdir ./resources/files
-mkdir ./resources/results
+
+i="./resources/files/"
+if ! [ -e "$i" ]
+	then
+	mkdir ./resources/files
+fi
+i="./resources/results/"
+if ! [ -e "$i" ]
+	then
+	mkdir ./resources/results
+fi
 
 echo '\033[1;34m'"================ TESTING ================"'\033[0;37m'
 
