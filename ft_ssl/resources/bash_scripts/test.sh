@@ -64,7 +64,7 @@ sh $sc/diff_check.sh "des-cbc base64 encryption" differ
 ./ft_ssl des-cbc -i $res/ssl_descbc_enc_base -o $res/my_descbc_dec_base -k $key -v $iv -d -a
 openssl des-cbc -in $res/ssl_descbc_enc_base -out $res/ssl_descbc_dec_base -K $key -iv $iv -d -a
 diff $res/my_descbc_dec_base $res/ssl_descbc_dec_base > temp
-sh $sc/diff_check.sh "des-cbc base64 decryption" 
+sh $sc/diff_check.sh "des-cbc base64 decryption" differ 
 
 # ===== BONUS =======
 
